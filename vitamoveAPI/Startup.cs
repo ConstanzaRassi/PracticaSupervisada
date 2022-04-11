@@ -32,12 +32,27 @@ namespace vitamoveAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "vitamoveAPI", Version = "v1" });
             });
+            services.AddCors(o => o.AddPolicy("postgres", builder => //EL NOMBRE DEL USUARIO DE LA DB
+            {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+
+            services.AddRouting(r => r.SuppressCheckForUnhandledSecurityMetadata = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //holis
+            app.UseCors("postgres"); //nombre del usuario que creamos en el pgadmin
+
+            app.Use((context, next) =>
+            {
+                context.Items["__CorsMiddlewareInvoked"] = true;
+                return next();
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
