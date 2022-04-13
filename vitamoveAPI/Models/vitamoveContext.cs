@@ -28,7 +28,7 @@ namespace vitamoveAPI.Models
         public virtual DbSet<Factura> Facturas { get; set; }
         public virtual DbSet<FormasPago> FormasPagos { get; set; }
         public virtual DbSet<Plane> Planes { get; set; }
-        public virtual DbSet<Profesore> Profesores { get; set; }
+        public virtual DbSet<Profesor> Profesores { get; set; }
         public virtual DbSet<Rutina> Rutinas { get; set; }
         public virtual DbSet<RutinasEjercicio> RutinasEjercicios { get; set; }
         public virtual DbSet<Sexo> Sexos { get; set; }
@@ -305,7 +305,7 @@ namespace vitamoveAPI.Models
                 entity.Property(e => e.Precio).HasColumnName("precio");
             });
 
-            modelBuilder.Entity<Profesore>(entity =>
+            modelBuilder.Entity<Profesor>(entity =>
             {
                 entity.HasKey(e => e.IdProfesor)
                     .HasName("profesores_pkey");

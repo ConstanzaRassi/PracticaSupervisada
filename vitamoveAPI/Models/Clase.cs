@@ -22,7 +22,7 @@ namespace vitamoveAPI.Models
         public DateTime? HoraHasta { get; set; }
 
         public virtual Disciplina IdDisciplinaNavigation { get; set; }
-        public virtual Profesore IdProfesorNavigation { get; set; }
+        public virtual Profesor IdProfesorNavigation { get; set; }
         public virtual Sucursale IdSucursalNavigation { get; set; }
         public virtual ICollection<ClaseAlumno> ClaseAlumnos { get; set; }
     }

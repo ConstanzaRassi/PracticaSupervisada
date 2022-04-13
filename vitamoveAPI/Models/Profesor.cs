@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace vitamoveAPI.Models
 {
-    public partial class Profesore
+    public partial class Profesor
     {
-        public Profesore()
+        public Profesor()
         {
             Clases = new HashSet<Clase>();
         }

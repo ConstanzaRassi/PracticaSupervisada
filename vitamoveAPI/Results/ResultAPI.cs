@@ -1,6 +1,6 @@
 ﻿namespace vitamoveAPI.Results
 {
-    public class ResultsAPI
+    public class ResultAPI
     {
         public bool Ok { get; set; }
         public string Error { get; set; }
