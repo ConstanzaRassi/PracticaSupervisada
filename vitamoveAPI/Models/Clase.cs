@@ -23,7 +23,7 @@ namespace vitamoveAPI.Models
 
         public virtual Disciplina IdDisciplinaNavigation { get; set; }
         public virtual Profesor IdProfesorNavigation { get; set; }
-        public virtual Sucursale IdSucursalNavigation { get; set; }
+        public virtual Sucursal IdSucursalNavigation { get; set; }
         public virtual ICollection<ClaseAlumno> ClaseAlumnos { get; set; }
     }
 }

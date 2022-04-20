@@ -32,7 +32,7 @@ namespace vitamoveAPI.Models
         public virtual DbSet<Rutina> Rutinas { get; set; }
         public virtual DbSet<RutinasEjercicio> RutinasEjercicios { get; set; }
         public virtual DbSet<Sexo> Sexos { get; set; }
-        public virtual DbSet<Sucursale> Sucursales { get; set; }
+        public virtual DbSet<Sucursal> Sucursales { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -405,7 +405,7 @@ namespace vitamoveAPI.Models
                     .HasColumnName("sexo");
             });
 
-            modelBuilder.Entity<Sucursale>(entity =>
+            modelBuilder.Entity<Sucursal>(entity =>
             {
                 entity.HasKey(e => e.IdSucursal)
                     .HasName("sucursales_pkey");

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace vitamoveAPI.Models
 {
-    public partial class Sucursale
+    public partial class Sucursal
     {
-        public Sucursale()
+        public Sucursal()
         {
             Clases = new HashSet<Clase>();
         }
