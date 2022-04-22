@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace vitamoveAPI.Models
 {
-    public partial class Plane
+    public partial class Plan
     {
-        public Plane()
+        public Plan()
         {
             Facturas = new HashSet<Factura>();
         }

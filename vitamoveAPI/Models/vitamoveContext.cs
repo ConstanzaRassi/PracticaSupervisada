@@ -27,7 +27,7 @@ namespace vitamoveAPI.Models
         public virtual DbSet<Ejercicio> Ejercicios { get; set; }
         public virtual DbSet<Factura> Facturas { get; set; }
         public virtual DbSet<FormasPago> FormasPagos { get; set; }
-        public virtual DbSet<Plane> Planes { get; set; }
+        public virtual DbSet<Plan> Planes { get; set; }
         public virtual DbSet<Profesor> Profesores { get; set; }
         public virtual DbSet<Rutina> Rutinas { get; set; }
         public virtual DbSet<RutinasEjercicio> RutinasEjercicios { get; set; }
@@ -187,33 +187,7 @@ namespace vitamoveAPI.Models
                     .HasConstraintName("clase_alumnos_id_clase_fkey");
             });
 
-            modelBuilder.Entity<DetallesPago>(entity =>
-            {
-                entity.HasKey(e => new { e.IdFactura, e.CodPago })
-                    .HasName("detalles_pago_pkey");
-
-                entity.ToTable("detalles_pago");
-
-                entity.Property(e => e.IdFactura).HasColumnName("id_factura");
-
-                entity.Property(e => e.CodPago).HasColumnName("cod_pago");
-
-                entity.Property(e => e.Importe).HasColumnName("importe");
-
-                entity.Property(e => e.Recargo).HasColumnName("recargo");
-
-                entity.HasOne(d => d.CodPagoNavigation)
-                    .WithMany(p => p.DetallesPagos)
-                    .HasForeignKey(d => d.CodPago)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("detalles_pago_cod_pago_fkey");
-
-                entity.HasOne(d => d.IdFacturaNavigation)
-                    .WithMany(p => p.DetallesPagos)
-                    .HasForeignKey(d => d.IdFactura)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("detalles_pago_id_factura_fkey");
-            });
+            
 
             modelBuilder.Entity<Disciplina>(entity =>
             {
@@ -256,9 +230,16 @@ namespace vitamoveAPI.Models
                     .HasColumnType("date")
                     .HasColumnName("fecha");
 
+                //entity.Property(e => e.Importe)
+                //    .HasColumnType("double")
+                //    .HasColumnName("importe");
+
                 entity.Property(e => e.IdAlumno).HasColumnName("id_alumno");
 
                 entity.Property(e => e.IdPlan).HasColumnName("id_plan");
+
+                entity.Property(e => e.CodPago).HasColumnName("cod_pago");
+
 
                 entity.HasOne(d => d.IdAlumnoNavigation)
                     .WithMany(p => p.Facturas)
@@ -269,6 +250,11 @@ namespace vitamoveAPI.Models
                     .WithMany(p => p.Facturas)
                     .HasForeignKey(d => d.IdPlan)
                     .HasConstraintName("facturas_id_plan_fkey");
+
+                //entity.HasOne(d => d.CodPagoNavigation)
+                //    .WithMany(p => p.Facturas)
+                //    .HasForeignKey(d => d.CodPago)
+                //    .HasConstraintName("facturas_cod_plan_fkey");
             });
 
             modelBuilder.Entity<FormasPago>(entity =>
@@ -287,7 +273,7 @@ namespace vitamoveAPI.Models
                 entity.Property(e => e.PorcRecargo).HasColumnName("porc_recargo");
             });
 
-            modelBuilder.Entity<Plane>(entity =>
+            modelBuilder.Entity<Plan>(entity =>
             {
                 entity.HasKey(e => e.IdPlan)
                     .HasName("planes_pkey");
