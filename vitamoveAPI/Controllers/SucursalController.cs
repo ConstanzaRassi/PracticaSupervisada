@@ -12,39 +12,40 @@ namespace vitamoveAPI.Controllers
 {
     [ApiController]
     //[Route("[controller]")]
-    public class ProfesorController : ControllerBase //hereda de controllerbase
+    public class SucursalController : ControllerBase //hereda de controllerbase
     {
 
         private readonly vitamove2Context db = new vitamove2Context();
-        private readonly ILogger<ProfesorController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
+        private readonly ILogger<SucursalController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
-        public ProfesorController(ILogger<ProfesorController> logger)
+        public SucursalController(ILogger<SucursalController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerProfesor")]
+        [Route("[controller]/ObtenerSucursales")]
         public ActionResult<ResultAPI> Get()
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Profesores.Include(c=>c.IdSexoNavigation)
+            resultado.Return = db.Sucursales.Include(c=>c.IdBarrioNavigation)
+                                            .OrderBy(c => c.IdSucursal)
                                             .ToList();
             return resultado;
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerProfesor/{id}")] //{igual que el get(idUsuario)}
+        [Route("[controller]/ObtenerSucursal/{id}")] //{igual que el get(idUsuario)}
         public ActionResult<ResultAPI> Get(int id)
         {
             var resultado = new ResultAPI();
             try
             {
 
-                var prof = db.Profesores.Where(c => c.IdProfesor == id).FirstOrDefault();
+                var sucursal = db.Sucursales.Where(c => c.IdSucursal == id).FirstOrDefault();
                 resultado.Ok = true;
-                resultado.Return = prof;
+                resultado.Return = sucursal;
 
                 return resultado;
             }
@@ -52,28 +53,28 @@ namespace vitamoveAPI.Controllers
             catch (Exception ex)
             {
                 resultado.Ok = false;
-                resultado.Error = "Profesor no encontrado";
+                resultado.Error = "Sucursal no encontrada";
 
                 return resultado;
             }
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerSexos")]
-        public ActionResult<ResultAPI> getSexos()
+        [Route("[controller]/ObtenerBarrios")]
+        public ActionResult<ResultAPI> getBarrios()
         {
             var resultado = new ResultAPI();
             try
             {
                 resultado.Ok = true;
-                resultado.Return = db.Sexos.ToList();
+                resultado.Return = db.Barrios.ToList();
 
                 return resultado;
             }
             catch (Exception ex)
             {
                 resultado.Ok = false;
-                resultado.Error = "Error al encontrar sexos";
+                resultado.Error = "Error al encontrar barrios";
 
                 return resultado;
             }
@@ -125,7 +126,7 @@ namespace vitamoveAPI.Controllers
 
 
             db.Profesores.Add(prof);
-            db.SaveChanges();
+            db.SaveChanges(); //siempre despues de un insert, update etc hacer el SaveChanges()
 
             resultado.Ok = true;
             resultado.Return = db.Profesores.ToList();
@@ -180,31 +181,6 @@ namespace vitamoveAPI.Controllers
                 db.Profesores.Update(prof);
                 db.SaveChanges();
             }
-
-            resultado.Ok = true;
-            resultado.Return = db.Profesores.ToList();
-
-            return resultado;
-        }
-        [HttpPut]
-        [Route("[controller]/UpdateEstadoProfesor/{id}")]
-        public ActionResult<ResultAPI> UpdateEstadoProfesor(int id)
-        {
-            var resultado = new ResultAPI();           
-
-            var prof = db.Profesores.Where(c => c.IdProfesor == id).FirstOrDefault();
-            //if (prof != null && prof.Estado==1)
-            //{
-            //    prof.Estado = 0;
-            //    db.Profesores.Update(prof);
-            //    db.SaveChanges();                
-            //}
-            //else if (prof != null && prof.Estado == 0)
-            //{
-            //    prof.Estado = 1;
-            //    db.Profesores.Update(prof);
-            //    db.SaveChanges();
-            //}
 
             resultado.Ok = true;
             resultado.Return = db.Profesores.ToList();

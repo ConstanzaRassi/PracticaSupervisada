@@ -3,6 +3,7 @@ using System.Linq;
 using vitamoveAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using vitamoveAPI.Results;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using vitamoveAPI.Comands;
 
@@ -13,7 +14,7 @@ namespace vitamoveAPI.Controllers
     public class AlumnoController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamoveContext db = new vitamoveContext();
+        private readonly vitamove2Context db = new vitamove2Context();
         private readonly ILogger<AlumnoController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
         public AlumnoController(ILogger<AlumnoController> logger)
@@ -23,26 +24,27 @@ namespace vitamoveAPI.Controllers
 
         [HttpGet]
         [Route("[controller]/ObtenerAlumno")]
-        public ActionResult<ResultAPI> Get()
+        public ActionResult<ResultAPI> GetAll()
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Alumnos.ToList(); //ese alumnos es lo que tengo en context
+            resultado.Return = db.Alumnos.Include(c => c.IdSexoNavigation)
+                                         .OrderBy(c => c.IdAlumno)
+                                         .ToList(); 
             return resultado;
         }
 
         [HttpGet]
         [Route("[controller]/ObtenerAlumno/{id}")] //{igual que el get(idUsuario)}
-        public ActionResult<ResultAPI> Get3(int id)
+        public ActionResult<ResultAPI> GetById(int id)
         {
             var resultado = new ResultAPI();
             try
             {
-
-                var alu = db.Alumnos.Where(c => c.IdAlumno == id).FirstOrDefault();
                 resultado.Ok = true;
-                resultado.Return = alu;
-
+                resultado.Return = db.Alumnos.Include(c => c.IdSexoNavigation)
+                                    .Where(c => c.IdAlumno == id)   
+                                    .FirstOrDefault();  
                 return resultado;
             }
 
@@ -51,6 +53,27 @@ namespace vitamoveAPI.Controllers
                 resultado.Ok = false;
                 resultado.Error = "Alumno no encontrado";
 
+                return resultado;
+            }
+        }
+
+        [HttpGet]
+        [Route("[controller]/ObtenerAlumno/{dni}")]
+        public ActionResult<ResultAPI> GetByDni(string dni)
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+                resultado.Ok = true;
+                resultado.Return = db.Alumnos.Include(c => c.IdSexoNavigation)
+                                    .Where(c => c.Dni== dni)
+                                    .FirstOrDefault();
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "Alumno no encontrado";
                 return resultado;
             }
         }
@@ -130,6 +153,30 @@ namespace vitamoveAPI.Controllers
             return resultado;
         }
 
+
+        //[HttpPut]
+        //[Route("[controller]/ModificarAlumno/{id}")] //{igual que el get(idUsuario)}
+        //public ActionResult<ResultAPI> ModificarAlumno([FromBody] comandoUpdateAlumno comando)
+        //{
+        //    var resultado = new ResultAPI();
+        //    try
+        //    {
+
+        //        var alu = db.Alumnos.Where(c => c.IdAlumno == id).FirstOrDefault();
+        //        resultado.Ok = true;
+        //        resultado.Return = alu;
+
+        //        return resultado;
+        //    }
+
+        //    catch (Exception ex)
+        //    {
+        //        resultado.Ok = false;
+        //        resultado.Error = "Alumno no encontrado";
+
+        //        return resultado;
+        //    }
+        //}
         [HttpPut]
         [Route("[controller]/UpdateAlumno")]
         public ActionResult<ResultAPI> UpdateAlumno([FromBody] comandoUpdateAlumno comando)
@@ -184,5 +231,30 @@ namespace vitamoveAPI.Controllers
             return resultado;
         }
 
+        [HttpPut]
+        [Route("[controller]/UpdateEstadoAlumno/{id}")]
+        public ActionResult<ResultAPI> UpdateEstadoAlumno(int id)
+        {
+            var resultado = new ResultAPI();
+
+            var alum = db.Alumnos.Where(c => c.IdAlumno == id).FirstOrDefault();
+            //if (alum != null && alum.Estado == 1)
+            //{
+            //    alum.Estado = 0;
+            //    db.Profesores.Update(alum);
+            //    db.SaveChanges();
+            //}
+            //else if (alum != null && alum.Estado == 0)
+            //{
+            //    alum.Estado = 1;
+            //    db.Profesores.Update(alum);
+            //    db.SaveChanges();
+            //}
+
+            resultado.Ok = true;
+            resultado.Return = db.Profesores.ToList();
+
+            return resultado;
+        }        
     }
 }

@@ -9,12 +9,12 @@ namespace vitamoveAPI.Models
     {
         public Barrio()
         {
-            Sucursales = new HashSet<Sucursal>();
+            Sucursales = new HashSet<Sucursales>();
         }
 
         public int IdBarrio { get; set; }
         public string Barrio1 { get; set; }
 
-        public virtual ICollection<Sucursal> Sucursales { get; set; }
+        public virtual ICollection<Sucursales> Sucursales { get; set; }
     }
 }

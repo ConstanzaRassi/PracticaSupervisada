@@ -35,3 +35,7 @@ D:\FACU\PS\PracticaSupervisada\vitamoveAPI\obj\Debug\net5.0\refint\vitamoveAPI.d
 D:\FACU\PS\PracticaSupervisada\vitamoveAPI\obj\Debug\net5.0\vitamoveAPI.pdb
 D:\FACU\PS\PracticaSupervisada\vitamoveAPI\obj\Debug\net5.0\vitamoveAPI.genruntimeconfig.cache
 D:\FACU\PS\PracticaSupervisada\vitamoveAPI\obj\Debug\net5.0\ref\vitamoveAPI.dll
+D:\FACU\PS\PracticaSupervisada\vitamoveAPI\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\FACU\PS\PracticaSupervisada\vitamoveAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\FACU\PS\PracticaSupervisada\vitamoveAPI\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\FACU\PS\PracticaSupervisada\vitamoveAPI\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

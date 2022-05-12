@@ -18,8 +18,9 @@ namespace vitamoveAPI.Models
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Dni { get; set; }
-        public DateTime? FecNacimiento { get; set; }
+        public DateTime FecNacimiento { get; set; }
         public byte[] Imagen { get; set; }
+        public string Email { get; set; }
         public int? IdSexo { get; set; }
 
         public virtual Sexo IdSexoNavigation { get; set; }

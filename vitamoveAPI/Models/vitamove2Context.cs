@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace vitamoveAPI.Models
 {
-    public partial class vitamoveContext : DbContext
+    public partial class vitamove2Context : DbContext
     {
-        public vitamoveContext()
+        public vitamove2Context()
         {
         }
 
-        public vitamoveContext(DbContextOptions<vitamoveContext> options)
+        public vitamove2Context(DbContextOptions<vitamove2Context> options)
             : base(options)
         {
         }
@@ -22,24 +22,23 @@ namespace vitamoveAPI.Models
         public virtual DbSet<Barrio> Barrios { get; set; }
         public virtual DbSet<Clase> Clases { get; set; }
         public virtual DbSet<ClaseAlumno> ClaseAlumnos { get; set; }
-        public virtual DbSet<DetallesPago> DetallesPagos { get; set; }
         public virtual DbSet<Disciplina> Disciplinas { get; set; }
         public virtual DbSet<Ejercicio> Ejercicios { get; set; }
         public virtual DbSet<Factura> Facturas { get; set; }
         public virtual DbSet<FormasPago> FormasPagos { get; set; }
-        public virtual DbSet<Plan> Planes { get; set; }
+        public virtual DbSet<Planes> Planes { get; set; }
         public virtual DbSet<Profesor> Profesores { get; set; }
         public virtual DbSet<Rutina> Rutinas { get; set; }
         public virtual DbSet<RutinasEjercicio> RutinasEjercicios { get; set; }
         public virtual DbSet<Sexo> Sexos { get; set; }
-        public virtual DbSet<Sucursal> Sucursales { get; set; }
+        public virtual DbSet<Sucursales> Sucursales { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql("User ID=postgres; Password=programacion; Server=localhost; Database=vitamove; Integrated Security=true; Pooling=true");
+                optionsBuilder.UseNpgsql("User ID=postgres; Password=programacion; Server=localhost; Database=vitamove2; Integrated Security=true; Pooling=true");
             }
         }
 
@@ -63,6 +62,10 @@ namespace vitamoveAPI.Models
                 entity.Property(e => e.Dni)
                     .HasMaxLength(50)
                     .HasColumnName("dni");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(30)
+                    .HasColumnName("email");
 
                 entity.Property(e => e.FecNacimiento)
                     .HasColumnType("date")
@@ -187,8 +190,6 @@ namespace vitamoveAPI.Models
                     .HasConstraintName("clase_alumnos_id_clase_fkey");
             });
 
-            
-
             modelBuilder.Entity<Disciplina>(entity =>
             {
                 entity.HasKey(e => e.IdDisciplina)
@@ -226,20 +227,22 @@ namespace vitamoveAPI.Models
 
                 entity.Property(e => e.IdFactura).HasColumnName("id_factura");
 
+                entity.Property(e => e.CodPago).HasColumnName("cod_pago");
+
                 entity.Property(e => e.Fecha)
                     .HasColumnType("date")
                     .HasColumnName("fecha");
-
-                //entity.Property(e => e.Importe)
-                //    .HasColumnType("double")
-                //    .HasColumnName("importe");
 
                 entity.Property(e => e.IdAlumno).HasColumnName("id_alumno");
 
                 entity.Property(e => e.IdPlan).HasColumnName("id_plan");
 
-                entity.Property(e => e.CodPago).HasColumnName("cod_pago");
+                entity.Property(e => e.Total).HasColumnName("total");
 
+                entity.HasOne(d => d.CodPagoNavigation)
+                    .WithMany(p => p.Facturas)
+                    .HasForeignKey(d => d.CodPago)
+                    .HasConstraintName("facturas_cod_pago_fkey");
 
                 entity.HasOne(d => d.IdAlumnoNavigation)
                     .WithMany(p => p.Facturas)
@@ -250,11 +253,6 @@ namespace vitamoveAPI.Models
                     .WithMany(p => p.Facturas)
                     .HasForeignKey(d => d.IdPlan)
                     .HasConstraintName("facturas_id_plan_fkey");
-
-                //entity.HasOne(d => d.CodPagoNavigation)
-                //    .WithMany(p => p.Facturas)
-                //    .HasForeignKey(d => d.CodPago)
-                //    .HasConstraintName("facturas_cod_plan_fkey");
             });
 
             modelBuilder.Entity<FormasPago>(entity =>
@@ -269,11 +267,9 @@ namespace vitamoveAPI.Models
                 entity.Property(e => e.Descripcion)
                     .HasMaxLength(50)
                     .HasColumnName("descripcion");
-
-                entity.Property(e => e.PorcRecargo).HasColumnName("porc_recargo");
             });
 
-            modelBuilder.Entity<Plan>(entity =>
+            modelBuilder.Entity<Planes>(entity =>
             {
                 entity.HasKey(e => e.IdPlan)
                     .HasName("planes_pkey");
@@ -308,13 +304,15 @@ namespace vitamoveAPI.Models
                     .HasMaxLength(50)
                     .HasColumnName("dni");
 
+                entity.Property(e => e.Email)
+                    .HasMaxLength(30)
+                    .HasColumnName("email");
+
                 entity.Property(e => e.FecNacimiento)
                     .HasColumnType("date")
                     .HasColumnName("fec_nacimiento");
 
                 entity.Property(e => e.IdSexo).HasColumnName("id_sexo");
-
-                entity.Property(e => e.Imagen).HasColumnName("imagen");
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(20)
@@ -391,7 +389,7 @@ namespace vitamoveAPI.Models
                     .HasColumnName("sexo");
             });
 
-            modelBuilder.Entity<Sucursal>(entity =>
+            modelBuilder.Entity<Sucursales>(entity =>
             {
                 entity.HasKey(e => e.IdSucursal)
                     .HasName("sucursales_pkey");

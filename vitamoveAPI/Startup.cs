@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace vitamoveAPI
@@ -39,7 +40,8 @@ namespace vitamoveAPI
                 .AllowAnyHeader();
             }));
 
-            services.AddRouting(r => r.SuppressCheckForUnhandledSecurityMetadata = true);
+            services.AddRouting(r => r.SuppressCheckForUnhandledSecurityMetadata = true);            
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +62,7 @@ namespace vitamoveAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "vitamoveAPI v1"));
             }
 
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
 
             app.UseRouting();
 

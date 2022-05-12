@@ -9,13 +9,12 @@ namespace vitamoveAPI.Models
     {
         public FormasPago()
         {
-            DetallesPagos = new HashSet<DetallesPago>();
+            Facturas = new HashSet<Factura>();
         }
 
         public int CodPago { get; set; }
         public string Descripcion { get; set; }
-        public double? PorcRecargo { get; set; }
 
-        public virtual ICollection<DetallesPago> DetallesPagos { get; set; }
+        public virtual ICollection<Factura> Facturas { get; set; }
     }
 }

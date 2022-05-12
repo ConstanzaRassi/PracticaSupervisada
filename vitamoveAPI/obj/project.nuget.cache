@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HWZUM27YdYLCSSveW3WHLqmT/4tH2yPGfkOlRYVPHeL4sWFdusPPglWMtdJ+Vi4C+Ualq7clGcORfZ/XQhPZuA==",
+  "dgSpecHash": "jriK08of80khA45UZJuG5L7Q9vsy1dnodxnCYsRTV4tTd8yVovkXVp44ao8EyDNg7dVWE9YNTH9R1fk7q4WlGw==",
   "success": true,
   "projectFilePath": "D:\\FACU\\PS\\PracticaSupervisada\\vitamoveAPI\\vitamoveAPI.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,8 @@
     "C:\\Users\\maria\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\maria\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.2.0\\microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",
     "C:\\Users\\maria\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
+    "C:\\Users\\maria\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.24\\microsoft.aspnetcore.jsonpatch.3.1.24.nupkg.sha512",
+    "C:\\Users\\maria\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.24\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.24.nupkg.sha512",
     "C:\\Users\\maria\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\maria\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.13\\microsoft.entityframeworkcore.5.0.13.nupkg.sha512",
     "C:\\Users\\maria\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.13\\microsoft.entityframeworkcore.abstractions.5.0.13.nupkg.sha512",
@@ -28,6 +30,8 @@
     "C:\\Users\\maria\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "C:\\Users\\maria\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\maria\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\maria\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\maria\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\maria\\.nuget\\packages\\npgsql\\5.0.7\\npgsql.5.0.7.nupkg.sha512",
     "C:\\Users\\maria\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\5.0.7\\npgsql.entityframeworkcore.postgresql.5.0.7.nupkg.sha512",
     "C:\\Users\\maria\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
