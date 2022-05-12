@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="adminStyle.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <!--ASIDE SECTION-->
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="/img/logo.png" alt="">
+                    <h2>Vita<span>MOVE</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+            <div class="sidebar">
+                <a href="dashboard.html">
+                    <span class="material-icons-sharp">dashboard</span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="listAlumnos.html">
+                    <span class="material-icons-sharp">account_circle</span>
+                    <h3>Alumnos</h3>
+                </a>
+                <a href="listProfesores.html">
+                    <span class="material-icons-sharp">badge</span>
+                    <h3>Profesores</h3>
+                </a>
+                <a href="listClases.html" class="active">
+                    <span class="material-icons-sharp">fitness_center</span>
+                    <h3>Clases</h3>
+                </a>
+                <a href="listFacturas.html">
+                    <span class="material-icons-sharp">request_quote</span>
+                    <h3>Facturas</h3>
+                </a>
+                <a href="listSucursales.html">
+                    <span class="material-icons-sharp">location_on</span>
+                    <h3>Sucursales</h3>
+                </a>
+                <a href="">
+                    <span class="material-icons-sharp">logout</span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+        </aside>
+
+        <!--MAIN SECTION-->
+
+        <main>
+            <div class="alumnos">
+                <h1>Listado de clases</h1>
+                <!-- <button type="button" class="btn btn-primary" style="margin-left: 0;" data-toggle="modal"
+                    data-target="#agregar">
+                    AGREGAR
+                </button> -->
+                <table style="width:1000px; border-radius: 2rem;padding: 2rem;">
+                    <thead>
+                        <tr>
+                            <th>Nro</th>
+                            <th>Actividad</th>
+                            <th>Sucursal</th>
+                            <th>Profesor</th>
+                            <th>Cupo</th>
+                            <th>Día</th>
+                            <th>Desde</th>
+                            <th>Hasta</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTabla">
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        <div class="right">
+            <div class="top">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">menu</span>
+                </button>
+                <div class="theme-toggler">
+                    <span class="material-icons-sharp active">light_mode</span>
+                    <span class="material-icons-sharp">dark_mode</span>
+                </div>
+                <div class="profile">
+                    <div class="info">
+                        <p>Hey <b>ADMIN</b></p>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="/img/admin.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/adminView/admin.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Clase/ObtenerClase",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    cargarTabla(result.return);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (Error) {
+                swal("Problemas al conseguir datos de las clases");
+            },
+        })
+
+    })
+
+    function cargarTabla(datos) {
+        for (let i = 0; i < datos.length; i++) {
+            let html = "<tr>";
+            html += "<td id='id'>" + datos[i].idClase + "</td>";
+            html += "<td id='actividad'>" + datos[i].idDisciplinaNavigation.descripcion + "</td>";
+            html += "<td id='sucursal'>" + datos[i].idSucursalNavigation.nombre + "</td>";
+            html += "<td id='profesor'>" + datos[i].idProfesorNavigation.apellido + ', '
+                + datos[i].idProfesorNavigation.nombre + "</td>";
+            html += "<td id='cupo'>" + datos[i].cupo + "</td>";
+            if (datos[i].diaSemana == 1)
+                html += "<td> Domingo </td>";
+            else if (datos[i].diaSemana == 2)
+                html += "<td> Lunes </td>";
+            else if (datos[i].diaSemana == 3)
+                html += "<td> Martes </td>";
+            else if (datos[i].diaSemana == 4)
+                html += "<td> Miércoles </td>";
+            else if (datos[i].diaSemana == 5)
+                html += "<td> Jueves </td>";
+            else if (datos[i].diaSemana == 6)
+                html += "<td> Viernes </td>";
+            else if (datos[i].diaSemana == 7)
+                html += "<td> Sábado </td>";
+            html += "<td id='desde'>" + datos[i].horaDesde + "</td>";
+            html += "<td id='hasta'>" + datos[i].horaHasta + "</td>";
+            html += "</tr>"
+
+            $("#cuerpoTabla").append(html);
+        }
+    }    
+</script>
+
+</html>

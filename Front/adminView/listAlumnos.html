@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="adminStyle.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <!--ASIDE SECTION-->
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="/img/logo.png" alt="">
+                    <h2>Vita<span>MOVE</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+            <div class="sidebar">
+                <a href="dashboard.html">
+                    <span class="material-icons-sharp">dashboard</span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="listAlumnos.html" class="active">
+                    <span class="material-icons-sharp">account_circle</span>
+                    <h3>Alumnos</h3>
+                </a>
+                <a href="listProfesores.html">
+                    <span class="material-icons-sharp">badge</span>
+                    <h3>Profesores</h3>
+                </a>
+                <a href="listClases.html">
+                    <span class="material-icons-sharp">fitness_center</span>
+                    <h3>Clases</h3>
+                </a>
+                <a href="listFacturas.html">
+                    <span class="material-icons-sharp">request_quote</span>
+                    <h3>Facturas</h3>
+                </a>
+                <a href="listSucursales.html">
+                    <span class="material-icons-sharp">location_on</span>
+                    <h3>Sucursales</h3>
+                </a>
+                <a href="">
+                    <span class="material-icons-sharp">logout</span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+        </aside>
+
+        <!--MAIN SECTION-->
+        <main>
+            <div class="alumnos">
+
+                <div class="contanier  d-flex justify-content-end">
+                    <h1>Listado de alumnos</h1>
+                    <button type="button" class="btn btn-primary" style="float:right;" data-toggle="modal"
+                        data-target="#hola">Agregar
+                    </button>
+
+                </div>
+                <table style="width:1000px; border-radius: 2rem;padding: 2rem;">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Dni</th>
+                            <th>Sexo</th>
+                            <th>Edad</th>
+                            <th>Email</th>
+                            <th>Estado</th>
+                            <th>Acción</th>
+                            <!-- <span class="material-symbols-outlined">post_add</span> AGREGAR RUTINA-->
+                            <!-- <span class="material-symbols-outlined">delete</span> ELIMINAR-->
+                            <!-- <span class="material-symbols-outlined">edit</span> MODIFICAR-->
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTabla">
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        <div class="right">
+            <div class="top">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">menu</span>
+                </button>
+                <div class="theme-toggler">
+                    <span class="material-icons-sharp active">light_mode</span>
+                    <span class="material-icons-sharp">dark_mode</span>
+                </div>
+                <div class="profile">
+                    <div class="info">
+                        <p>Hey <b>ADMIN</b></p>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="/img/admin.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--MODAL PARA MODIFICAR ALUMNO-->
+
+    <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ALTA ALUMNO</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container d-flex justify-content-center mt-5">
+                        <form>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Nombre </label>
+                                        <input type="text" class="form-control" id="txtNombre"
+                                            placeholder="Ingrese nombre">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Apellido </label>
+                                        <input type="text" class="form-control" id="txtApellido"
+                                            placeholder="Ingrese apellido">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> DNI </label>
+                                        <input type="text" class="form-control" id="txtDni" placeholder="Ingrese dni">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Sexo </label>
+                                        <input type="number" class="form-control" id="txtSexo"
+                                            placeholder="Ingrese sexo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Email </label>
+                                        <input type="text" class="form-control" id="txtEmail"
+                                            placeholder="Ingrese email">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Fecha Nacimiento </label>
+                                        <input type="date" class="form-control" id="txtFecha"
+                                            placeholder="Ingrese fecha">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" id="btnUpdateAceptar" name="btnUpdateAceptar"
+                            class="btn btn-success">ACEPTAR</button> -->
+                        <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-success">AGREGAR</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="hola" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ALTA ALUMNO</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container d-flex justify-content-center mt-5">
+                        <form>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Nombre </label>
+                                        <input type="text" class="form-control" id="txtNombre"
+                                            placeholder="Ingrese nombre">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Apellido </label>
+                                        <input type="text" class="form-control" id="txtApellido"
+                                            placeholder="Ingrese apellido">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> DNI </label>
+                                        <input type="text" class="form-control" id="txtDni" placeholder="Ingrese dni">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Sexo </label>
+                                        <input type="number" class="form-control" id="txtSexo"
+                                            placeholder="Ingrese sexo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Email </label>
+                                        <input type="text" class="form-control" id="txtEmail"
+                                            placeholder="Ingrese email">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Fecha Nacimiento </label>
+                                        <input type="text" class="form-control" id="txtFecha"
+                                            placeholder="Ingrese fecha">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" id="btnUpdateAceptar" name="btnUpdateAceptar"
+                            class="btn btn-success">ACEPTAR</button> -->
+                        <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-success">AGREGAR</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div class="modal" style="color: red;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;">
+        <div class=" modal-contents" style="background-color: white;
+        padding: 2rem 4rem;">
+            <h2>Modificar alumno</h2>
+        </div>
+    </div> -->
+
+
+
+
+    <script src="/adminView/admin.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+
+<!-- <script>
+   
+    //AGREGAR ALUMNO
+
+
+    //llenar modal de alumno para modificar
+    $("#btnUpdate").click(function () {
+        console.log("holis");
+        let id = $("#btnUpdate").val();
+        console.log(id);
+        $.ajax({
+            url: "https://localhost:5001/Alumno/ObtenerAlumno/" + id,
+            type: "GET",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(id),
+            success: function (result) {
+                if (result.ok) {
+                    swal("Datos traidos con exito");
+                    $("#txtNombre").val(result.return.nombre);
+                    $("#txtApellido").val(result.return.apellido);
+                    $("#txtDni").val(result.return.dni);
+                    $("#txtSexo").val(result.return.sexoId);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas en el servidor");
+            },
+        })
+    });
+
+
+
+
+    //Update
+    $("#btnUpdateAceptar").click(function () {
+        let nombre = $("#txtNombre").val();
+        let apellido = $("#txtApelido").val();
+        if (nombre === "") {
+            console.log(nombre)
+            console.log($("#txtNombre").val())
+            swal("Ingrese los cambios requeridos");
+        } else {
+            updateAlumno(nombre, apellido);
+        }
+    });
+
+
+
+
+    // // Update
+    // $("#btnUpdate").click(function () {
+    //     let id = $("#txtAlumno").val();
+    //     let curso = $("#txtCurso").val();
+    //     if (curso === "") {
+    //         swal("Ingrese los cambios requeridos");
+    //     } else {
+    //         updateAlumno(id, curso);
+    //     }
+    // });
+
+    function updateAlumno(nombre, apellido) {
+        comando = {
+            "alumnoId": parseInt(id),
+            "curso": curso,
+        };
+
+        $.ajax({
+            url: "https://localhost:5001/Alumnos/UpdateAlumno",
+            type: "PUT",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            success: function (result) {
+                if (result.ok) {
+                    swal("Actualizacion exitosa , sera redireccionado en breve");
+                    // reload pagina
+                    setTimeout(function () { location.reload(); }, 3000);
+                } else {
+                    swal("Problema Server");
+                }
+            },
+            error: function (error) {
+                swal("Problemas en el servidor");
+            },
+        })
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $("#btnAgregar").click(function () {
+        let nombre = $("#txtNombre").val();
+        let apellido = $("#txtApellido").val();
+        let dni = $("#txtDni").val();
+        let sexo = $("#txtSexo").val();
+        //let email = $("#txtEmail").val();
+        let fecha = $("#txtFecha").val();
+
+        if (nombre === "" || apellido === "" || dni === "" || sexo === "") {
+            swal("Ingrese los datos requeridos");
+        } else {
+            // console.log(result.error)
+            swal("salio muy mal");
+            altaAlumno(nombre, apellido, dni, fecha, sexo);
+        }
+    });
+
+    function altaAlumno(nombre, apellido, dni, fecha, sexo) {
+        comando = {
+            "nombre": nombre,
+            "apellido": apellido,
+            "dni": dni,
+            "fecNacimiento": fecha,
+            "idSexo": parseInt(sexo),
+        };
+
+        $.ajax({
+            url: "https://localhost:5001/Alumno/AltaAlumno",
+            type: "POST",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            success: function (result) {
+                if (result.ok) {
+                    swal("Alta exitosa!");
+                    //reload pagina
+                    setTimeout(function () { location.replace("http://127.0.0.1:5501/adminView/listAlumnos.html"); }, 3000);
+                } else {
+                    console.log("salio muy mal");
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                console.log("salio maal");
+                swal("Problemas en el servidor");
+            },
+        })
+    }
+
+    // //dar de baja
+    // $(document).on("click", "#btnBaja", function () {
+    //     dni = $(this).val();
+    //     $.ajax({
+    //         url: "https://localhost:5001/Alumno/UpdateEstado/" + dni,
+    //         type: "PUT",
+    //         ContentType: "application/json",
+    //         Accept: "application/json",
+    //         success: function (result) {
+    //             if (result.ok) {
+    //                 swal("Cambió de estado correctamente");
+
+    //             } else {
+    //                 swal("No puede actualizarse");
+    //             }
+    //         },
+    //         error: function (error) {
+    //             swal("Error en el servidor");
+    //         },
+    //     })
+    // });
+
+
+
+
+
+</script> -->
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Alumno/ObtenerAlumno",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    cargarTabla(result.return);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                console.log(); (error);
+            },
+        });
+    })
+
+    function cargarTabla(datos) {
+        for (let i = 0; i < datos.length; i++) {
+            let html = "<tr>";
+            html += "<td>" + datos[i].idAlumno + "</td>";
+            html += "<td>" + datos[i].nombre + "</td>";
+            html += "<td>" + datos[i].apellido + "</td>";
+            html += "<td>" + datos[i].dni + "</td>";
+            html += "<td>" + datos[i].idSexoNavigation.sexo1 + "</td>";
+            html += "<td>" + obtenerEdad(datos[i].fecNacimiento) + "</td>";
+            html += "<td>" + datos[i].email + "</td>";
+            if (datos[i].estado == 0) {
+                html += "<td style=color:#6bb83e;>activo</td>";//hacer que se muestre naranja: SIN PAGAR
+            }
+            else if (datos[i].estado == undefined) {
+                html += "<td style=color:orange;>pago pendiente</td>";//hacer que se muestre verde: ACTIVO
+            }
+
+            html += `<td><button type="button" data-toggle="modal" id='btnUpdate' name='update' data-target="#update" class='btn btn-primary pl-4 pr-4' value=` + datos[i].idAlumno + `>Modificar</button></td>
+                <td><button type="button" data-toggle="modal" id='btnBaja' name='btnBaja' data-target="#modificar" class='btn btn-success pl-4 pr-4' value=` + datos[i].id + `>Baja</button></td>`;
+            html += "<td> "
+            // // + "<button type='button' class='btn' id='eliminar' onclick='eliminar(" + datos[i].idAlumno + ")'>" +
+            // // "<i class='bi bi-trash-fill'></i> </button> &nbsp;" +
+            // + "<button type='button' class='btn' id='eliminar' onclick='modificar(" + datos[i].idAlumno + ")'>" +
+            // "modificar</button> &nbsp;" +
+            // "<button type='button' class='btn' id='modificar' onclick='modificar(" + datos[i].idAlumno + ")' data-toggle='modal' data-target='#modificarM' data-placement='bottom'>" +
+            // "<i class='bi bi-pencil-fill'></i> </button> </td>";
+
+            html += "</tr>"
+            $("#cuerpoTabla").append(html);
+        }
+    }
+    function obtenerEdad(fecha) {
+        var hoy = new Date();
+        var cumpleanos = new Date(fecha);
+        var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+        var m = hoy.getMonth() - cumpleanos.getMonth();
+        if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+            edad--;
+        }
+        return edad;
+    }
+
+    $("#btnAgregar").click(function () {
+        let nombre = $("#txtNombre").val();
+        let apellido = $("#txtApellido").val();
+        let dni = $("#txtDni").val();
+        let sexo = $("#txtSexo").val();
+        let email = $("#txtEmail").val();
+        let fecha = $("#txtFecha").val();
+
+        if (nombre === "" || apellido === "" || dni === "" || sexo === "" || email === "" || fecha === "") {
+            swal("Ingrese los datos requeridos");
+        } else {
+            // console.log(result.error)
+            swal("salio muy mal");
+            altaAlumno(nombre, apellido, dni, fecha, sexo);
+        }
+    });
+
+    function altaAlumno(nombre, apellido, dni, fecha, sexo) {
+        comando = {
+            "nombre": nombre,
+            "apellido": apellido,
+            "dni": dni,
+            "fecNacimiento": fecha,
+            "idSexo": parseInt(sexo),
+        };
+        $.ajax({
+            url: "https://localhost:5001/Alumno/AltaAlumno",
+            type: "POST",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            success: function (result) {
+                if (result.ok) {
+                    swal("Alta exitosa!");
+                    //reload pagina
+                    setTimeout(function () { location.replace("http://127.0.0.1:5501/adminView/listAlumnos.html"); }, 3000);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas en el servidor");
+            },
+        })
+    }
+
+    function modificar(id) {
+        let idAlu = id;
+        let nombre = "";
+        // let fecha = "";
+        // let idE = 0;
+
+        for (let i = 0; i < Alumnos.length; i++) {
+            if (Alumnos[i].idAlumno == id) {
+                nombre = Alumnos[i].nombre;
+                // fecha = Alumnos[i].fechaCompra;
+                // idE = Alumnos[i].estado.idEstado;
+            }
+        }
+
+        $("#nombre").val(nombre);
+        // $("#fechaM").val(fecha);
+        // $("#estadoM").val(idE);
+
+        $("#btnModificar").click(function () {
+            // let fecha = $("#fechaM").val();
+            // var hoy = new Date();
+            // let hora = hoy.getHours() + ':' + hoy.getMinutes();
+            var nombre = document.getElementById('nombre');
+            // var idCliente = cliente.selectedIndex;
+            // var estado = document.getElementById('estadoM');
+            // var idEstado = estado.selectedIndex;
+
+            ModificarAlumno(idAlu, nombre);
+        })
+    }
+
+    function ModificarAlumno(id, nombre, apellido, dni, idSexo, email) {
+        comando = {
+            "idAlumno": id,
+            "nombre": nombre,
+            "apellido": apellido,
+            "dni": dni,
+            "idSexo": idSexo,
+            "email": email
+        }
+
+        $.ajax({
+            url: "https://localhost:5001/Alumno/UpdateAlumno",
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            type: "PUT",
+            success: function (result) {
+                if (result.ok) {
+                    location.reload();
+                    swal("Alumno modificado exitosamente");
+                }
+                else swal(result.error);
+            },
+            error: function (error) {
+                swal("Error" + error);
+            }
+        });
+    }
+
+
+
+</script>
+
+</html>
