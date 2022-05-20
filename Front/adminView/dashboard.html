@@ -8,6 +8,21 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="adminStyle.css">
     <title>Document</title>
+    <style>
+        main .grafico>div {
+            background: var(--color-white);
+            padding: var(--card-padding);
+            border-radius: var(--card-border-radius);
+            margin-top: 1.rem;
+            box-shadow: var(--box-shadow);
+            transition: all 300ms ease;
+            height: 300px;
+        }
+
+        main .grafico>div:hover {
+            box-shadow: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -75,7 +90,7 @@
                                 <circle cx="38" cy="38" r="36"></circle>
                             </svg>
                             <div class="number">
-                                <p>56%</p>
+                                <p>90%</p>
                             </div>
                         </div>
                     </div>
@@ -116,6 +131,18 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <br>
+
+
+            <div class="grafico">
+                <div>
+                    <h3>aca va a ir el grafico</h3>
+                </div>
+
+            </div>
+
+
         </main>
         <div class="right">
             <div class="top">
@@ -174,15 +201,15 @@
                 <h2>ANALISTAS</h2>
                 <div class="item online">
                     <div class="icon">
-                        <span class="material-icons-sharp">shopping_cart</span>
+                        <span class="material-icons-sharp">today</span>
                     </div>
                     <div class="right">
                         <div class="info">
-                            <h3> Online Orders</h3>
-                            <small class="text-muted">Ultimas 24 horas</small>
+                            <h3> Dia mas concurrido</h3>
+                            <small class="text-muted">Todas las sucursales</small>
                         </div>
-                        <h5 class="success">+39%</h5>
-                        <h3>3859</h3>
+                        <h2 class="success">Jueves</h2>
+
                     </div>
                 </div>
                 <div class="item offline">
@@ -191,11 +218,10 @@
                     </div>
                     <div class="right">
                         <div class="info">
-                            <h3> Offline Orders</h3>
-                            <small class="text-muted">Ultimas 24 horas</small>
+                            <h3> Promedio alumnos por clase</h3>
+                            <small class="text-muted">Ultimos 6 meses</small>
                         </div>
-                        <h5 class="danger">-17%</h5>
-                        <h3>152</h3>
+                        <h2 class="success">9</h2>
                     </div>
                 </div>
                 <div class="item customers">

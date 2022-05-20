@@ -50,7 +50,7 @@
                     <span class="material-icons-sharp">location_on</span>
                     <h3>Sucursales</h3>
                 </a>
-                <a href="">
+                <a href="/login.html">
                     <span class="material-icons-sharp">logout</span>
                     <h3>Logout</h3>
                 </a>
@@ -61,33 +61,25 @@
 
         <main>
             <div class="alumnos">
-                <div class="row">
-                    <h1>Listado de alumnos</h1>
-                    <button type="button" class="btn btn-primary" style="margin-left: 800;" data-toggle="modal"
-                        data-target="#agregar">+</button>
+                <div class="contanier-fluid">
+                    <h1 class="float-left">Listado de sucursales</h1>
+                    <button type="button" class="btn btn-success mt-1 float-right" className="mt-1 float-right"
+                        data-toggle="modal" data-target="#agregar">Agregar
+                    </button>
                 </div>
-
-                <div class="row">
-                    <table style="width:700px; border-radius: 2rem;padding: 2rem;">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Direccion</th>
-                                <th>Barrio</th>
-                                <!-- <span class="material-symbols-outlined">post_add</span> AGREGAR RUTINA-->
-                                <!-- <span class="material-symbols-outlined">delete</span> ELIMINAR-->
-                                <!-- <span class="material-symbols-outlined">edit</span> MODIFICAR-->
-                            </tr>
-                        </thead>
-                        <tbody id="cuerpoTabla">
-                        </tbody>
-                    </table>
-                    <button type="button" class="btn btn-primary" style="margin-left: 800;" data-toggle="modal"
-                        data-target="#agregar">+</button>
-                </div>
+                <table style="width:1000px; border-radius: 2rem;padding: 2rem;">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Nombre</th>
+                            <th>Dirección</th>
+                            <th>Barrio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTabla">
+                    </tbody>
+                </table>
             </div>
-
         </main>
         <div class="right">
             <div class="top">
@@ -110,13 +102,12 @@
         </div>
     </div>
 
-    <!--MODAL PARA AGREGAR ALUMNO-->
-    <div class="modal fade" id="modificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="agregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">ALTA ALUMNO</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">ALTA SUCURSAL</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -127,6 +118,16 @@
                             <div class="row">
                                 <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                     <div class="form-group">
+                                        <label> Barrio </label>
+                                        <select name="barrios" id="cboBarrios">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
                                         <label> Nombre </label>
                                         <input type="text" class="form-control" id="txtNombre"
                                             placeholder="Ingrese nombre">
@@ -134,54 +135,25 @@
                                 </div>
                                 <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <label> Apellido </label>
-                                        <input type="text" class="form-control" id="txtApellido"
-                                            placeholder="Ingrese apellido">
+                                        <label> Dirección </label>
+                                        <input type="text" class="form-control" id="txtDireccion"
+                                            placeholder="Ingrese dirección">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                                    <div class="form-group">
-                                        <label> DNI </label>
-                                        <input type="text" class="form-control" id="txtDni" placeholder="Ingrese dni">
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                                    <div class="form-group">
-                                        <label> Sexo </label>
-                                        <input type="number" class="form-control" id="txtSexo"
-                                            placeholder="Ingrese sexo">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
-                                    <div class="form-group">
-                                        <label> Email </label>
-                                        <input type="text" class="form-control" id="txtEmail"
-                                            placeholder="Ingrese email">
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
-                                    <div class="form-group">
-                                        <label> Fecha Nacimiento </label>
-                                        <input type="text" class="form-control" id="txtFecha"
-                                            placeholder="Ingrese fecha">
-                                    </div>
-                                </div>
-                            </div>
+                            <br>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="btnUpdateAceptar" name="btnUpdateAceptar"
-                            class="btn btn-success">ACEPTAR</button>
-                        <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-success">AGREGAR</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-success">Agregar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 
     <script src="/adminView/admin.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -218,15 +190,87 @@
             let html = "<tr>";
             html += "<td id='id'>" + datos[i].idSucursal + "</td>";
             html += "<td id='nombre'>" + datos[i].nombre + "</td>";
-            html += "<td id='apellido'>" + datos[i].dirección + "</td>";
-            html += "<td>" + datos[i].idBarrioNavigation.barrio1 + "</td>";
-            html += `<td><button type="button" data-toggle="modal" id='btnUpdate' name='btnUpdate' data-target="#modificar" class='btn btn-primary pl-4 pr-4' value=` + datos[i].idAlumno + `>Modificar</button></td>
-                <td><button type="button" data-toggle="modal" id='btnBaja' name='btnBaja' data-target="#modificar" class='btn btn-success pl-4 pr-4' value=` + datos[i].id + `>Baja</button></td>`;
+            html += "<td id='direccion'>" + datos[i].direccion + "</td>";
+            html += "<td id='barrio'>" + datos[i].idBarrioNavigation.barrio1 + "</td>";
+            html += `<td><button type="button" data-toggle="modal" id='btnUpdate' name='update' data-target="#modificar" class='btn btn-outline-warning pl-4 pr-4' value=` + datos[i].idSucursal + `>Modificar</button></td>
+                <td><button type="button" data-toggle="modal" id='btnBaja' name='btnBaja' data-target="#baja" class='btn btn-outline-danger pl-4 pr-4' value=` + datos[i].idSucursal + `>Baja</button></td>`;
             html += "</tr>"
 
 
             $("#cuerpoTabla").append(html);
         }
+    }
+
+    // GET sucursal
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Sucursal/ObtenerBarrios",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    barrios = result.return;
+                    cargarCombo(barrios);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de barrios");
+            },
+        })
+
+        // carga combo
+        function cargarCombo(datos) {
+            var html = "<option value=''>SELECCIONE</option>";
+            $("#cboBarrios").append(html);
+            select = document.getElementById("cboBarrios");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i];
+                option.text = datos[i].barrio1;
+                select.add(option);
+            }
+        }
+
+    })
+
+    $("#btnAgregar").click(function () {
+        let barrio = $("#cboBarrios").val();
+        let nombre = $("#txtNombre").val();
+        let direccion = $("#txtDireccion").val();
+
+        if (barrio === "" || nombre === "" || direccion === "") {
+            swal("Ingrese los datos requeridos");
+        } else {
+            altaSucursal(barrio, nombre, direccion);
+        }
+    });
+
+    function altaSucursal(barrio, nombre, direccion) {
+        comando = {
+            "nombre": nombre,
+            "direccion": direccion,
+            "estado": 1,
+            "idBarrio": 1
+        };
+        $.ajax({
+            url: "https://localhost:5001/Sucursal/AltaSucursal",
+            type: "POST",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            success: function (result) {
+                if (result.ok) {
+                    swal("Alta exitosa!");
+                    setTimeout(function () { location.replace("http://127.0.0.1:5501/adminView/listSucursales.html"); }, 3000);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas en el servidor");
+            },
+        })
     }
 
 

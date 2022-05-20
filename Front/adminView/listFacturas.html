@@ -50,7 +50,7 @@
                     <span class="material-icons-sharp">location_on</span>
                     <h3>Sucursales</h3>
                 </a>
-                <a href="">
+                <a href="/login.html">
                     <span class="material-icons-sharp">logout</span>
                     <h3>Logout</h3>
                 </a>
@@ -61,11 +61,12 @@
 
         <main>
             <div class="alumnos">
-                <h1>Listado de facturas</h1>
-                <!-- <button type="button" class="btn btn-primary" style="margin-left: 0;" data-toggle="modal"
-                    data-target="#agregar">
-                    AGREGAR
-                </button> -->
+                <div class="contanier-fluid">
+                    <h1 class="float-left">Listado de facturas</h1>
+                    <button type="button" class="btn btn-success mt-1 float-right" className="mt-1 float-right"
+                        data-toggle="modal" data-target="#agregar">Agregar
+                    </button>
+                </div>
                 <table style="width:1000px; border-radius: 2rem;padding: 2rem;">
                     <thead>
                         <tr>
@@ -97,6 +98,77 @@
                     </div>
                     <div class="profile-photo">
                         <img src="/img/admin.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="agregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ALTA SUCURSAL</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container d-flex justify-content-center mt-5">
+                        <form>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Alumno </label>
+                                        <select name="alumnos" id="cboAlumnos">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Fecha </label>
+                                        <input type="date" class="form-control" id="txtFecha" placeholder="Ingrese fecha
+                                        ">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Plan </label>
+                                        <select name="barrios" id="cboBarrios">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Forma de Pago </label>
+                                        <select name="barrios" id="cboBarrios">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Monto </label>
+                                        <input type="text" class="form-control" id="txtMonto"
+                                            placeholder="Ingrese total">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-success">Agregar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
@@ -155,6 +227,51 @@
         var dd = new Date(timeStamp).getDate().toString();
         return dd + "/" + mm + "/" + yyyy;
     }
+
+    $("#btnAgregar").click(function () {
+        let alumno = $("#txtAlumno").val();
+        let plan = $("#txtPlan").val();
+        let pago = $("#txtPago").val();
+        let monto = $("#txtMonto").val();
+        let fecha = $("#txtFecha").val();
+
+        if (alumno === "" || plan === "" || pago === "" || monto === "" || fecha === "") {
+            swal("Ingrese los datos requeridos");
+        } else {
+            altaFactura(alumno, plan, pago, monto, fecha);
+        }
+    });
+
+    function altaFactura(alumno, plan, pago, monto, fecha) {
+        comando = {
+            "idAlumno": alumno,
+            "idPlan": plan,
+            "codPago": pago,
+            "fecha": fecha,
+            "total": monto
+        };
+        $.ajax({
+            url: "https://localhost:5001/Factura/AltaFactura",
+            type: "POST",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            success: function (result) {
+                if (result.ok) {
+                    swal("Alta exitosa!");
+                    setTimeout(function () { location.replace("http://127.0.0.1:5501/adminView/listFacturas.html"); }, 3000);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas en el servidor");
+            },
+        })
+    }
+
+    //falta cargar combos de alumnos, planes y formas de pago
+
 </script>
 
 </html>

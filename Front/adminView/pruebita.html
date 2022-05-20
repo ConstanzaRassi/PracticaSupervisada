@@ -86,7 +86,6 @@
                     <tbody id="cuerpoTabla">
                     </tbody>
                 </table>
-                <h1 id="txtA">a</h1>
             </div>
         </main>
         <div class="right">
@@ -386,8 +385,10 @@
     function cargarTabla(datos) {
         for (let i = 0; i < datos.length; i++) {
             let html = "<tr>";
-            html += "<td>" + datos[i].idAlumno + "</td>";
-            html += "<td>" + datos[i].nombre + "</td>";
+            html += "<td>" + datos[i].apellido + "</td>";
+
+            html += "<td><button type='button' class='btn btn-outline-warning pl-4 pr-4' id='modificar'data-placement='bottom'>" + datos[i].idAlumno + "<br>" + datos[i].nombre + "</button></td>";
+
             html += "<td>" + datos[i].apellido + "</td>";
             html += "<td>" + datos[i].dni + "</td>";
             html += "<td>" + datos[i].idSexoNavigation.sexo1 + "</td>";
@@ -411,10 +412,7 @@
                 "<td><button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja' class='btn btn-outline-danger pl-4 pr-4' value=" + datos[i].idAlumno + ">Baja</button></td>";
             html += "</tr>"
             $("#cuerpoTabla").append(html);
-
         }
-        $('#txtA').html(datos[0].nombre);
-        //$("#txtA") = (datos[0].nombre);
     }
 
     $("#btnAgregar").click(function () {

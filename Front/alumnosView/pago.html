@@ -6,12 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="https://sdk.mercadopago.com/js/v2"></script>
-
     <script src="https://kit.fontawesome.com/bdd89edb33.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
-    <title>Flipping Cards</title>
+    <title>Planes</title>
     <style>
+        .nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 70px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+            background-color: rgb(0, 0, 0);
+            display: flex;
+            overflow-x: auto;
+        }
+
+        .nav__link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            min-width: 50px;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: sans-serif;
+            font-size: 13px;
+            color: #747474;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.1 ease-in-out;
+        }
+
+        .nav__link:hover {
+            background-color: #62626223;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            color: #747474;
+        }
+
+        .nav__link--active {
+            color: #29a3b6;
+        }
+
+        .nav__link--active:hover {
+            color: #29a3b6;
+        }
+
+        .nav__icon {
+            font-size: 18px;
+        }
+
         .u-center-text {
             text-align: center !important;
         }
@@ -32,8 +78,6 @@
             font-family: "Lato", sans-serif;
             font-weight: 400;
             line-height: 1.7;
-            /* color: rgb(0, 0, 0);
-            background: #000; */
         }
 
 
@@ -75,6 +119,8 @@
             font-size: 3.5rem;
             text-transform: uppercase;
             font-weight: 700;
+            font-family: "Lato", sans-serif;
+            line-height: 1.7;
             color: transparent;
             letter-spacing: 0.2rem;
             line-height: 1;
@@ -186,7 +232,7 @@
             width: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            border-radius: 3px;
+            border-radius: 10px;
             overflow: hidden;
             -webkit-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
             box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
@@ -268,18 +314,6 @@
             -webkit-box-align: center;
             -ms-flex-align: center;
             align-items: center;
-        }
-
-        .card__title--1 .fas {
-            font-size: 5rem;
-        }
-
-        .card__title--2 .fas {
-            font-size: 5rem;
-        }
-
-        .card__title--3 .fas {
-            font-size: 5rem;
         }
 
         .card__heading {
@@ -368,12 +402,40 @@
         }
 
         .row .col-1-of-3 {
-            width: calc((100% - 2 * 6rem) / 3);
+            width: calc((100% - 2 * 6rem) /3);
         }
+
+        /*PARA EL CELULAR*/
+
+        /* .row .col-1-of-3 {
+            width: calc((100% - 2 * 6rem));
+        }
+
+        .row [class^="col-"] {
+            float: center;
+        } */
     </style>
 </head>
 
 <body>
+    <nav class="nav">
+        <a href="/alumnosView/humanito.html" class="nav__link">
+            <i class="material-icons">accessibility</i>
+            <span class="nav__texy">Cuerpo</span>
+        </a>
+        <a href="/alumnosView/clases.html" class="nav__link">
+            <i class="material-icons">note_alt</i>
+            <span class="nav__texy">Clases</span>
+        </a>
+        <a href="/alumnosView/perfil.html" class="nav__link">
+            <i class="material-icons">person</i>
+            <span class="nav__texy">Perfil</span>
+        </a>
+        <a href="/alumnosView/ajustes.html" class="nav__link nav__link--active">
+            <i class="material-icons">settings</i>
+            <span class="nav__texy">Ajustes</span>
+        </a>
+    </nav>
     <section class="section-plans" id="section-plans">
         <div class="u-center-text u-margin-bottom-big">
             <h2 class="heading-secondary">
@@ -395,6 +457,7 @@
                         <div class="card__details">
                             <ul>
                                 <li>2 MESES</li>
+                                <li>Pase libre</li>
                                 <li>1 consulta con nutricionista</li>
                                 <li>15% descuento tienda online</li>
 
@@ -417,16 +480,15 @@
                 <div class="card">
                     <div class="card__side card__side--front-2">
                         <div class="card__title card__title--2">
-                            <h4 class="card__heading">Plus</h4>
+                            <h4 class="card__heading">ORO</h4>
                         </div>
-
                         <div class="card__details">
                             <ul>
                                 <li>6 MESES</li>
+                                <li>Pase libre</li>
                                 <li>3 consultas con nutricionista</li>
                                 <li>50% descuento tienda online </li>
                                 <li>2 sesiones fisioterapia</li>
-
                             </ul>
                         </div>
                     </div>
@@ -437,7 +499,6 @@
                                 <p class="card__price-value">$15.100</p>
                             </div>
                             <button type="button" class="btn btn--white" onclick="checkout2.open()">Pagar</button>
-
                         </div>
                     </div>
                 </div>
@@ -449,15 +510,14 @@
                         <div class="card__title card__title--3">
                             <h4 class="card__heading">PLATINUM</h4>
                         </div>
-
                         <div class="card__details">
                             <ul>
                                 <li>12 MESES</li>
+                                <li>Pase libre</li>
                                 <li>Consultas nutricionista ilimitadas</li>
                                 <li>50% descuento tienda online</li>
                                 <li>6 sesiones fisioterapia</li>
                                 <li>Personal trainer</li>
-                                <li>.</li>
                             </ul>
                         </div>
                     </div>
@@ -481,7 +541,7 @@
         });
         const checkout1 = mp1.checkout({
             preference: {
-                id: '130151352-7312affa-a9f7-46fd-bc1c-2e6ab9a022c7' // Indica el ID de preferencia
+                id: '130151352-01bf9a22-775d-4de0-bba9-1e571378e6a1' // Indica el ID de preferencia
             }
         });
 
@@ -492,7 +552,7 @@
         });
         const checkout2 = mp2.checkout({
             preference: {
-                id: '130151352-a3c4dd0e-7aba-4bb6-8056-566e6b93e04c'
+                id: '130151352-57150d14-dbe9-4499-a5df-aa37566c2eee'
             }
         });
 
@@ -505,7 +565,7 @@
         });
         const checkout3 = mp3.checkout({
             preference: {
-                id: '130151352-6d891379-542c-4919-9787-89324e1c2452'
+                id: '130151352-e51447f1-37c3-4c42-9771-26ada8028fbe'
             }
         });
 

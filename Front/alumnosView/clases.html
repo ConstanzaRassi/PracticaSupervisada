@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="alumnoStyle.css">
+    <title>Perfil</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <a href="/alumnosView/humanito.html" class="nav__link">
+            <i class="material-icons">accessibility</i>
+            <span class="nav__texy">Cuerpo</span>
+        </a>
+        <a href="/alumnosView/clases.html" class="nav__link nav__link--active">
+            <i class="material-icons">note_alt</i>
+            <span class="nav__texy">Clases</span>
+        </a>
+        <a href="/alumnosView/perfil.html" class="nav__link">
+            <i class="material-icons">person</i>
+            <span class="nav__texy">Perfil</span>
+        </a>
+        <a href="/alumnosView/ajustes.html" class="nav__link">
+            <i class="material-icons">settings</i>
+            <span class="nav__texy">Ajustes</span>
+        </a>
+    </nav>
+    <div class="container d-flex justify-content-center align-items-center">
+
+        <div class="cardA">
+            <div class="mt-5 text-center">
+                <h4 class="mb-1">Mis clases</h4>
+
+                <span class="text d-block" style="font-size: 13px; color:darkgrey">Funcional 17/05 20:00hs Nueva
+                    Córdoba</span>
+                <button class="btn btn-info btn-sm ">desinscribirme</button>
+                <span class="text d-block" style="font-size: 13px; color:darkgrey">Musculación 18/05 19:00hs Nueva
+                    Córdoba</span>
+                <button class="btn btn-info btn-sm ">desinscribirme</button>
+                <br>
+                <br>
+
+                <h4 class="mb-1">Anotarme</h4>
+                <div class="row">
+                    <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
+                        class='btn btn-outline-danger pl-4 pr-4' value='1'>Funcional</button>
+                    <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
+                        class='btn btn-outline-danger pl-4 pr-4' value='2'>Musculacion</button>
+                    <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
+                        class='btn btn-outline-danger pl-4 pr-4' value='3'>Cardio</button>
+                    <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
+                        class='btn btn-outline-danger pl-4 pr-4' value='4'>Cross</button>
+
+                </div>
+                <div class="container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CLASE</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTabla">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+
+    <script>
+        $(document).on("click", "#btnBaja", function () {
+            $("#cuerpoTabla").empty();
+
+            id = $(this).val();
+            $.ajax({
+                url: "https://localhost:5001/Clase/ObtenerClaseByDisciplina/" + id,
+                type: "GET",
+                ContentType: "application/json",
+                Accept: "application/json",
+                success: function (result) {
+                    if (result.ok) {
+                        // setTimeout(function () { location.replace("http://127.0.0.1:5501/adminView/clases.html"); }, 3000);
+
+                        cargarTabla(result.return);
+
+                    } else {
+                        swal("No puede actualizarse");
+                    }
+                },
+                error: function (error) {
+                    swal("Error en el servidorrrrrr");
+                },
+            })
+        });
+
+        $(document).on("click", "#btnAlta", function () {
+            idClase = $(this).val();
+            // idAlumno=(txtIdAlumno).value;
+            comando = {
+                "idClase": idClase,
+                "idAlumno": 1,
+            };
+            $.ajax({
+                url: "https://localhost:5001/Clase/AltaAlumnosXClase",
+                type: "POST",
+                dataType: 'JSON',
+                contentType: 'application/json',
+                data: JSON.stringify(comando),
+                success: function (result) {
+                    if (result.ok) {
+                        swal("Alta exitosa!");
+                        setTimeout(function () { location.replace("http://127.0.0.1:5501/alumnosView/clases.html"); }, 3000);
+                    } else {
+                        swal(result.error);
+                    }
+                },
+                error: function (error) {
+                    swal("Problemas en el servidor");
+                },
+            })
+        });
+
+        function cargarTabla(datos) {
+            for (let i = 0; i < datos.length; i++) {
+                let html = "<tr>";
+                if (datos[i].cupo == 0) {
+                    html += "<td><button type='button' class='btn btn-secondary btn-block pl-4 pr-4' id='btnAlta' name='btnAlta' data-placement='bottom' disabled value=" + datos[i].idClase + "> " + datos[i].horaDesde + " - " + datos[i].idProfesorNavigation.nombre + " " + datos[i].idProfesorNavigation.apellido + "<br>" + "(" + datos[i].cupo + ")" + "</button></td>";
+                }
+                else {
+                    html += "<td><button type='button' class='btn btn-outline-warning btn-block pl-4 pr-4' id='btnAlta' name='btnAlta' data-placement='bottom' value=" + datos[i].idClase + "> " + datos[i].horaDesde + " - " + datos[i].idProfesorNavigation.nombre + " " + datos[i].idProfesorNavigation.apellido + "<br>" + "(" + datos[i].cupo + ")" + "</button></td>";
+                }
+                html += "</tr>"
+                $("#cuerpoTabla").append(html);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -67,20 +67,32 @@
                         data-toggle="modal" data-target="#agregar">Agregar
                     </button>
                 </div>
+                <div class="row">
+                    <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
+                        class='btn btn-outline-danger pl-4 pr-4' value='1'>Funcional</button>
+                    <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
+                        class='btn btn-outline-danger pl-4 pr-4' value='2'>Musculacion</button>
+                    <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
+                        class='btn btn-outline-danger pl-4 pr-4' value='3'>Cardio</button>
+                    <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
+                        class='btn btn-outline-danger pl-4 pr-4' value='4'>Cross</button>
+
+                </div>
                 <table style="width:1000px; border-radius: 2rem;padding: 2rem;">
                     <thead>
                         <tr>
-                            <th>Nro</th>
-                            <th>Actividad</th>
-                            <th>Sucursal</th>
-                            <th>Profesor</th>
-                            <th>Cupo</th>
-                            <th>Día</th>
-                            <th>Desde</th>
-                            <th>Hasta</th>
+                            <th>HORA</th>
+
+                            <!-- <th>Funcional</th>
+                            <th>Musculación</th>
+                            <th>Crossfit</th>
+                            <th>Cardio</th>
+                            <th>Stretching</th> -->
                         </tr>
                     </thead>
                     <tbody id="cuerpoTabla">
+
+
                     </tbody>
                 </table>
             </div>
@@ -121,89 +133,41 @@
 <script>
     let Clases = [];
 
-    $(document).ready(function () {
+    $(document).on("click", "#btnBaja", function () {
+        $("#cuerpoTabla").empty();
+
+        id = $(this).val();
         $.ajax({
-            url: "https://localhost:5001/Clase/ObtenerClase",
+            url: "https://localhost:5001/Clase/ObtenerClaseByDisciplina/" + id,
             type: "GET",
+            ContentType: "application/json",
+            Accept: "application/json",
             success: function (result) {
                 if (result.ok) {
+                    // setTimeout(function () { location.replace("http://127.0.0.1:5501/adminView/clases.html"); }, 3000);
+
                     cargarTabla(result.return);
+
                 } else {
-                    swal(result.error);
+                    swal("No puede actualizarse");
                 }
             },
-            error: function (Error) {
-                swal("Problemas al conseguir datos de las clases");
+            error: function (error) {
+                swal("Error en el servidorrrrrr");
             },
         })
-
-    })
-
-    function cargarTabla(datos) {
-        for (let i = 0; i < datos.length; i++) {
-            let html = "<tr>";
-            html += "<td id='id'>" + datos[i].idClase + "</td>";
-            html += "<td id='actividad'>" + datos[i].idDisciplinaNavigation.descripcion + "</td>";
-            html += "<td id='sucursal'>" + datos[i].idSucursalNavigation.nombre + "</td>";
-            html += "<td id='profesor'>" + datos[i].idProfesorNavigation.apellido + ', '
-                + datos[i].idProfesorNavigation.nombre + "</td>";
-            html += "<td id='cupo'>" + datos[i].cupo + "</td>";
-            if (datos[i].diaSemana == 1)
-                html += "<td> Domingo </td>";
-            else if (datos[i].diaSemana == 2)
-                html += "<td> Lunes </td>";
-            else if (datos[i].diaSemana == 3)
-                html += "<td> Martes </td>";
-            else if (datos[i].diaSemana == 4)
-                html += "<td> Miércoles </td>";
-            else if (datos[i].diaSemana == 5)
-                html += "<td> Jueves </td>";
-            else if (datos[i].diaSemana == 6)
-                html += "<td> Viernes </td>";
-            else if (datos[i].diaSemana == 7)
-                html += "<td> Sábado </td>";
-            html += "<td id='desde'>" + datos[i].horaDesde + "</td>";
-            html += "<td id='hasta'>" + datos[i].horaHasta + "</td>";
-
-            Clases.push(datos[i]);
-            html += "<td><button type='button' class='btn btn-outline-warning pl-4 pr-4' id='modificar' onclick='modificar(" + datos[i].idClase + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
-                "modificar</button></td>" +
-                "<td><button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja' class='btn btn-outline-danger pl-4 pr-4' value=" + datos[i].idClase + ">Baja</button></td>";
-            html += "</tr>"
-
-            $("#cuerpoTabla").append(html);
-        }
-    }
-
-    $("#btnAgregar").click(function () {
-        let disciplina = $("#txtDisc").val();
-        let sucursal = $("#txtSucursal").val();
-        let profesor = $("#txtProfesor").val();
-        let cupo = $("#txtCupo").val();
-        let dia = $("#txtDia").val();
-        let desde = $("#txtDesde").val();
-        let hasta = $("#txtHasta").val();
-
-        if (disciplina === "" || sucursal === "" || profesor === "" || cupo === "" || dia === "" || desde === "" || hasta === "") {
-            swal("Ingrese los datos requeridos");
-        } else {
-            altaClase(disciplina, sucursal, profesor, cupo, dia, desde, hasta);
-        }
     });
 
-    function altaClase(disciplina, sucursal, profesor, cupo, dia, desde, hasta) {
+    $(document).on("click", "#btnAlta", function () {
+        idClase = $(this).val();
+        console.log(idClase);
         comando = {
-            "idDisciplina": disciplina,
-            "idSucursal": sucursal,
-            "idProfesor": profesor,
-            "cupo": cupo,
-            "diaSemana": dia,
-            "horaDesde": desde,
-            "horaHasta": hasta,
-            "estado": 1
+            "idClase": idClase,
+            "idAlumno": 1,
+
         };
         $.ajax({
-            url: "https://localhost:5001/Clase/AltaClase",
+            url: "https://localhost:5001/Clase/AltaAlumnosXClase",
             type: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
@@ -211,7 +175,7 @@
             success: function (result) {
                 if (result.ok) {
                     swal("Alta exitosa!");
-                    setTimeout(function () { location.replace("http://127.0.0.1:5501/adminView/listClases.html"); }, 3000);
+                    setTimeout(function () { location.replace("https://localhost:5001/Clase/AltaAlumnosXClase"); }, 3000);
                 } else {
                     swal(result.error);
                 }
@@ -220,30 +184,74 @@
                 swal("Problemas en el servidor");
             },
         })
+    });
+
+    function cargarTabla(datos) {
+        for (let i = 0; i < datos.length; i++) {
+            let html = "<tr>";
+            if (datos[i].cupo == 0) {
+                html += "<td><button type='button' class='btn btn-secondary btn-block pl-4 pr-4' id='btnAlta' name='btnAlta' data-placement='bottom' disabled value=" + datos[i].idClase + "> " + datos[i].horaDesde + " - " + datos[i].idProfesorNavigation.nombre + " " + datos[i].idProfesorNavigation.apellido + "<br>" + "(" + datos[i].cupo + ")" + "</button></td>";
+            }
+            else {
+                html += "<td><button type='button' class='btn btn-outline-warning btn-block pl-4 pr-4' id='btnAlta' name='btnAlta' data-placement='bottom' value=" + datos[i].idClase + "> " + datos[i].horaDesde + " - " + datos[i].idProfesorNavigation.nombre + " " + datos[i].idProfesorNavigation.apellido + "<br>" + "(" + datos[i].cupo + ")" + "</button></td>";
+            }
+            html += "</tr>"
+            $("#cuerpoTabla").append(html);
+        }
+    }
+
+    function cargarTabla1(datos) {
+        let html = "<tr>";
+        for (let i = 0; i < datos.length; i++) {
+            if (datos[i].horaDesde == "18:00") {
+                if (datos[i].idDisciplina == 1) {
+                    html += "<td><button type='button' class='btn btn-outline-warning pl-4 pr-4' id='modificar'data-placement='bottom'>" + datos[i].cupo + "<br>" + datos[i].horaDesde + "</button></td>";
+                    continue;
+                }
+                else {
+                    html += "<td></td>";
+                }
+                if (datos[i].idDisciplina == 2) {
+                    html += "<td><button type='button' class='btn btn-outline-warning pl-4 pr-4' id='modificar'data-placement='bottom'>" + datos[i].cupo + "<br>" + datos[i].horaDesde + "</button></td>";
+                    continue;
+                }
+                else {
+                    html += "<td></td>";
+                }
+                if (datos[i].idDisciplina == 3) {
+                    html += "<td><button type='button' class='btn btn-outline-warning pl-4 pr-4' id='modificar'data-placement='bottom'>" + datos[i].cupo + "<br>" + datos[i].horaDesde + "</button></td>";
+                    continue;
+                }
+                else {
+                    html += "<td></td>";
+                }
+                if (datos[i].idDisciplina == 4) {
+                    html += "<td><button type='button' class='btn btn-outline-warning pl-4 pr-4' id='modificar'data-placement='bottom'>" + datos[i].cupo + "<br>" + datos[i].horaDesde + "</button></td>";
+                    continue;
+                }
+                else {
+                    html += "<td></td>";
+                }
+                if (datos[i].idDisciplina == 5) {
+                    html += "<td><button type='button' class='btn btn-outline-warning pl-4 pr-4' id='modificar'data-placement='bottom'>" + datos[i].cupo + "<br>" + datos[i].horaDesde + "</button></td>";
+                    continue;
+                }
+                else {
+                    html += "<td></td>";
+                }
+
+            }
+
+            // html += "</tr>"
+        }
+
+        html += "</tr>"
+        $("#cuerpoTabla").append(html);
+
     }
 
 
-    $(document).on("click", "#btnBaja", function () {
-        id = $(this).val();
-        $.ajax({
-            url: "https://localhost:5001/Clase/UpdateEstado/" + id,
-            type: "PUT",
-            ContentType: "application/json",
-            Accept: "application/json",
-            success: function (result) {
-                if (result.ok) {
-                    swal("Cambió de estado correctamente");
-                    setTimeout(function () { location.replace("http://127.0.0.1:5501/adminView/listClases.html"); }, 3000);
 
-                } else {
-                    swal("No puede actualizarse");
-                }
-            },
-            error: function (error) {
-                swal("Error en el servidor");
-            },
-        })
-    });
 </script>
 
 </html>

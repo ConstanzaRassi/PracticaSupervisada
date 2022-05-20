@@ -1,45 +1,299 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    box-sizing: border-box;
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap"); */
+
+
+body {
+    background-image: url(https://media.istockphoto.com/photos/textured-black-background-picture-id675011656?b=1&k=6&m=675011656&s=170667a&w=0&h=7Rj0hsWoMixJR_FeljWvDQgejxj2f8kBe_WiGvJlfoE=);
+    background-attachment: fixed;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    height: 100vh;
+    background-size: cover;
+    background-attachment: fixed;
+    color: white;
+}
+
+.nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    overflow-x: auto;
+}
+
+.nav__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    min-width: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: sans-serif;
+    font-size: 13px;
+    color: #747474;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.1 ease-in-out;
+}
+
+.nav__link:hover {
+    background-color: #62626223;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    color: #747474;
+}
+
+.nav__link--active {
+    color: #29a3b6;
+}
+
+.nav__link--active:hover {
+    color: #29a3b6;
+}
+
+.nav__icon {
+    font-size: 18px;
 }
 
 .container {
-    width: 100%;
     height: 100vh;
-    background: #8b8bd5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+.card {
+    width: 380px;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+    background-color: rgba(168, 168, 168, 0.112);
+    position: relative;
+    margin-bottom: 4rem;
+    height: 420px;
+}
+
+.cardA {
+    width: 380px;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+    background-color: rgba(168, 168, 168, 0.112);
+    position: relative;
+    margin-bottom: 4rem;
+    height: 600px;
+}
+
+.upper {
+    height: 100px;
+}
+
+.upper img {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.user {
+    position: relative;
+}
+
+.profile img {
+    height: 80px;
+    width: 80px;
+    margin-top: 2px;
 }
 
 .profile {
-    width: 90%;
-    max-width: 320px;
-    background-color: rgb(103, 43, 167);
-    text-align: center;
-    padding: 30px 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-}
-
-.user-img {
-    width: 100px;
+    position: absolute;
+    top: -20px;
+    left: 38%;
+    height: 90px;
+    width: 90px;
+    border: 3px solid rgba(255, 255, 255, 0.251);
+    color: white;
     border-radius: 50%;
 }
 
-.profile h2 {
+.follow {
+    border-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 35px;
+}
+
+.stats span {
+    font-size: 17px;
+}
+
+
+/* SECCIÓN DE AJUSTES */
+.wrapper {
+    display: flex;
+    padding-top: 50px;
+    justify-content: center;
+}
+
+.collapsible {
+    width: 800px;
+    overflow: hidden;
+
     font-weight: 500;
-    font-size: 22px;
-    margin-top: 20px;
-
 }
 
-.profile p {
-    font-size: 12px;
+.collapsible input {
+    display: none;
 }
 
-.footer {
-    justify-content: space-between;
+.collapsible label {
+    position: relative;
+    font-size: 20px;
+    font-weight: 600;
+    background: rgba(215, 215, 215, 0.669);
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .1), 0 4px 11px 0 rgba(0, 0, 0, .08);
+    color: rgb(10, 10, 10);
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 15px 10px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.collapsible input:checked label:after {
+    transform: rotate(90deg);
+}
+
+.collapsible label:before {
+    content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
+
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    width: 18px;
+    height: 18px;
+    color: rgba(191, 0, 0, 0.669);
+    /* background: url(/img/logo.png) no-repeat 0 0; */
+    transition: all 0.3s ease;
+}
+
+.collapsible-text {
+    max-height: 1px;
+    overflow: hidden;
+    border-radius: 4px;
+    line-height: 1.4;
+    position: relative;
+    top: -100%;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.collapsible input:checked~.collapsible-text {
+    max-height: 1300px;
+    padding-bottom: 25px;
+    background: rgba(215, 215, 215, 0.669);
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .1), 0 4px 11px 0 rgba(0, 0, 0, .08);
+    opacity: 1;
+    top: 0;
+}
+
+.collapsible-text h2 {
+    margin-bottom: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 15px 15px 0;
+    color: rgb(0, 0, 0);
+}
+
+.collapsible-text p {
+    padding-left: 15px;
+    padding-right: 15px;
+    color: black;
+}
+
+.wrapper2 {
+    display: flex;
+    padding-top: 50px;
+    justify-content: center;
+}
+
+.collapsible2 {
+    width: 800px;
+    overflow: hidden;
+
+    font-weight: 500;
+}
+
+.collapsible2 input {
+    display: none;
+}
+
+.collapsible2 label {
+    position: relative;
+    font-size: 20px;
+    font-weight: 600;
+    background: rgba(215, 215, 215, 0.669);
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .1), 0 4px 11px 0 rgba(0, 0, 0, .08);
+    color: rgb(10, 10, 10);
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 15px 10px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.collapsible2 input:checked label:after {
+    transform: rotate(90deg);
+}
+
+.collapsible2 label:after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    width: 18px;
+    height: 18px;
+    color: rgba(191, 0, 0, 0.669);
+    background: url(/img/logo.png) no-repeat 0 0;
+    transition: all 0.3s ease;
+}
+
+.collapsible-text2 {
+    max-height: 1px;
+    overflow: hidden;
+    border-radius: 4px;
+    line-height: 1.4;
+    position: relative;
+    top: -100%;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.collapsible2 input:checked~.collapsible-text2 {
+    max-height: 1300px;
+    padding-bottom: 25px;
+    background: rgba(215, 215, 215, 0.669);
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .1), 0 4px 11px 0 rgba(0, 0, 0, .08);
+    opacity: 1;
+    top: 0;
+}
+
+.collapsible-text2 h2 {
+    margin-bottom: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 15px 15px 0;
+    color: rgb(0, 0, 0);
+}
+
+.collapsible-text2 p {
+    padding-left: 15px;
+    padding-right: 15px;
+    color: black;
+}
+
+.salir {
+    display: flex;
 }
