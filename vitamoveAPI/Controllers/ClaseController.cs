@@ -14,7 +14,7 @@ namespace vitamoveAPI.Controllers
     //[Route("[controller]")]
     public class ClaseController : ControllerBase
     {
-        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly vitamoveContext db = new vitamoveContext();
         private readonly ILogger<ClaseController> _logger;
 
         public ClaseController(ILogger<ClaseController> logger)
@@ -31,10 +31,14 @@ namespace vitamoveAPI.Controllers
             resultado.Return = db.Clases.Include(c => c.IdDisciplinaNavigation)
                                           .Include(c => c.IdSucursalNavigation)
                                           .Include(c => c.IdProfesorNavigation)
-                                          .OrderBy(c=>c.IdClase)
+                                          .Where(c=> c.Estado==1)
+                                          .OrderBy(c => c.HoraDesde)
+                                          .ThenBy(c => c.IdDisciplina)                                        
                                           .ToList();
             return resultado;
         }
+
+        
 
         [HttpGet]
         [Route("[controller]/ObtenerClase/{id}")]
@@ -61,7 +65,7 @@ namespace vitamoveAPI.Controllers
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerClase/{id_disciplina}")]
+        [Route("[controller]/ObtenerClaseByDisciplina/{id}")]
         public ActionResult<ResultAPI> GetByDisciplina(int id)
         {
             var resultado = new ResultAPI();
@@ -69,15 +73,44 @@ namespace vitamoveAPI.Controllers
             {
                 resultado.Ok = true;
                 resultado.Return = db.Clases.Where(c => c.IdDisciplina == id)
-                                     .OrderBy(c=>c.DiaSemana)  
-                                     .ToList();  
+                                            .Include(c => c.IdSucursalNavigation)
+                                            .Include(c => c.IdProfesorNavigation)
+                                            .OrderBy(c => c.HoraDesde)
+                                            
+                                            //.GroupBy(c=>c.IdSucursal)
+                                            .ToList();
                 return resultado;
             }
 
             catch (Exception ex)
             {
                 resultado.Ok = false;
-                resultado.Error = "clase no encontrado";
+                resultado.Error = "clase no encontrada";
+
+                return resultado;
+            }
+        }
+
+        [HttpGet]
+        [Route("[controller]/ObtenerClasesByAlumno/{id}")]
+        public ActionResult<ResultAPI> GetByAlumno(int id)
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+                resultado.Ok = true;
+                resultado.Return = db.ClaseAlumnos.Where(c => c.IdAlumno == id)
+                                            .Include(c => c.IdClaseNavigation)
+                                            .Include(c => c.IdAlumnoNavigation)
+                                            .OrderBy(c => c.IdClase)
+                                            .ToList();
+                return resultado;
+            }
+
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "clases no encontradas para este alumno";
 
                 return resultado;
             }
@@ -201,6 +234,7 @@ namespace vitamoveAPI.Controllers
             clase.DiaSemana = comando.DiaSemana;
             clase.HoraDesde = comando.HoraDesde;
             clase.HoraHasta = comando.HoraHasta;
+            clase.Estado = 1;
 
 
             db.Clases.Add(clase);
@@ -208,6 +242,41 @@ namespace vitamoveAPI.Controllers
 
             resultado.Ok = true;
             resultado.Return = db.Clases.ToList();
+
+            return resultado;
+        }
+
+        [HttpPost]
+        [Route("[controller]/AltaAlumnosXClase")]
+        public ActionResult<ResultAPI> AltaClaseXAlumnos([FromBody] comandoCrearAlumnosXClase comando)
+        {
+            var resultado = new ResultAPI();
+            if (comando.IdClase.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese disciplina";
+                return resultado;
+            }
+            if (comando.IdAlumno.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese sucursal";
+                return resultado;
+            }
+            
+            var clase = new ClaseAlumno();
+            clase.IdClase = comando.IdClase;
+            clase.IdAlumno = comando.IdAlumno;
+            clase.Estado = 1;
+
+
+            //aca tengo que quitar un cupo a la clase :)
+
+            db.ClaseAlumnos.Add(clase);
+            db.SaveChanges();
+
+            resultado.Ok = true;
+            resultado.Return = db.ClaseAlumnos.ToList();
 
             return resultado;
         }
@@ -270,6 +339,7 @@ namespace vitamoveAPI.Controllers
                 clase.DiaSemana = comando.DiaSemana;
                 clase.HoraDesde = comando.HoraDesde;
                 clase.HoraHasta = comando.HoraHasta;
+                clase.Estado = 1;
                 db.Clases.Update(clase);
                 db.SaveChanges();
             }

@@ -5,16 +5,17 @@ using System.Collections.Generic;
 
 namespace vitamoveAPI.Models
 {
-    public partial class Sucursales
+    public partial class Sucursal
     {
-        public Sucursales()
+        public Sucursal()
         {
             Clases = new HashSet<Clase>();
         }
 
         public int IdSucursal { get; set; }
         public string Nombre { get; set; }
-        public string Dirección { get; set; }
+        public string Direccion { get; set; }
+        public int? Estado { get; set; }
         public int? IdBarrio { get; set; }
 
         public virtual Barrio IdBarrioNavigation { get; set; }

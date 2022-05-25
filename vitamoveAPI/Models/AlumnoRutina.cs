@@ -9,6 +9,7 @@ namespace vitamoveAPI.Models
     {
         public int IdAlumno { get; set; }
         public int IdRutina { get; set; }
+        public int? Estado { get; set; }
 
         public virtual Alumno IdAlumnoNavigation { get; set; }
         public virtual Rutina IdRutinaNavigation { get; set; }

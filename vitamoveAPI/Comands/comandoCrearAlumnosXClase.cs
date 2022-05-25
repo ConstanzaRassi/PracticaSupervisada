@@ -6,6 +6,6 @@ namespace vitamoveAPI.Comands
     {       
         public int IdClase { get; set; }
         public int IdAlumno { get; set; }
-        public DateTime? Fecha { get; set; }
+        public int Estado { get; set; }
     }
 }

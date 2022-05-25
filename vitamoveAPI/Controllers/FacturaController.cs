@@ -15,7 +15,7 @@ namespace vitamoveAPI.Controllers
     public class FacturaController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly vitamoveContext db = new vitamoveContext();
         private readonly ILogger<FacturaController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
         public FacturaController(ILogger<FacturaController> logger)
@@ -30,12 +30,12 @@ namespace vitamoveAPI.Controllers
             var resultado = new ResultAPI();
             try
             {
-            resultado.Ok = true;
-            resultado.Return = db.Facturas.Include(c=>c.IdAlumnoNavigation)
-                                          .Include(c => c.IdPlanNavigation)
-                                          .Include(c => c.CodPagoNavigation)
-                                          .ToList();
-            return resultado;
+                resultado.Ok = true;
+                resultado.Return = db.Facturas.Include(c => c.IdAlumnoNavigation)
+                                              .Include(c => c.IdPlanNavigation)
+                                              .Include(c => c.CodPagoNavigation)
+                                              .ToList();
+                return resultado;
             }
             catch (Exception ex)
             {
@@ -57,7 +57,7 @@ namespace vitamoveAPI.Controllers
                 var factura = db.Facturas.Where(c => c.IdFactura == id).FirstOrDefault()
                    ;
                 resultado.Ok = true;
-                
+
                 resultado.Return = factura;
 
                 return resultado;
@@ -137,12 +137,20 @@ namespace vitamoveAPI.Controllers
                 resultado.Error = "ingrese documento";
                 return resultado;
             }
+            if (comando.Total.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese total";
+                return resultado;
+            }
 
 
             var factura = new Factura();
             factura.IdAlumno = comando.IdAlumno;
             factura.IdPlan = comando.IdPlan;
             factura.Fecha = comando.Fecha;
+            factura.Total = comando.Total;
+
 
             db.Facturas.Add(factura);
             db.SaveChanges();

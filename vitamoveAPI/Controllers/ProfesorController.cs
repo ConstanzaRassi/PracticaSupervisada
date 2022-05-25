@@ -15,7 +15,7 @@ namespace vitamoveAPI.Controllers
     public class ProfesorController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly vitamoveContext db = new vitamoveContext();
         private readonly ILogger<ProfesorController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
         public ProfesorController(ILogger<ProfesorController> logger)
@@ -29,7 +29,7 @@ namespace vitamoveAPI.Controllers
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Profesores.Include(c=>c.IdSexoNavigation)
+            resultado.Return = db.Profesores.Include(c => c.IdSexoNavigation)
                                             .ToList();
             return resultado;
         }
@@ -58,26 +58,7 @@ namespace vitamoveAPI.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("[controller]/ObtenerSexos")]
-        public ActionResult<ResultAPI> getSexos()
-        {
-            var resultado = new ResultAPI();
-            try
-            {
-                resultado.Ok = true;
-                resultado.Return = db.Sexos.ToList();
-
-                return resultado;
-            }
-            catch (Exception ex)
-            {
-                resultado.Ok = false;
-                resultado.Error = "Error al encontrar sexos";
-
-                return resultado;
-            }
-        }
+        
 
         [HttpPost] //nosotros ingresamos los datos
         [Route("[controller]/AltaProfesor")]
@@ -107,7 +88,7 @@ namespace vitamoveAPI.Controllers
                 resultado.Ok = false;
                 resultado.Error = "ingrese fecha de nacimiento";
                 return resultado;
-            }
+            }            
             if (comando.IdSexo.Equals(""))
             {
                 resultado.Ok = false;
@@ -121,6 +102,7 @@ namespace vitamoveAPI.Controllers
             prof.Apellido = comando.Apellido;
             prof.Dni = comando.Dni;
             prof.FecNacimiento = comando.FecNacimiento;
+            prof.Estado = 1;
             prof.IdSexo = comando.IdSexo;
 
 
@@ -176,6 +158,7 @@ namespace vitamoveAPI.Controllers
                 prof.Apellido = comando.Apellido;
                 prof.Dni = comando.Dni;
                 prof.FecNacimiento = comando.FecNacimiento;
+                prof.Estado = 1;
                 prof.IdSexo = comando.IdSexo;
                 db.Profesores.Update(prof);
                 db.SaveChanges();
@@ -190,21 +173,21 @@ namespace vitamoveAPI.Controllers
         [Route("[controller]/UpdateEstadoProfesor/{id}")]
         public ActionResult<ResultAPI> UpdateEstadoProfesor(int id)
         {
-            var resultado = new ResultAPI();           
+            var resultado = new ResultAPI();
 
             var prof = db.Profesores.Where(c => c.IdProfesor == id).FirstOrDefault();
-            //if (prof != null && prof.Estado==1)
-            //{
-            //    prof.Estado = 0;
-            //    db.Profesores.Update(prof);
-            //    db.SaveChanges();                
-            //}
-            //else if (prof != null && prof.Estado == 0)
-            //{
-            //    prof.Estado = 1;
-            //    db.Profesores.Update(prof);
-            //    db.SaveChanges();
-            //}
+            if (prof != null && prof.Estado == 1)
+            {
+                prof.Estado = 0;
+                db.Profesores.Update(prof);
+                db.SaveChanges();
+            }
+            else if (prof != null && prof.Estado == 0)
+            {
+                prof.Estado = 1;
+                db.Profesores.Update(prof);
+                db.SaveChanges();
+            }
 
             resultado.Ok = true;
             resultado.Return = db.Profesores.ToList();

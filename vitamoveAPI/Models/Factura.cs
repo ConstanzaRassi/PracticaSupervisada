@@ -16,6 +16,6 @@ namespace vitamoveAPI.Models
 
         public virtual FormasPago CodPagoNavigation { get; set; }
         public virtual Alumno IdAlumnoNavigation { get; set; }
-        public virtual Planes IdPlanNavigation { get; set; }
+        public virtual Plan IdPlanNavigation { get; set; }
     }
 }

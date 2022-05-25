@@ -10,13 +10,13 @@ namespace vitamoveAPI.Controllers
 {
     [ApiController]
     //[Route("[controller]")]
-    public class UsuarioController : ControllerBase //hereda de controllerbase
+    public class GeneralController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamove2Context db = new vitamove2Context();
-        private readonly ILogger<UsuarioController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
+        private readonly vitamoveContext db = new vitamoveContext();
+        private readonly ILogger<GeneralController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
-        public UsuarioController(ILogger<UsuarioController> logger)
+        public GeneralController(ILogger<GeneralController> logger)
         {
             _logger = logger;
         }
@@ -32,16 +32,16 @@ namespace vitamoveAPI.Controllers
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerAlumno/{id}")] //{igual que el get(idUsuario)}
-        public ActionResult<ResultAPI> Get3(int id)
+        [Route("[controller]/ObtenerEjercicio/{id}")] //{igual que el get(idUsuario)}
+        public ActionResult<ResultAPI> GetEjercicio(int id)
         {
             var resultado = new ResultAPI();
             try
             {
 
-                var alu = db.Alumnos.Where(c => c.IdAlumno == id).FirstOrDefault();
+                var ejer = db.CuerpoEjercicios.Where(c => c.IdEj == id).FirstOrDefault();
                 resultado.Ok = true;
-                resultado.Return = alu;
+                resultado.Return = ejer;
 
                 return resultado;
             }
@@ -49,7 +49,7 @@ namespace vitamoveAPI.Controllers
             catch (Exception ex)
             {
                 resultado.Ok = false;
-                resultado.Error = "Alumno no encontrado";
+                resultado.Error = "Ejercicio no encontrado";
 
                 return resultado;
             }

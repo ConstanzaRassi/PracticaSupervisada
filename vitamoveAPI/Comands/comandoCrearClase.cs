@@ -10,7 +10,8 @@ namespace vitamoveAPI.Comands
         public int? IdProfesor { get; set; }
         public int? Cupo { get; set; }
         public int? DiaSemana { get; set; }
-        public DateTime? HoraDesde { get; set; }
-        public DateTime? HoraHasta { get; set; }
+        public string HoraDesde { get; set; }
+        public string HoraHasta { get; set; }
+        public int Estado { get; set; }
     }
 }

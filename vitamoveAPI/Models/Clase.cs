@@ -18,12 +18,13 @@ namespace vitamoveAPI.Models
         public int? IdProfesor { get; set; }
         public int? Cupo { get; set; }
         public int? DiaSemana { get; set; }
-        public DateTime? HoraDesde { get; set; }
-        public DateTime? HoraHasta { get; set; }
+        public string HoraDesde { get; set; }
+        public string HoraHasta { get; set; }
+        public int? Estado { get; set; }
 
         public virtual Disciplina IdDisciplinaNavigation { get; set; }
         public virtual Profesor IdProfesorNavigation { get; set; }
-        public virtual Sucursales IdSucursalNavigation { get; set; }
+        public virtual Sucursal IdSucursalNavigation { get; set; }
         public virtual ICollection<ClaseAlumno> ClaseAlumnos { get; set; }
     }
 }

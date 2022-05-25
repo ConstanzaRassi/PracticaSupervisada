@@ -15,7 +15,7 @@ namespace vitamoveAPI.Controllers
     public class SucursalController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly vitamoveContext db = new vitamoveContext();
         private readonly ILogger<SucursalController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
         public SucursalController(ILogger<SucursalController> logger)
@@ -29,7 +29,7 @@ namespace vitamoveAPI.Controllers
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Sucursales.Include(c=>c.IdBarrioNavigation)
+            resultado.Return = db.Sucursales.Include(c => c.IdBarrioNavigation)
                                             .OrderBy(c => c.IdSucursal)
                                             .ToList();
             return resultado;
@@ -81,8 +81,8 @@ namespace vitamoveAPI.Controllers
         }
 
         [HttpPost] //nosotros ingresamos los datos
-        [Route("[controller]/AltaProfesor")]
-        public ActionResult<ResultAPI> AltaProfesor([FromBody] comandoCrearProfesor comando)
+        [Route("[controller]/AltaSucursal")]
+        public ActionResult<ResultAPI> AltaSucursal([FromBody] comandoCrearSucursal comando)
         {
             var resultado = new ResultAPI();
             if (comando.Nombre.Equals(""))
@@ -91,45 +91,33 @@ namespace vitamoveAPI.Controllers
                 resultado.Error = "ingrese nombre";
                 return resultado;
             }
-            if (comando.Apellido.Equals(""))
+            if (comando.Direccion.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese apellido";
+                resultado.Error = "ingrese direccion";
                 return resultado;
             }
-            if (comando.Dni.Equals(""))
+            if (comando.IdBarrio.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese documento";
+                resultado.Error = "ingrese barrio";
                 return resultado;
-            }
-            if (comando.FecNacimiento.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese fecha de nacimiento";
-                return resultado;
-            }
-            if (comando.IdSexo.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese sexo";
-                return resultado;
-            }
+            }            
 
 
-            var prof = new Profesor();
-            prof.Nombre = comando.Nombre;
-            prof.Apellido = comando.Apellido;
-            prof.Dni = comando.Dni;
-            prof.FecNacimiento = comando.FecNacimiento;
-            prof.IdSexo = comando.IdSexo;
+            var suc = new Sucursal();
+            suc.Nombre = comando.Nombre;
+            suc.Direccion = comando.Direccion;
+            suc.IdBarrio = comando.IdBarrio;
+            suc.Estado = 1;
+            
 
 
-            db.Profesores.Add(prof);
-            db.SaveChanges(); //siempre despues de un insert, update etc hacer el SaveChanges()
+            db.Sucursales.Add(suc);
+            db.SaveChanges();
 
             resultado.Ok = true;
-            resultado.Return = db.Profesores.ToList();
+            resultado.Return = db.Sucursales.ToList();
 
             return resultado;
         }
@@ -184,6 +172,32 @@ namespace vitamoveAPI.Controllers
 
             resultado.Ok = true;
             resultado.Return = db.Profesores.ToList();
+
+            return resultado;
+        }
+
+        [HttpPut]
+        [Route("[controller]/UpdateEstado/{id}")]
+        public ActionResult<ResultAPI> UpdateEstadoSucursal(int id)
+        {
+            var resultado = new ResultAPI();
+
+            var suc = db.Sucursales.Where(c => c.IdSucursal == id).FirstOrDefault();
+            if (suc != null && (suc.Estado == 1 || suc.Estado == 2))
+            {
+                suc.Estado = 0;
+                db.Sucursales.Update(suc);
+                db.SaveChanges();
+            }
+            else if (suc != null && suc.Estado == 0)
+            {
+                suc.Estado = 1;
+                db.Sucursales.Update(suc);
+                db.SaveChanges();
+            }
+
+            resultado.Ok = true;
+            resultado.Return = db.Sucursales.ToList();
 
             return resultado;
         }

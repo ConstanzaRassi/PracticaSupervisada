@@ -9,13 +9,12 @@ using vitamoveAPI.Comands;
 
 namespace vitamoveAPI.Controllers
 {
-    [ApiController]
-    //[Route("[controller]")]
-    public class AlumnoController : ControllerBase //hereda de controllerbase
+    [ApiController]    
+    public class AlumnoController : ControllerBase
     {
 
-        private readonly vitamove2Context db = new vitamove2Context();
-        private readonly ILogger<AlumnoController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
+        private readonly vitamoveContext db = new vitamoveContext();
+        private readonly ILogger<AlumnoController> _logger;
 
         public AlumnoController(ILogger<AlumnoController> logger)
         {
@@ -30,12 +29,12 @@ namespace vitamoveAPI.Controllers
             resultado.Ok = true;
             resultado.Return = db.Alumnos.Include(c => c.IdSexoNavigation)
                                          .OrderBy(c => c.IdAlumno)
-                                         .ToList(); 
+                                         .ToList();
             return resultado;
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerAlumno/{id}")] //{igual que el get(idUsuario)}
+        [Route("[controller]/ObtenerById/{id}")]
         public ActionResult<ResultAPI> GetById(int id)
         {
             var resultado = new ResultAPI();
@@ -43,8 +42,8 @@ namespace vitamoveAPI.Controllers
             {
                 resultado.Ok = true;
                 resultado.Return = db.Alumnos.Include(c => c.IdSexoNavigation)
-                                    .Where(c => c.IdAlumno == id)   
-                                    .FirstOrDefault();  
+                                    .Where(c => c.IdAlumno == id)
+                                    .FirstOrDefault();
                 return resultado;
             }
 
@@ -58,7 +57,7 @@ namespace vitamoveAPI.Controllers
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerAlumno/{dni}")]
+        [Route("[controller]/ObtenerByDni/{dni}")]
         public ActionResult<ResultAPI> GetByDni(string dni)
         {
             var resultado = new ResultAPI();
@@ -66,7 +65,7 @@ namespace vitamoveAPI.Controllers
             {
                 resultado.Ok = true;
                 resultado.Return = db.Alumnos.Include(c => c.IdSexoNavigation)
-                                    .Where(c => c.Dni== dni)
+                                    .Where(c => c.Dni == dni)
                                     .FirstOrDefault();
                 return resultado;
             }
@@ -99,7 +98,7 @@ namespace vitamoveAPI.Controllers
             }
         }
 
-        [HttpPost] //nosotros ingresamos los datos
+        [HttpPost]
         [Route("[controller]/AltaAlumno")]
         public ActionResult<ResultAPI> AltaAlumno([FromBody] comandoCrearAlumno comando)
         {
@@ -122,6 +121,12 @@ namespace vitamoveAPI.Controllers
                 resultado.Error = "ingrese documento";
                 return resultado;
             }
+            if (comando.Email.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese email";
+                return resultado;
+            }
             if (comando.FecNacimiento.Equals(""))
             {
                 resultado.Ok = false;
@@ -140,12 +145,13 @@ namespace vitamoveAPI.Controllers
             alu.Nombre = comando.Nombre;
             alu.Apellido = comando.Apellido;
             alu.Dni = comando.Dni;
+            alu.Email = comando.Email;
             alu.FecNacimiento = comando.FecNacimiento;
+            alu.Estado = 1;
             alu.IdSexo = comando.IdSexo;
 
-
             db.Alumnos.Add(alu);
-            db.SaveChanges(); //siempre despues de un insert, update etc hacer el SaveChanges()
+            db.SaveChanges();
 
             resultado.Ok = true;
             resultado.Return = db.Alumnos.ToList();
@@ -193,13 +199,7 @@ namespace vitamoveAPI.Controllers
                 resultado.Ok = false;
                 resultado.Error = "ingrese apellido";
                 return resultado;
-            }
-            if (comando.Dni.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese documento";
-                return resultado;
-            }
+            }            
             if (comando.FecNacimiento.Equals(""))
             {
                 resultado.Ok = false;
@@ -221,6 +221,7 @@ namespace vitamoveAPI.Controllers
                 alu.Dni = comando.Dni;
                 alu.FecNacimiento = comando.FecNacimiento;
                 alu.IdSexo = comando.IdSexo;
+                alu.Estado = 1;
                 db.Alumnos.Update(alu);
                 db.SaveChanges();
             }
@@ -232,29 +233,29 @@ namespace vitamoveAPI.Controllers
         }
 
         [HttpPut]
-        [Route("[controller]/UpdateEstadoAlumno/{id}")]
+        [Route("[controller]/UpdateEstado/{id}")]
         public ActionResult<ResultAPI> UpdateEstadoAlumno(int id)
         {
             var resultado = new ResultAPI();
 
             var alum = db.Alumnos.Where(c => c.IdAlumno == id).FirstOrDefault();
-            //if (alum != null && alum.Estado == 1)
-            //{
-            //    alum.Estado = 0;
-            //    db.Profesores.Update(alum);
-            //    db.SaveChanges();
-            //}
-            //else if (alum != null && alum.Estado == 0)
-            //{
-            //    alum.Estado = 1;
-            //    db.Profesores.Update(alum);
-            //    db.SaveChanges();
-            //}
+            if (alum != null && (alum.Estado == 1 || alum.Estado == 2))
+            {
+                alum.Estado = 0;
+                db.Alumnos.Update(alum);
+                db.SaveChanges();
+            }
+            else if (alum != null && alum.Estado == 0)
+            {
+                alum.Estado = 1;
+                db.Alumnos.Update(alum);
+                db.SaveChanges();
+            }
 
             resultado.Ok = true;
-            resultado.Return = db.Profesores.ToList();
+            resultado.Return = db.Alumnos.ToList();
 
             return resultado;
-        }        
+        }
     }
 }
