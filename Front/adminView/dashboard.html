@@ -31,7 +31,7 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="/img/logo.png" alt="">
+                    <img src="/img/logo1.png" alt="">
                     <h2>Vita<span>MOVE</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -72,9 +72,18 @@
 
         <!--MAIN SECTION-->
         <main>
-            <h1>Dashboard</h1>
+            <h1>DASHBOARD</h1>
+
             <div class="date">
-                <input type="date">
+                <h5>Desde:</h5>
+                <input type="date" id="fechaDesde">
+            </div>
+            <div class="date">
+                <h5>Hasta:</h5>
+                <input type="date" id="fechaHasta">
+            </div>
+            <div>
+                <button type="button" id="btnCargar" style="font-size: 30px;">OK</button>
             </div>
             <div class="insights">
 
@@ -82,16 +91,13 @@
                     <span class="material-icons-sharp">analytics</span>
                     <div class="middle">
                         <div class="left">
-                            <h3>Alumnos activos</h3>
-                            <h1>256</h1>
+                            <h3>Promedio de alumnos por clase</h3>
                         </div>
+                        <br>
                         <div class="progress">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="number">
-                                <p>90%</p>
-                            </div>
+
+                            <h1 id="txtPromedioAlumnos" style="margin-top: 20px;">9</h1>
+
                         </div>
                     </div>
                 </div>
@@ -101,15 +107,12 @@
                     <div class="middle">
                         <div class="left">
                             <h3>Total facturado</h3>
-                            <h1>$50000</h1>
                         </div>
+                        <br>
                         <div class="progress">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="number">
-                                <p>69%</p>
-                            </div>
+
+                            <h1 id="txtTotalFacturado" style="margin-top: 20px;">$89020</h1>
+
                         </div>
                     </div>
                 </div>
@@ -118,15 +121,12 @@
                     <div class="middle">
                         <div class="left">
                             <h3>Clases dictadas</h3>
-                            <h1>198452</h1>
                         </div>
+                        <br>
                         <div class="progress">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="number">
-                                <p>89%</p>
-                            </div>
+
+                            <h1 id="txtClasesDictadas" style="margin-top: 20px;">187</h1>
+
                         </div>
                     </div>
                 </div>
@@ -196,32 +196,20 @@
                 </div>
             </div>
 
-            <!--NO SE QUÉ HACER ACA-->
-            <div class="sales-analytics">
-                <h2>ANALISTAS</h2>
-                <div class="item online">
-                    <div class="icon">
-                        <span class="material-icons-sharp">today</span>
-                    </div>
-                    <div class="right">
-                        <div class="info">
-                            <h3> Dia mas concurrido</h3>
-                            <small class="text-muted">Todas las sucursales</small>
-                        </div>
-                        <h2 class="success">Jueves</h2>
 
-                    </div>
-                </div>
-                <div class="item offline">
+            <div class="sales-analytics">
+                <h2>REPORTES</h2>
+                <div class="item customers">
                     <div class="icon">
-                        <span class="material-icons-sharp">local_mall</span>
+                        <span class="material-icons-sharp">person</span>
                     </div>
                     <div class="right">
                         <div class="info">
-                            <h3> Promedio alumnos por clase</h3>
-                            <small class="text-muted">Ultimos 6 meses</small>
+                            <h3 style="font-size: 16px;">Día más concurrido</h3>
+                            <small class="text-muted"></small>
                         </div>
-                        <h2 class="success">9</h2>
+                        <h2 id="txtDiaConcurrencia" style="font-size: 15px; color: darkcyan; text-align: center;">Jueves
+                        </h2>
                     </div>
                 </div>
                 <div class="item customers">
@@ -230,17 +218,165 @@
                     </div>
                     <div class="right">
                         <div class="info">
-                            <h3> New Customers </h3>
-                            <small class="text-muted">Ultimas 24 horas</small>
+                            <h3 style="font-size: 16px;">Alumnos activos</h3>
+                            <small class="text-muted"></small>
                         </div>
-                        <h5 class="success">+25%</h5>
-                        <h3>26</h3>
+
+                        <h2 id="txtAlumnosActivos" style="font-size: 15px; color: darkcyan; text-align: center;">26</h2>
+                    </div>
+                </div>
+                <div class="item customers">
+                    <div class="icon">
+                        <span class="material-icons-sharp">person</span>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3 style="font-size: 16px;">Sucursal más concurrida</h3>
+                            <small class="text-muted"></small>
+                        </div>
+
+                        <h2 id="txtSucursalConcurrencia" style="font-size: 15px; color: darkcyan; text-align: center;">
+                            nueva córdoba</h2>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="/adminView/admin.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+        //Reportes con parametros fechas desde y hasta
+        $("#btnCargar").click(function () {
+            let desde = $("#fechaDesde").val();
+            let hasta = $("#fechaHasta").val();
+            if (desde === "" || hasta === "") {
+                console.log("toma los datos null");
+            } else {
+                cargarDatos(desde, hasta);
+            }
+        });
+
+        function cargarDatos(desde, hasta) {
+            console.log(desde);
+            console.log(hasta);
+
+            $.ajax({
+                url: "https://localhost:5001/Reporte/ObtenerTotalFacturado?desde=" + desde + "&hasta=" + hasta,
+                type: "GET",
+                dataType: 'JSON',
+                success: function (result) {
+                    if (result.ok) {
+                        $('#txtTotalFacturado').html("$" + result.return);
+                    } else {
+                        console.log("encontro algun error");
+                    }
+                },
+                error: function (error) {
+                    console.log("problemas de servidor");
+                },
+            })
+
+
+        }
+
+        //Reportes sin parametros
+        $(document).ready(function () {
+            //inicializo estos para que muestre cuando abre el dashboard
+            // $.ajax({
+            //     url: "https://localhost:5001/Reporte/InicializaPromedio",
+            //     type: "GET",
+            //     success: function (result) {
+            //         if (result.ok) {
+            //             $('#txtPromedioAlumnos').html(result.return);
+            //         } else {
+            //             swal(result.error);
+            //         }
+            //     },
+            //     error: function (error) {
+            //         console.log(); (error);
+            //     },
+            // });
+            $.ajax({
+                url: "https://localhost:5001/Reporte/InicializaFacturacion",
+                type: "GET",
+                success: function (result) {
+                    if (result.ok) {
+                        $('#txtTotalFacturado').html("$" + result.return);
+                    } else {
+                        swal(result.error);
+                    }
+                },
+                error: function (error) {
+                },
+            });
+
+            // $.ajax({
+            //     url: "https://localhost:5001/Reporte//InicializaClasesDictadas",
+            //     type: "GET",
+            //     success: function (result) {
+            //         if (result.ok) {
+            //             $('#txtClasesDictadas').html(result.return);
+            //         } else {
+            //             swal(result.error);
+            //         }
+            //     },
+            //     error: function (error) {
+            //     },
+            // });
+
+            //abajo a la derecha
+            $.ajax({
+                url: "https://localhost:5001/Reporte/ObtenerDiaMayorConcurrencia",
+                type: "GET",
+                success: function (result) {
+                    if (result.ok) {
+                        $('#txtDiaConcurrencia').html(result.return);
+                    } else {
+                        swal(result.error);
+                    }
+                },
+                error: function (error) {
+                    console.log(); (error);
+                },
+            });
+            $.ajax({
+                url: "https://localhost:5001/Reporte/ObtenerAlumnosActivos",
+                type: "GET",
+                success: function (result) {
+                    if (result.ok) {
+                        $('#txtAlumnosActivos').html(result.return);
+                    } else {
+                        swal(result.error);
+                    }
+                },
+                error: function (error) {
+                },
+            });
+
+            $.ajax({
+                url: "https://localhost:5001/Reporte//ObtenerSucursalMayorConcurrencia",
+                type: "GET",
+                success: function (result) {
+                    if (result.ok) {
+                        $('#txtSucursalConcurrencia').html(result.return);
+                    } else {
+                        swal(result.error);
+                    }
+                },
+                error: function (error) {
+                },
+            });
+
+
+        })
+
+
+    </script>
+
+
+
+
 </body>
 
 </html>

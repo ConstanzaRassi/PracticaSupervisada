@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
     <link rel="stylesheet" href="adminStyle.css">
     <title>Document</title>
 </head>
@@ -18,7 +20,7 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="/img/logo.png" alt="">
+                    <img src="/img/logo1.png" alt="">
                     <h2>Vita<span>MOVE</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -66,10 +68,12 @@
                         data-toggle="modal" data-target="#agregar">Agregar
                     </button>
                 </div>
-                <table style="width:1000px; border-radius: 2rem;padding: 2rem;">
+                <br>
+                <br>
+                <table style="width:1000px; border-radius: 2rem;padding: 2rem; margin-top: 20px;">
                     <thead>
                         <tr>
-                            <th>id</th>
+                            <th></th>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Dni</th>
@@ -78,7 +82,7 @@
                             <th>Email</th>
                             <th>Estado</th>
                             <!-- <th>Acción</th> -->
-                            <!-- <span class="material-symbols-outlined">post_add</span> AGREGAR RUTINA-->
+                            <!-- <span class="material-symbols-outlined">post_add</span> AGREGAR RUTINA -->
                             <!-- <span class="material-symbols-outlined">delete</span> ELIMINAR-->
                             <!-- <span class="material-symbols-outlined">edit</span> MODIFICAR-->
                         </tr>
@@ -86,7 +90,6 @@
                     <tbody id="cuerpoTabla">
                     </tbody>
                 </table>
-                <h1 id="txtA">a</h1>
             </div>
         </main>
         <div class="right">
@@ -268,7 +271,7 @@
     </div>
 
     <!-- MODAL PARA CARGAR RUTINA -->
-    <!-- <div class="modal fade" id="rutina" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="rutina" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -279,74 +282,88 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="container d-flex justify-content-center mt-5">
-                        <form>
-                            <div class="row">
-                                <div class="col-12 col-sm-12 sol-md-8 col-lg-8">
-                                    <div class="form-group">
-                                        <label> Disciplina </label>
-                                        <select class="form-control">
-                                            <option id="disabledSelect">Seleccione una disciplina</option readonly>
-                                            <option>Musculacion</option>
-                                            <option>Funcional</option>
-                                        </select>
-                                    </div>
+                    <section class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-tittle">RUTINA</h3>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                                    <div class="form-group">
-                                        <label> Ejercicio </label>
-                                        <select class="form-control">
-                                            <option>Ejercicios</option>
-                                            <option>Sentadillas</option>
-                                            <option>Flexiones</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-8 sol-md-4 col-lg-4">
-                                    <div class="form-group">
-                                        <label> Repeticiones </label>
-                                        <input type="text" class="form-control" id="txtRepeticiones"
-                                            placeholder="Repeticiones">
-                                    </div>
-                                </div>
-                                <div class="col-4 col-sm-4 sol-md-2 col-lg-2">
-                                    <div class="form-group">
-                                        <button type="button" id="btnAgregar" name="btnAgregar"
-                                            class="btn btn-success">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                                <div class="card-body">
+                                    <form class="row">
+                                        <input type="hidden" id="txtDescripcion" class="form-control"></input>
 
-                    </div>
-                    <div class="modal-footer">
-                        <div class="row">
-                            <table style="" ; border-radius: 2rem;padding: 2rem;">
+                                        <div class=" form-group col-md-6">
+                                            <label for="cboSucursal">Disciplina</label>
+                                            <select id="cboEmpleado" class="form-control">
+                                                <option selected>Choose...</option>
+                                                <option>maria</option>
+                                                <option>juana</option>
+                                                <option>coti</option>
+                                                <option>.aa</option>
+                                            </select>
+                                        </div>
+                                        <div class=" form-group col-md-6">
+                                            <label for="txtDescripcion">Descripcion</label>
+                                            <input type="text" id="txtDescripcion" class="form-control"></input>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form class="row" id="formDetalle">
+                                        <div class="form-group col-md-5">
+                                            <label for="">Ejercicio</label>
+                                            <select id="cboEjercicio" class="form-control">
+                                                <option value="1">ho</option>
+                                                <option value="2">la</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label for="">Repes</label>
+                                            <input type="text" class="form-control" id="txtRepeticiones">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="">Tiempo</label>
+                                            <input type="text" class="form-control" id="txtTiempo">
+                                        </div>
+                                        <div class="form-group col-md-1">
+                                            <label for="">s</label>
+                                            <button class="btn btn-primary" type="submit" id="btnAgregar">+</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                    <section class="row mt-3">
+                        <div class="col">
+                            <table class="table text-center">
                                 <thead>
                                     <tr>
                                         <th>Ejercicio</th>
                                         <th>Repeticiones</th>
+                                        <th>Tiempo</th>
+                                        <th>-</th>
                                     </tr>
                                 </thead>
-                                <tbody id="cuerpoTabla">
+                                <tbody id="cuerpoTablaRutina">
                                 </tbody>
                             </table>
-                        </div>                        
-                        <div class="row">
-                            <button type="button" id="btnAgregar" name="btnAgregar"
-                                class="btn btn-success">AGREGAR</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
-
+                    </section>
+                    <div class="col mt-4">
+                        <button class="btn btn-dark btn-lg" id="btnGuardarRutina">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div> -->
-
-
+    </div>
 
     <script src="/adminView/admin.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -363,6 +380,9 @@
 <script>
 
     let Alumnos = []; //este array lo creo para llenarlo con lo que haya en la tabla
+    // $('#txtFecha').datepicker({
+    //     format: 'mm/dd/yyyy',
+    // }).datepicker("setDate", 'now');
 
     //traer datos de alumnos
     $(document).ready(function () {
@@ -386,7 +406,7 @@
     function cargarTabla(datos) {
         for (let i = 0; i < datos.length; i++) {
             let html = "<tr>";
-            html += "<td>" + datos[i].idAlumno + "</td>";
+            html += "<td></td>";
             html += "<td>" + datos[i].nombre + "</td>";
             html += "<td>" + datos[i].apellido + "</td>";
             html += "<td>" + datos[i].dni + "</td>";
@@ -406,18 +426,19 @@
             Alumnos.push(datos[i]);
 
             html += "<td><button type='button' class='btn btn-outline-warning pl-4 pr-4' id='modificar' onclick='modificar(" + datos[i].idAlumno + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
-                "modificar</button></td>" +
-                "<td><button type='button' data-toggle='modal' id='btnRutina' name='rutina' data-target='#rutina' class='btn btn-outline-info pl-4 pr-4' value=" + datos[i].idAlumno + ">+Rutina</button></td>" +
-                "<td><button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja' class='btn btn-outline-danger pl-4 pr-4' value=" + datos[i].idAlumno + ">Baja</button></td>";
+                "<i class='bi bi-pencil-fill'></i></button></td>" +
+                "<td><button type='button' data-toggle='modal' id='btnRutina' name='rutina' data-target='#rutina' class='btn btn-outline-info pl-4 pr-4' value=" + datos[i].idAlumno + "><i class='bi bi-calendar2-plus'></i></button></td>" +
+                "<td><button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja' class='btn btn-outline-danger pl-4 pr-4' value=" + datos[i].idAlumno + "><i class='bi bi-trash-fill'></i></button></td>";
             html += "</tr>"
             $("#cuerpoTabla").append(html);
 
         }
         $('#txtA').html(datos[0].nombre);
-        //$("#txtA") = (datos[0].nombre);
+
     }
 
     $("#btnAgregar").click(function () {
+
         let nombre = $("#txtNombre").val();
         let apellido = $("#txtApellido").val();
         let dni = $("#txtDni").val();
@@ -461,7 +482,6 @@
         })
     }
 
-
     //llenar modal y pasar campos para modificar
     function modificar(id) {
         let idAlumno = id;
@@ -483,7 +503,8 @@
                 ema = Alumnos[i].email;
             }
         }
-
+        // console.log(fec);
+        // console.log($("#txtFechaM").val())
         $("#txtId").val(idAlumno);
         $("#txtNombreM").val(nom);
         $("#txtApellidoM").val(ape);
@@ -541,6 +562,35 @@
         });
     }
 
+    function altaRutina(nombre, apellido, dni, email, fecha, sexo) {
+        comando = {
+            "nombre": nombre,
+            "apellido": apellido,
+            "dni": dni,
+            "email": email,
+            "fecNacimiento": fecha,
+            "idSexo": parseInt(sexo),
+        };
+        $.ajax({
+            url: "https://localhost:5001/Alumno/AltaAlumno",
+            type: "POST",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            success: function (result) {
+                if (result.ok) {
+                    swal("Alta exitosa!");
+                    setTimeout(function () { location.replace("http://127.0.0.1:5501/adminView/listAlumnos.html"); }, 3000);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas en el servidor");
+            },
+        })
+    }
+
 
     //dar de baja
     $(document).on("click", "#btnBaja", function () {
@@ -575,7 +625,68 @@
             edad--;
         }
         return edad;
-    }  
+    }
+
+    function rutina(id) {
+        let idAlumno = id;
+        $("#txtId").val(idAlumno);
+
+        $("#btnGuardarRutina").click(function () {
+            let idAlumno = $("#txtId").val();
+            let nombre = $("#txtNombreM").val();
+            let apellido = $("#txtApellidoM").val();
+            let estado = 1;
+            let sexo = $("#txtSexoM").val();
+            let dni = $("#txtDniM").val();
+            let email = $("#txtEmailM").val();
+            let fecha = $("#txtFechaM").val();
+
+            if (nombre === "" || apellido === "" || sexo === "" || dni === "" || email === "" || fecha === "") {
+                swal("Ingrese los datos requeridos");
+            }
+            else
+                modificarAlumno(idAlumno, nombre, apellido, dni, fecha, estado, sexo);
+        })
+    }
+    //cargar rutina modal
+    const formDetalle = document.getElementById("formDetalle");
+    const cboEjercicio = document.getElementById("cboEjercicio")
+    const txtRepeticiones = document.getElementById("txtRepeticiones")
+    const txtTiempo = document.getElementById("txtTiempo")
+    const cuerpoTablaRutina = document.getElementById("cuerpoTablaRutina")
+
+    let arregloDetalle = [];
+    const redibujarTabla = () => {
+        cuerpoTablaRutina.innerHTML = " ";
+        arregloDetalle.forEach((detalle) => {
+            let fila = document.createElement("tr");
+
+            // fila.innerHTML = '<td>' + detalle.ejercicio + '</td><td>' + detalle.repeticiones + '</td><td>' + detalle.tiempo + '</td>';
+            fila.innerHTML = '<td>hola</td><td>' + detalle.repeticiones + '</td><td>' + detalle.tiempo + '</td>';
+
+            let tdEliminar = document.createElement("td")
+            let btnEliminar = document.createElement("button");
+            btnEliminar.classList.add("btn", "btn-danger");
+            btnEliminar.innerText = "Eliminar";
+            tdEliminar.appendChild(btnEliminar);
+
+            fila.appendChild(tdEliminar);
+            cuerpoTablaRutina.appendChild(fila);
+        })
+    }
+
+
+    formDetalle.onsubmit = (e) => {
+        e.preventDefault();
+        const objDetalle = {
+            ejercicio: cboEjercicio.value,
+            repeticiones: txtRepeticiones.value,
+            tiempo: txtTiempo.value,
+        };
+        arregloDetalle.push(objDetalle);
+        redibujarTabla();
+    }
+
 </script>
 
 </html>

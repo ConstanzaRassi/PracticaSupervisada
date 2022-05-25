@@ -37,44 +37,55 @@
     </nav>
     <div class="container d-flex justify-content-center align-items-center">
 
-        <div class="cardA">
-            <div class="mt-5 text-center">
-                <h4 class="mb-1">Mis clases</h4>
+        <div class="card text-center py-5 px-5">
 
-                <span class="text d-block" style="font-size: 13px; color:darkgrey">Funcional 17/05 20:00hs Nueva
-                    Córdoba</span>
-                <button class="btn btn-info btn-sm ">desinscribirme</button>
-                <span class="text d-block" style="font-size: 13px; color:darkgrey">Musculación 18/05 19:00hs Nueva
-                    Córdoba</span>
-                <button class="btn btn-info btn-sm ">desinscribirme</button>
-                <br>
-                <br>
+            <h5 class="mb-1">MIS CLASES HOY</h5>
 
-                <h4 class="mb-1">Anotarme</h4>
-                <div class="row">
-                    <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
-                        class='btn btn-outline-danger pl-4 pr-4' value='1'>Funcional</button>
-                    <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
-                        class='btn btn-outline-danger pl-4 pr-4' value='2'>Musculacion</button>
-                    <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
-                        class='btn btn-outline-danger pl-4 pr-4' value='3'>Cardio</button>
-                    <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
-                        class='btn btn-outline-danger pl-4 pr-4' value='4'>Cross</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTablaC">
+                </tbody>
+            </table>
 
-                </div>
-                <div class="container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>CLASE</th>
-                            </tr>
-                        </thead>
-                        <tbody id="cuerpoTabla">
-                        </tbody>
-                    </table>
-                </div>
+            <!-- <span class="text d-block" style="font-size: 13px; color:darkgrey">Funcional 20:00hs Nueva
+                Córdoba</span>
+            <button class="btn btn-info btn-sm ">desinscribirme</button>
+            <span class="text d-block" style="font-size: 13px; color:darkgrey">Musculación 19:00hs Nueva
+                Córdoba</span>
+            <button class="btn btn-info btn-sm ">desinscribirme</button> -->
+            <br>
+            <hr style="color: white;">
+            <br>
+
+            <h5 class="mb-1">ANOTARME</h5>
+            <div class="row mb-3">
+                <button type='button' data-toggle='modal' id='btnBaja' style="outline-color: aqua;" name='btnBaja'
+                    data-target='#baja' class='btn btn-outline-danger pl-4 pr-4' value='1'>Funcional</button>
+                <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
+                    class='btn btn-outline-danger pl-4 pr-4' value='2'>Musculacion</button>
+                <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
+                    class='btn btn-outline-danger pl-4 pr-4' value='3'>Cardio</button>
+                <button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja'
+                    class='btn btn-outline-danger pl-4 pr-4' value='4'>Cross</button>
+
             </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>CLASE</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla">
+                </tbody>
+            </table>
         </div>
+
+    </div>
 
     </div>
 
@@ -103,6 +114,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 
     <script>
+        $(document).ready(function () {
+            // id = $("#txtId").val();
+            id = 1;
+
+            $.ajax({
+                url: "https://localhost:5001/Clase/ObtenerClasesByAlumno/" + id,
+                type: "GET",
+                success: function (result) {
+                    if (result.ok) {
+                        cargarTablaC(result.return);
+                    } else {
+                        swal(result.error);
+                    }
+                },
+                error: function (error) {
+                    console.log(); (error);
+                },
+            });
+        })
+
+        //cargar tabla con método anterior
+        function cargarTablaC(datos) {
+            for (let i = 0; i < datos.length; i++) {
+                let html = "<tr>";
+                html += "<td id='id' style='font-size:14px; color:grey;'>" + datos[i].idClaseNavigation.idDisciplina + ' ' + datos[i].idClaseNavigation.horaDesde + 'hs ' + datos[i].idClaseNavigation.idSucursal + "<br>" + "<button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja' style='background-color:grey; font-size:13px; color:white; height: 27px; text-align:center' class='btn pl-4 pr-4' value=" + datos[i].idClase + ">Desinscribirme</button></td>";
+                html += "</tr>"
+
+                $("#cuerpoTablaC").append(html);
+            }
+        }
+
+
         $(document).on("click", "#btnBaja", function () {
             $("#cuerpoTabla").empty();
 

@@ -9,47 +9,7 @@
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="stylesheet" href="alumnoStyle.css">
-
-    <style>
-        .collapsible-link {
-            width: 100%;
-            position: relative;
-            text-align: left;
-            border-radius: 10px;
-        }
-
-
-
-        .collapsible-link::before {
-            content: 'V';
-            position: absolute;
-            top: 50%;
-            right: 0.8rem;
-            transform: translateY(-50%);
-            display: block;
-            font-family: sans-serif;
-            font-size: 1.1rem;
-        }
-
-        .collapsible-link[aria-expanded='true']::before {
-            content: 'Ʌ';
-        }
-
-        .card-body {
-            background-color: rgba(99, 99, 99, 0.236);
-        }
-
-
-
-        /*
-*
-* ==========================================
-* FOR DEMO PURPOSES
-* ==========================================
-*
-*/
-    </style>
+    <link rel="stylesheet" href="/alumnosView/alumnoStyle.css">
     <title>Ajustes</title>
 </head>
 
@@ -73,173 +33,68 @@
         </a>
     </nav>
 
-    <div class="container">
+    <div class="container " style="margin-bottom: 100px;">
 
-        <h2>PREGUNTAS FRECUENTES</h2>
+        <h2 style="margin-top: 30px;">PREGUNTAS FRECUENTES</h2>
 
-        <div class="row">
-            <div class="col-lg-9 mx-auto">
-                <!-- Accordion -->
-                <div id="accordionExample" class="accordion shadow">
-
-                    <!-- Accordion item 1 -->
-                    <div class="carda">
-                        <div id="headingOne" class="card-header bg-white shadow-sm border-0">
-                            <h2 class="mb-0">
-                                <button type="button" data-toggle="collapse" data-target="#collapseOne"
-                                    aria-expanded="true" aria-controls="collapseOne"
-                                    class="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link">Puedo
-                                    ir a cualquier sucursal?</button>
-                            </h2>
-                        </div>
-                        <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample"
-                            class="collapse show">
-                            <div class="card-body p-5">
-                                <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim eiusmod high
-                                    life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                    skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                    moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                                    shoreditch et.</p>
-                            </div>
-                        </div>
-                    </div><!-- End -->
-
-                    <!-- Accordion item 2 -->
-                    <div class="carda">
-                        <div id="headingTwo" class="card-header bg-white shadow-sm border-0">
-                            <h2 class="mb-0">
-                                <button type="button" data-toggle="collapse" data-target="#collapseTwo"
-                                    aria-expanded="false" aria-controls="collapseTwo"
-                                    class="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">con
-                                    que medios de pago puedo abonar mi plan</button>
-                            </h2>
-                        </div>
-                        <div id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordionExample"
-                            class="collapse">
-                            <div class="card-body p-5">
-                                <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim eiusmod high
-                                    life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                    skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                    moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                                    shoreditch et.</p>
-                            </div>
-                        </div>
-                    </div><!-- End -->
-
-                    <!-- Accordion item 3 -->
-                    <div class="carda">
-                        <div id="headingThree" class="card-header bg-white shadow-sm border-0">
-                            <h2 class="mb-0">
-                                <button type="button" data-toggle="collapse" data-target="#collapseThree"
-                                    aria-expanded="false" aria-controls="collapseThree"
-                                    class="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">como
-                                    me doy de baja del gimnasio</button>
-                            </h2>
-                        </div>
-                        <div id="collapseThree" aria-labelledby="headingThree" data-parent="#accordionExample"
-                            class="collapse">
-                            <div class="card-body p-5">
-                                <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim eiusmod high
-                                    life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                    skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                    moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                                    shoreditch et.</p>
-                            </div>
-                        </div>
-                    </div><!-- End -->
-                    <!-- Accordion item 3 -->
-                    <div class="carda">
-                        <div id="headingFour" class="card-header bg-white shadow-sm border-0">
-                            <h2 class="mb-0">
-                                <button type="button" data-toggle="collapse" data-target="#collapseFour"
-                                    aria-expanded="false" aria-controls="collapseFour"
-                                    class="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">puedo
-                                    hacerme controles medicos?</button>
-                            </h2>
-                        </div>
-                        <div id="collapseFour" aria-labelledby="headingFour" data-parent="#accordionExample"
-                            class="collapse">
-                            <div class="card-body p-5">
-                                <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim eiusmod high
-                                    life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                    skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                    moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                                    shoreditch et.</p>
-                            </div>
-                        </div>
-                    </div><!-- End -->
-                    <!-- Accordion item 3 -->
-                    <div class="carda">
-                        <div id="headingFive" class="card-header bg-white shadow-sm border-0">
-                            <h2 class="mb-0">
-                                <button type="button" data-toggle="collapse" data-target="#collapseFive"
-                                    aria-expanded="false" aria-controls="collapseFive"
-                                    class="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">tengo
-                                    que avisar si no voy a asistir a una clase</button>
-                            </h2>
-                        </div>
-                        <div id="collapseFive" aria-labelledby="headingFive" data-parent="#accordionExample"
-                            class="collapse">
-                            <div class="card-body p-5">
-                                <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim eiusmod high
-                                    life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                    skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                    moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                                    shoreditch et.</p>
-                            </div>
-                        </div>
-                    </div><!-- End -->
-                    <!-- Accordion item 3 -->
-                    <div class="carda">
-                        <div id="headingSix" class="card-header bg-white shadow-sm border-0">
-                            <h2 class="mb-0">
-                                <button type="button" data-toggle="collapse" data-target="#collapseSix"
-                                    aria-expanded="false" aria-controls="collapseSix"
-                                    class="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">cuando
-                                    debo anotarme a una clase</button>
-                            </h2>
-                        </div>
-                        <div id="collapseSix" aria-labelledby="headingSix" data-parent="#accordionExample"
-                            class="collapse">
-                            <div class="card-body p-5">
-                                <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim eiusmod high
-                                    life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                    skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                    moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                                    shoreditch et.</p>
-                            </div>
-                        </div>
-                    </div><!-- End -->
-                    <!-- Accordion item 3 -->
-                    <div class="carda">
-                        <div id="headingSeven" class="card-header bg-white shadow-sm border-0">
-                            <h2 class="mb-0">
-                                <button type="button" data-toggle="collapse" data-target="#collapseSeven"
-                                    aria-expanded="false" aria-controls="collapseSeven"
-                                    class="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">como
-                                    me doy de baja del gimnasio</button>
-                            </h2>
-                        </div>
-                        <div id="collapseSeven" aria-labelledby="headingSeven" data-parent="#accordionExample"
-                            class="collapse">
-                            <div class="card-body p-5">
-                                <p class="font-weight-light m-0">Anim pariatur cliche reprehenderit, enim eiusmod high
-                                    life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-                                    skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                    moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                                    shoreditch et.</p>
-                            </div>
-                        </div>
-                    </div><!-- End -->
-
-                </div><!-- End -->
+        <div class="c">
+            <input type="checkbox" id="faq-1">
+            <h6><label for="faq-1">¿Puedo ir a cualquier sucursal?</label></h6>
+            <div class="p">
+                <p>Sí! Mientras seas miembro activo de VITAMOVE, podés tomar tus clases en cualquiera de nuestras
+                    sucursales</p>
             </div>
         </div>
-
-
-        <div class="container-fluid" style="justify-content: center; align-items: center;">
-            <a href="/login.html" type="button" class="salir">Salir</a>
+        <div class="c">
+            <input type="checkbox" id="faq-2">
+            <h6><label for="faq-2">¿Con qué medios puedo abonar mi plan?</label></h6>
+            <div class="p">
+                <p>Podés abonar online a través nuestra página web, mediante Mercado Pago tenés la posibilidad de abonar
+                    desde tu cuenta, usando tus tarjetas de crédito y débito. También, podés acercarte a tu sucursal de
+                    preferencia y
+                    abonar el efectivo.</p>
+            </div>
         </div>
+        <div class="c">
+            <input type="checkbox" id="faq-3">
+            <h6><label for="faq-3">¿Cómo doy de baja mi perfil?</label></h6>
+            <div class="p">
+                <p>Para dar de baja tu perfil, podés contactarte por nuestros canales de comunicación pidiendo la baja
+                    de tu usuario.</p>
+            </div>
+        </div>
+        <div class="c">
+            <input type="checkbox" id="faq-4">
+            <h6><label for="faq-4">¿Puedo consultar al nutricionista?</label></h6>
+            <div class="p">
+                <p>Así es, con todos los planes accedés a consultas con nuestro profesional en nutrición.</p>
+            </div>
+        </div>
+        <div class="c">
+            <input type="checkbox" id="faq-5">
+            <h6><label for="faq-5">¿Tengo que avisar si no voy a asistir a una clase?</label></h6>
+            <div class="p">
+                <p>No es necesario avisar, simplemente podés desinscribirte de la clase desde tu cuenta de la página
+                    web. En la sección 'CLASES' vas a encontrar un listado de tus inscripciones, presiona el boton
+                    desinscribirme y listo!</p>
+            </div>
+        </div>
+        <div class="c" style="margin-bottom: 18px;">
+            <input type="checkbox" id="faq-6">
+            <h6><label for="faq-6">¿Cuándo debo anotarme a una clase?</label></h6>
+            <div class="p">
+                <p>A las 00:00 de todos los días se cargan las clases disponibles. Debajo del horario y el profesor,
+                    podés ver el cupo disponible para esa clase.</p>
+            </div>
+        </div>
+        <a href="" style="color:white;" class="text-center">Términos y Condiciones</a>
+        <br>
+
+        <a href="/login.html" type="button" class="btn btn-info btn-sm text-center"
+            style="margin-bottom: 100px; margin-top: 100px; font-size: 17px;">Cerrar Sesion</a>
+        <br>
+
+
     </div>
 
 
@@ -249,7 +104,9 @@
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
 
+    </script>
 </body>
 
 </html>

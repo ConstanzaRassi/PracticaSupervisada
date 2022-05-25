@@ -18,7 +18,7 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="/img/logo.png" alt="">
+                    <img src="/img/logo1.png" alt="">
                     <h2>Vita<span>MOVE</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -119,8 +119,9 @@
                                 <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label> Barrio </label>
-                                        <select name="barrios" id="cboBarrios">
+                                        <select name="barrios" id="cboBarrios" class="form-control">
                                         </select>
+
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +202,7 @@
         }
     }
 
-    // GET sucursal
+    // GET barrios
     $(document).ready(function () {
         $.ajax({
             url: "https://localhost:5001/Sucursal/ObtenerBarrios",
@@ -226,12 +227,11 @@
             select = document.getElementById("cboBarrios");
             for (let i = 0; i < datos.length; i++) {
                 var option = document.createElement('option');
-                option.value = datos[i];
+                option.value = datos[i].idBarrio;
                 option.text = datos[i].barrio1;
                 select.add(option);
             }
         }
-
     })
 
     $("#btnAgregar").click(function () {
@@ -239,6 +239,7 @@
         let nombre = $("#txtNombre").val();
         let direccion = $("#txtDireccion").val();
 
+        console.log(barrio);
         if (barrio === "" || nombre === "" || direccion === "") {
             swal("Ingrese los datos requeridos");
         } else {
@@ -250,8 +251,8 @@
         comando = {
             "nombre": nombre,
             "direccion": direccion,
-            "estado": 1,
-            "idBarrio": 1
+            "idBarrio": barrio,
+            "estado": 1
         };
         $.ajax({
             url: "https://localhost:5001/Sucursal/AltaSucursal",

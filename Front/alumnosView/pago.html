@@ -8,11 +8,14 @@
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <script src="https://kit.fontawesome.com/bdd89edb33.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css" />
     <title>Planes</title>
     <style>
         .nav {
             position: fixed;
+            z-index: 10;
             bottom: 0;
             width: 100%;
             height: 70px;
@@ -208,10 +211,15 @@
         .section-plans {
             /* background-color: #000; */
             background-image: url(https://media.istockphoto.com/photos/textured-black-background-picture-id675011656?b=1&k=6&m=675011656&s=170667a&w=0&h=7Rj0hsWoMixJR_FeljWvDQgejxj2f8kBe_WiGvJlfoE=);
-            height: 100vh;
+            min-height: 100vh;
             padding: 4rem 0 4rem 0;
             background-size: cover;
             background-attachment: fixed;
+            margin-bottom: 50px;
+
+            /* display: flex;
+            justify-content: center;
+            align-items: center; */
         }
 
         .card {
@@ -379,7 +387,9 @@
 
         .row {
             max-width: 114rem;
-            margin: 0 auto;
+            /* margin: 0 auto; */
+            margin-top: -20px;
+
         }
 
         .row:not(:last-child) {
@@ -402,18 +412,20 @@
         }
 
         .row .col-1-of-3 {
-            width: calc((100% - 2 * 6rem) /3);
+            /* width: calc((100% - 2 * 6rem) /3); */
+            width: 300px;
+
+
         }
 
-        /*PARA EL CELULAR*/
+        /* PARA EL CELULAR */
+        @media (max-width:1165px) {
+            .row .col-1-of-3 {
 
-        /* .row .col-1-of-3 {
-            width: calc((100% - 2 * 6rem));
+                margin-left: 10%;
+                margin-bottom: 5px;
+            }
         }
-
-        .row [class^="col-"] {
-            float: center;
-        } */
     </style>
 </head>
 
@@ -427,11 +439,11 @@
             <i class="material-icons">note_alt</i>
             <span class="nav__texy">Clases</span>
         </a>
-        <a href="/alumnosView/perfil.html" class="nav__link">
+        <a href="/alumnosView/perfil.html" class="nav__link nav__link--active">
             <i class="material-icons">person</i>
             <span class="nav__texy">Perfil</span>
         </a>
-        <a href="/alumnosView/ajustes.html" class="nav__link nav__link--active">
+        <a href="/alumnosView/ajustes.html" class="nav__link">
             <i class="material-icons">settings</i>
             <span class="nav__texy">Ajustes</span>
         </a>
@@ -439,7 +451,7 @@
     <section class="section-plans" id="section-plans">
         <div class="u-center-text u-margin-bottom-big">
             <h2 class="heading-secondary">
-
+                PLANES
             </h2>
         </div>
         <br>
@@ -447,7 +459,7 @@
         <br>
         <br>
         <div class="row">
-            <div class="col-1-of-3">
+            <div class="col-1-of-3 col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card__side card__side--front-1">
                         <div class="card__title card__title--1">
@@ -476,7 +488,7 @@
                 </div>
             </div>
 
-            <div class="col-1-of-3">
+            <div class="col-1-of-3 col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card__side card__side--front-2">
                         <div class="card__title card__title--2">
@@ -504,7 +516,7 @@
                 </div>
             </div>
 
-            <div class="col-1-of-3">
+            <div class="col-1-of-3 col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card__side card__side--front-3">
                         <div class="card__title card__title--3">

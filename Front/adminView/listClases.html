@@ -18,7 +18,7 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="/img/logo.png" alt="">
+                    <img src="/img/logo1.png" alt="">
                     <h2>Vita<span>MOVE</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -106,6 +106,183 @@
         </div>
     </div>
 
+    <div class="modal fade" id="agregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ALTA CLASE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container d-flex justify-content-center mt-5">
+                        <form>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Disciplina </label>
+                                        <select name="disciplinas" id="cboDisciplinas" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Sucursal </label>
+                                        <select name="sucursales" id="cboSucursales" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Profesor </label>
+                                        <select name="profesores" id="cboProfesores" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Dia </label>
+                                        <select id="cboDias" class="form-control">
+                                            <option value="" selected disabled>
+                                                Seleccione</option>
+                                            <option value="1">Lunes</option>
+                                            <option value="2">Martes</option>
+                                            <option value="3">Miercoles</option>
+                                            <option value="4">Jueves</option>
+                                            <option value="5">Viernes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Cupo </label>
+                                        <input type="number" class="form-control" id="txtCupo"
+                                            placeholder="Ingrese cupo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Desde </label>
+                                        <input type="text" class="form-control" id="txtDesde" placeholder="Ej: 18:00">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Hasta</label>
+                                        <input type="text" class="form-control" id="txtHasta" placeholder="Ej: 19:00">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-success">Agregar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">MODIFICAR CLASE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container d-flex justify-content-center mt-5">
+                        <form>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Disciplina </label>
+                                        <select name="disciplinas" id="cboDisciplinasM" class="form-control">
+                                        </select>
+                                        <input type="hidden" class="form-control" id="txtId">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Sucursal </label>
+                                        <select name="sucursales" id="cboSucursalesM" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Profesor </label>
+                                        <select name="profesores" id="cboProfesoresM" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Dia </label>
+                                        <select id="cboDiasM" class="form-control">
+                                            <option value="" selected disabled>
+                                                Seleccione</option>
+                                            <option value="1">Lunes</option>
+                                            <option value="2">Martes</option>
+                                            <option value="3">Miercoles</option>
+                                            <option value="4">Jueves</option>
+                                            <option value="5">Viernes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Cupo </label>
+                                        <input type="number" class="form-control" id="txtCupoM"
+                                            placeholder="Ingrese cupo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Desde </label>
+                                        <input type="text" class="form-control" id="txtDesdeM" placeholder="Ej: 18:00">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Hasta</label>
+                                        <input type="text" class="form-control" id="txtHastaM" placeholder="Ej: 19:00">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnModificar" name="btnModificar"
+                            class="btn btn-success">Agregar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="/adminView/admin.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -145,8 +322,8 @@
             html += "<td id='id'>" + datos[i].idClase + "</td>";
             html += "<td id='actividad'>" + datos[i].idDisciplinaNavigation.descripcion + "</td>";
             html += "<td id='sucursal'>" + datos[i].idSucursalNavigation.nombre + "</td>";
-            html += "<td id='profesor'>" + datos[i].idProfesorNavigation.apellido + ', '
-                + datos[i].idProfesorNavigation.nombre + "</td>";
+            html += "<td id='profesor'>" + datos[i].idProfesorNavigation.nombre + ', '
+                + datos[i].idProfesorNavigation.apellido + "</td>";
             html += "<td id='cupo'>" + datos[i].cupo + "</td>";
             if (datos[i].diaSemana == 1)
                 html += "<td> Domingo </td>";
@@ -176,11 +353,11 @@
     }
 
     $("#btnAgregar").click(function () {
-        let disciplina = $("#txtDisc").val();
-        let sucursal = $("#txtSucursal").val();
-        let profesor = $("#txtProfesor").val();
+        let disciplina = $("#cboDisciplinas").val();
+        let sucursal = $("#cboSucursales").val();
+        let profesor = $("#cboProfesores").val();
         let cupo = $("#txtCupo").val();
-        let dia = $("#txtDia").val();
+        let dia = $("#cboDias").val();
         let desde = $("#txtDesde").val();
         let hasta = $("#txtHasta").val();
 
@@ -211,6 +388,7 @@
             success: function (result) {
                 if (result.ok) {
                     swal("Alta exitosa!");
+                    console.log(comando);
                     setTimeout(function () { location.replace("http://127.0.0.1:5501/adminView/listClases.html"); }, 3000);
                 } else {
                     swal(result.error);
@@ -222,6 +400,90 @@
         })
     }
 
+    function modificar(id) {
+        let idClase = id;
+        let disciplina = "";
+        let sucursal = "";
+        let profesor = 0;
+        let dia = "";
+        let cupo = 0;
+        let desde = 1;
+        let hasta = "";
+        let estado = 1;
+
+        for (let i = 0; i < Clases.length; i++) {
+            if (Clases[i].idClase == id) {
+                disciplina = Clases[i].idDisciplina;
+                sucursal = Clases[i].idSucursal;
+                profesor = Clases[i].idProfesor;
+                dia = Clases[i].dia;
+                cupo = Clases[i].cupo;
+                desde = Clases[i].horaDesde;
+                hasta = Clases[i].horaHasta;
+
+            }
+        }
+
+        $("#txtId").val(idClase);
+        $("#cboDisciplinasM").val(disciplina);
+        $("#cboSucursalesM").val(sucursal);
+        $("#cboProfesoresM").val(profesor);
+        $("#cboDiasM").val(dia);
+        $("#txtCupoM").val(cupo);
+        $("#txtDesdeM").val(desde);
+        $("#txtHastaM").val(hasta);
+
+
+        $("#btnModificar").click(function () {
+            let idClase = $("#txtId").val();
+            let disciplina = $("#cboDisciplinasM").val();
+            let sucursal = $("#cboSucursalesM").val();
+            let profesor = $("#cboProfesoresM").val();
+            let dia = $("#cboDiasM").val();
+            let cupo = $("#txtCupoM").val();
+            let desde = $("#txtDesdeM").val();
+            let hasta = $("#txtHastaM").val();
+            let estado = 1;
+
+            if (disciplina === "" || sucursal === "" || profesor === "" || dia === "" || cupo === "" || desde === "" || hasta === "") {
+                swal("Ingrese los datos requeridos");
+            }
+            else
+                modificarClase(idClase, disciplina, sucursal, profesor, dia, cupo, desde, hasta, estado);
+        })
+    }
+
+    //modificar alumno
+    function modificarClase(idClase, disciplina, sucursal, profesor, dia, cupo, desde, hasta, estado) {
+        comando = {
+            "idClase": idClase,
+            "idDisciplina": disciplina,
+            "idSucursal": sucursal,
+            "idProfesor": profesor,
+            "cupo": cupo,
+            "diaSemana": dia,
+            "horaDesde": desde,
+            "horaHasta": hasta
+        }
+
+        $.ajax({
+            url: "https://localhost:5001/Clase/UpdateClase",
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            type: "PUT",
+            success: function (result) {
+                if (result.ok) {
+                    location.reload();
+                    swal("Clase modificada exitosamente");
+                }
+                else swal(result.error);
+            },
+            error: function (error) {
+                swal("Error" + error);
+            }
+        });
+    }
 
     $(document).on("click", "#btnBaja", function () {
         id = $(this).val();
@@ -244,6 +506,130 @@
             },
         })
     });
+
+    //Cargar combo de DISCIPLINAS
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Rutina/ObtenerDisciplinas",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    disciplinas = result.return;
+                    cargarComboD(disciplinas);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de disciplinas");
+            },
+        })
+
+        // carga combo
+        function cargarComboD(datos) {
+            var html = "<option value='' selected disabled>Seleccione</option>";
+            $("#cboDisciplinas").append(html);
+            select = document.getElementById("cboDisciplinas");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idDisciplina;
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+
+            $("#cboDisciplinasM").append(html);
+            select = document.getElementById("cboDisciplinasM");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idDisciplina;
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+        }
+
+    });
+
+    //Cargar combo de SUCURSALES
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Sucursal/ObtenerSucursales",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    sucursales = result.return;
+                    cargarComboS(sucursales);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de sucursales");
+            },
+        })
+
+        // carga combo
+        function cargarComboS(datos) {
+            var html = "<option value='' selected disabled>Seleccione</option>";
+            $("#cboSucursales").append(html);
+            select = document.getElementById("cboSucursales");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idSucursal;
+                option.text = datos[i].nombre;
+                select.add(option);
+            }
+
+            $("#cboSucursalesM").append(html);
+            select = document.getElementById("cboSucursalesM");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idSucursal;
+                option.text = datos[i].nombre;
+                select.add(option);
+            }
+        }
+    });
+
+    //Cargar combo de PROFESORES
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Profesor/ObtenerProfesor",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    profesores = result.return;
+                    cargarComboP(profesores);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de profesores");
+            },
+        })
+
+        // carga combo
+        function cargarComboP(datos) {
+            var html = "<option value='' selected disabled>Seleccione</option>";
+            $("#cboProfesores").append(html);
+            select = document.getElementById("cboProfesores");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idProfesor;
+                option.text = datos[i].nombre + ' ' + datos[i].apellido;
+                select.add(option);
+            }
+            $("#cboProfesoresM").append(html);
+            select = document.getElementById("cboProfesoresM");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idProfesor;
+                option.text = datos[i].nombre + ' ' + datos[i].apellido;
+                select.add(option);
+            }
+        }
+
+    })
 </script>
 
 </html>

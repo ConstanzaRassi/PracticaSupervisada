@@ -12,8 +12,10 @@ body {
     color: white;
 }
 
+/* NAVBAR */
 .nav {
     position: fixed;
+    z-index: 10;
     bottom: 0;
     width: 100%;
     height: 70px;
@@ -60,8 +62,13 @@ body {
 }
 
 .container {
-    height: 100vh;
+    min-height: 100vh;
+    margin-bottom: 200px;
+    text-align: center;
 }
+
+
+/* SECCION PERFIL */
 
 .card {
     width: 380px;
@@ -69,21 +76,12 @@ body {
     border-radius: 15px;
     padding: 8px;
     background-color: rgba(168, 168, 168, 0.112);
-    position: relative;
+    /* position: relative; */
     margin-bottom: 4rem;
-    height: 420px;
+    /* min-height: 420px; */
 }
 
-.cardA {
-    width: 380px;
-    border: none;
-    border-radius: 15px;
-    padding: 8px;
-    background-color: rgba(168, 168, 168, 0.112);
-    position: relative;
-    margin-bottom: 4rem;
-    height: 600px;
-}
+
 
 .upper {
     height: 100px;
@@ -129,171 +127,80 @@ body {
 
 
 /* SECCIÓN DE AJUSTES */
-.wrapper {
-    display: flex;
-    padding-top: 50px;
-    justify-content: center;
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.collapsible {
-    width: 800px;
-    overflow: hidden;
 
-    font-weight: 500;
-}
 
-.collapsible input {
-    display: none;
-}
-
-.collapsible label {
+div.c {
     position: relative;
-    font-size: 20px;
-    font-weight: 600;
-    background: rgba(215, 215, 215, 0.669);
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .1), 0 4px 11px 0 rgba(0, 0, 0, .08);
-    color: rgb(10, 10, 10);
-    display: block;
-    margin-bottom: 10px;
-    cursor: pointer;
-    padding: 15px 10px;
-    border-radius: 4px;
-    z-index: 1;
+    margin: 1em;
 }
 
-.collapsible input:checked label:after {
-    transform: rotate(90deg);
-}
-
-.collapsible label:before {
-    content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
-
+input {
     position: absolute;
-    right: 15px;
-    top: 20px;
-    width: 18px;
-    height: 18px;
-    color: rgba(191, 0, 0, 0.669);
-    /* background: url(/img/logo.png) no-repeat 0 0; */
-    transition: all 0.3s ease;
-}
-
-.collapsible-text {
-    max-height: 1px;
-    overflow: hidden;
-    border-radius: 4px;
-    line-height: 1.4;
-    position: relative;
-    top: -100%;
-    opacity: 0.5;
-    transition: all 0.3s ease;
-}
-
-.collapsible input:checked~.collapsible-text {
-    max-height: 1300px;
-    padding-bottom: 25px;
-    background: rgba(215, 215, 215, 0.669);
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .1), 0 4px 11px 0 rgba(0, 0, 0, .08);
-    opacity: 1;
+    left: 0;
     top: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    visibility: 0;
+
 }
 
-.collapsible-text h2 {
-    margin-bottom: 10px;
-    font-size: 17px;
-    font-weight: 600;
-    padding: 15px 15px 0;
-    color: rgb(0, 0, 0);
-}
-
-.collapsible-text p {
-    padding-left: 15px;
-    padding-right: 15px;
-    color: black;
-}
-
-.wrapper2 {
-    display: flex;
-    padding-top: 50px;
-    justify-content: center;
-}
-
-.collapsible2 {
-    width: 800px;
-    overflow: hidden;
-
-    font-weight: 500;
-}
-
-.collapsible2 input {
-    display: none;
-}
-
-.collapsible2 label {
+.c h6 {
+    background: rgba(186, 186, 186, 0.489);
+    color: white;
+    padding: 1em;
     position: relative;
-    font-size: 20px;
-    font-weight: 600;
-    background: rgba(215, 215, 215, 0.669);
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .1), 0 4px 11px 0 rgba(0, 0, 0, .08);
-    color: rgb(10, 10, 10);
-    display: block;
-    margin-bottom: 10px;
-    cursor: pointer;
-    padding: 15px 10px;
-    border-radius: 4px;
-    z-index: 1;
 }
 
-.collapsible2 input:checked label:after {
-    transform: rotate(90deg);
-}
-
-.collapsible2 label:after {
+label::before {
     content: "";
-    position: absolute;
-    right: 15px;
-    top: 20px;
-    width: 18px;
-    height: 18px;
-    color: rgba(191, 0, 0, 0.669);
-    background: url(/img/logo.png) no-repeat 0 0;
-    transition: all 0.3s ease;
+    display: inline-block;
+    border: 15px solid transparent;
+    border-left: 20px solid rgb(255, 255, 255);
 }
 
-.collapsible-text2 {
-    max-height: 1px;
-    overflow: hidden;
-    border-radius: 4px;
-    line-height: 1.4;
+label {
+    cursor: pointer;
     position: relative;
-    top: -100%;
-    opacity: 0.5;
-    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
-.collapsible2 input:checked~.collapsible-text2 {
-    max-height: 1300px;
-    padding-bottom: 25px;
-    background: rgba(215, 215, 215, 0.669);
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .1), 0 4px 11px 0 rgba(0, 0, 0, .08);
-    opacity: 1;
-    top: 0;
+div.p {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+    background-color: rgba(59, 185, 207, 0.427);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.299);
 }
 
-.collapsible-text2 h2 {
-    margin-bottom: 10px;
-    font-size: 17px;
-    font-weight: 600;
-    padding: 15px 15px 0;
-    color: rgb(0, 0, 0);
+div.p p {
+    padding: 2em;
 }
 
-.collapsible-text2 p {
-    padding-left: 15px;
-    padding-right: 15px;
-    color: black;
+input:checked~h6 label::before {
+    border-left: 15px solid transparent;
+    border-top: 20px solid white;
+    margin-top: 12px;
+    margin-right: 10px;
 }
 
+input:checked~h6~div.p {
+    max-height: 100px;
+}
+
+
+/* TERMINOS Y CONDICIONES */
+
+
+/* SECCION SALIR */
 .salir {
     display: flex;
 }
