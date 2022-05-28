@@ -95,33 +95,125 @@
     <script type="text/javascript">
         var iframe = document.getElementById('api-frame');
         var uid = 'f047bf51e33b4ae88f7bcda056f1fd91';
-
-        // By default, the latest version of the viewer API will be used.
+        
         var client = new Sketchfab(iframe);
 
-        // Alternatively, you can request a specific version.
-        // var client = new Sketchfab( '1.12.0', iframe );
-
-        client.init(uid, {
-            success: function onSuccess(api) {
+        // materiales
+        var baseMaterialID = 'adaafa73-3edc-4d8f-913e-97fb96b1e149'; // TODO: hardcodeado, ver de obtener dinamicamente
+        var highlightMaterialID = '';
+        
+        client.init( uid, {
+            success: function onSuccess( api ){
                 api.start();
+                
                 api.addEventListener('viewerready', function () {
-
-                    // API is ready to use
-                    // Insert your code here
-                    console.log('Viewer is ready');
-
-                });
+                    
+                    // debug: printeo nodos que componen al modelo
+                    api.getNodeMap(function(err, nodes) {
+                        if (!err) {
+                            window.console.log(nodes); // [ ... ]
+                        }
+                    });
+                    
+                    // creo material de resaltado
+                    api.createMaterial({
+                        channels: {
+                            Matcap: {
+                                color: [0, 1, 0]
+                            }
+                        }
+                    }, function(err, material) {
+                        if (!err) {
+                            highlightMaterialID = material.id;
+                        }
+                    });
+                })
+                
+                // evento de hacer click
+                api.addEventListener('click', function (info) {
+                    if(!info.instanceID){ return; }
+                    
+                    // ID del grupo muscular
+                    console.log(info.instanceID); 
+                    
+                    // resaltado del grupo
+                    if (info.material.id == baseMaterialID) { // si no esta resaltado el grupo (tiene el material base)
+                        api.assignMaterial(info, highlightMaterialID); // resalto el grupo muscular
+                    } else {
+                        api.assignMaterial(info, baseMaterialID); // apago el grupo muscular
+                    }
+                    
+                    // TODO: al asignarse un material, como el viewer hace un baking del modelo, no se actualiza hasta mover la camara
+                })
             },
             error: function onError() {
-                console.log('Viewer error');
+                console.log( 'Viewer error' );
             }
-        });
+        } );
     </script>
-
+    
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 
-</html>
+</html>    <!-- Initialize the viewer -->
+    <script type="text/javascript">
+        var iframe = document.getElementById('api-frame');
+        var uid = 'f047bf51e33b4ae88f7bcda056f1fd91';
+        
+        var client = new Sketchfab(iframe);
+
+        // materiales
+        var baseMaterialID = 'adaafa73-3edc-4d8f-913e-97fb96b1e149'; // TODO: hardcodeado, ver de obtener dinamicamente
+        var highlightMaterialID = '';
+        
+        client.init( uid, {
+            success: function onSuccess( api ){
+                api.start();
+                
+                api.addEventListener('viewerready', function () {
+                    
+                    // debug: printeo nodos que componen al modelo
+                    api.getNodeMap(function(err, nodes) {
+                        if (!err) {
+                            window.console.log(nodes); // [ ... ]
+                        }
+                    });
+                    
+                    // creo material de resaltado
+                    api.createMaterial({
+                        channels: {
+                            Matcap: {
+                                color: [0, 1, 0]
+                            }
+                        }
+                    }, function(err, material) {
+                        if (!err) {
+                            highlightMaterialID = material.id;
+                        }
+                    });
+                })
+                
+                // evento de hacer click
+                api.addEventListener('click', function (info) {
+                    if(!info.instanceID){ return; }
+                    
+                    // ID del grupo muscular
+                    console.log(info.instanceID); 
+                    
+                    // resaltado del grupo
+                    if (info.material.id == baseMaterialID) { // si no esta resaltado el grupo (tiene el material base)
+                        api.assignMaterial(info, highlightMaterialID); // resalto el grupo muscular
+                    } else {
+                        api.assignMaterial(info, baseMaterialID); // apago el grupo muscular
+                    }
+                    
+                    // TODO: al asignarse un material, como el viewer hace un baking del modelo, no se actualiza hasta mover la camara
+                })
+            },
+            error: function onError() {
+                console.log( 'Viewer error' );
+            }
+        } );
+    </script>
