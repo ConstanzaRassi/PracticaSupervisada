@@ -193,7 +193,7 @@ input:checked~h6 label::before {
 }
 
 input:checked~h6~div.p {
-    max-height: 100px;
+    max-height: 10000px;
 }
 
 

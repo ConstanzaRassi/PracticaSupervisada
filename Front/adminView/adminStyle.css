@@ -104,12 +104,12 @@ small {
     font-size: 0.76rem;
 }
 
-.profile-photo {
+/* .profile-photo {
     width: 2.8rem;
     height: 2.8rem;
     border-radius: 50%;
     overflow: hidden;
-}
+} */
 
 .text-muted {
     color: var(--color-info-dark);
@@ -417,7 +417,7 @@ main table tbody tr:last-child td {
 
 .right .top .profile .profile-photo img {
     border-radius: 50%;
-    width: 30%;
+    width: 30px;
 }
 
 /*  UPDATES   */

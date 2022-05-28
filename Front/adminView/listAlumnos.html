@@ -81,10 +81,6 @@
                             <th>Edad</th>
                             <th>Email</th>
                             <th>Estado</th>
-                            <!-- <th>Acción</th> -->
-                            <!-- <span class="material-symbols-outlined">post_add</span> AGREGAR RUTINA -->
-                            <!-- <span class="material-symbols-outlined">delete</span> ELIMINAR-->
-                            <!-- <span class="material-symbols-outlined">edit</span> MODIFICAR-->
                         </tr>
                     </thead>
                     <tbody id="cuerpoTabla">
@@ -92,25 +88,25 @@
                 </table>
             </div>
         </main>
-        <div class="right">
-            <div class="top">
-                <button id="menu-btn">
-                    <span class="material-icons-sharp">menu</span>
-                </button>
-                <div class="theme-toggler">
-                    <span class="material-icons-sharp active">light_mode</span>
-                    <span class="material-icons-sharp">dark_mode</span>
+        <!-- <div class="right"> -->
+        <div class="top">
+            <button id="menu-btn">
+                <span class="material-icons-sharp">menu</span>
+            </button>
+            <div class="theme-toggler">
+                <span class="material-icons-sharp active">light_mode</span>
+                <span class="material-icons-sharp">dark_mode</span>
+            </div>
+            <div class="profile">
+                <div class="info">
+                    <p>Hey <b>ADMIN</b></p>
                 </div>
-                <div class="profile">
-                    <div class="info">
-                        <p>Hey <b>ADMIN</b></p>
-                    </div>
-                    <div class="profile-photo">
-                        <img src="/img/admin.jpg" alt="">
-                    </div>
-                </div>
+                <!-- <div class="profile-photo">
+                    <img src="/img/admin.jpg" alt="">
+                </div> -->
             </div>
         </div>
+        <!-- </div> -->
     </div>
 
 
@@ -293,13 +289,8 @@
                                         <input type="hidden" id="txtDescripcion" class="form-control"></input>
 
                                         <div class=" form-group col-md-6">
-                                            <label for="cboSucursal">Disciplina</label>
-                                            <select id="cboEmpleado" class="form-control">
-                                                <option selected>Choose...</option>
-                                                <option>maria</option>
-                                                <option>juana</option>
-                                                <option>coti</option>
-                                                <option>.aa</option>
+                                            <label> Disciplina </label>
+                                            <select name="disciplinas" id="cboDisciplinas" class="form-control">
                                             </select>
                                         </div>
                                         <div class=" form-group col-md-6">
@@ -317,10 +308,8 @@
                                 <div class="card-body">
                                     <form class="row" id="formDetalle">
                                         <div class="form-group col-md-5">
-                                            <label for="">Ejercicio</label>
-                                            <select id="cboEjercicio" class="form-control">
-                                                <option value="1">ho</option>
-                                                <option value="2">la</option>
+                                            <label> Ejercicio </label>
+                                            <select name="ejerdcicios" id="cboEjercicios" class="form-control">
                                             </select>
                                         </div>
                                         <div class="form-group col-md-2">
@@ -332,7 +321,7 @@
                                             <input type="text" class="form-control" id="txtTiempo">
                                         </div>
                                         <div class="form-group col-md-1">
-                                            <label for="">s</label>
+                                            <label for="">+</label>
                                             <button class="btn btn-primary" type="submit" id="btnAgregar">+</button>
                                         </div>
                                     </form>
@@ -648,9 +637,76 @@
                 modificarAlumno(idAlumno, nombre, apellido, dni, fecha, estado, sexo);
         })
     }
+
+    //Cargar combo de DISCIPLINAS
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Rutina/ObtenerDisciplinas",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    disciplinas = result.return;
+                    cargarComboD(disciplinas);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de disciplinas");
+            },
+        })
+
+        // carga combo
+        function cargarComboD(datos) {
+            var html = "<option value='' selected disabled>Seleccione</option>";
+            $("#cboDisciplinas").append(html);
+            select = document.getElementById("cboDisciplinas");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idDisciplina;
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+        }
+
+    });
+
+    //Cargar combo de EJERCICIOS
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/General/ObtenerEjercicios",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    ejercicios = result.return;
+                    cargarComboE(ejercicios);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de ejercicios");
+            },
+        })
+
+        // carga combo
+        function cargarComboE(datos) {
+            var html = "<option value='' selected disabled>Seleccione</option>";
+            $("#cboEjercicios").append(html);
+            select = document.getElementById("cboEjercicios");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idEjercicio;
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+        }
+
+    });
+
     //cargar rutina modal
     const formDetalle = document.getElementById("formDetalle");
-    const cboEjercicio = document.getElementById("cboEjercicio")
+    const cboEjercicio = document.getElementById("cboEjercicios")
     const txtRepeticiones = document.getElementById("txtRepeticiones")
     const txtTiempo = document.getElementById("txtTiempo")
     const cuerpoTablaRutina = document.getElementById("cuerpoTablaRutina")
@@ -661,8 +717,7 @@
         arregloDetalle.forEach((detalle) => {
             let fila = document.createElement("tr");
 
-            // fila.innerHTML = '<td>' + detalle.ejercicio + '</td><td>' + detalle.repeticiones + '</td><td>' + detalle.tiempo + '</td>';
-            fila.innerHTML = '<td>hola</td><td>' + detalle.repeticiones + '</td><td>' + detalle.tiempo + '</td>';
+            fila.innerHTML = '<td>' + detalle.ejercicioName + '</td><td>' + detalle.repeticiones + '</td><td>' + detalle.tiempo + '</td>';
 
             let tdEliminar = document.createElement("td")
             let btnEliminar = document.createElement("button");
@@ -680,6 +735,7 @@
         e.preventDefault();
         const objDetalle = {
             ejercicio: cboEjercicio.value,
+            ejercicioName: options[cboEjercicio.selectedIndex].innerHTML,
             repeticiones: txtRepeticiones.value,
             tiempo: txtTiempo.value,
         };

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="adminStyle.css">
     <title>Document</title>
 </head>
@@ -67,13 +68,16 @@
                         data-toggle="modal" data-target="#agregar">Agregar
                     </button>
                 </div>
-                <table style="width:1000px; border-radius: 2rem;padding: 2rem;">
+                <br>
+                <br>
+                <table style="width:1000px; border-radius: 2rem;padding: 2rem;margin-top: 20px;">
                     <thead>
                         <tr>
-                            <th>id</th>
+                            <th></th>
                             <th>Nombre</th>
                             <th>Dirección</th>
                             <th>Barrio</th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody id="cuerpoTabla">
@@ -102,6 +106,7 @@
         </div>
     </div>
 
+    <!-- MODAL PARA AGREGAR SUCURSAL -->
     <div class="modal fade" id="agregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -154,6 +159,60 @@
         </div>
     </div>
 
+    <!--MODAL PARA MODIFICAR SUCURSAL-->
+    <div class="modal fade" id="update" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">MODIFICAR SUCURSAL</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container d-flex justify-content-center mt-5">
+                        <form>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Barrio </label>
+                                        <select name="barrios" id="cboBarriosM" class="form-control">
+                                        </select>
+                                        <input type="hidden" class="form-control" id="txtId">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Nombre </label>
+                                        <input type="text" class="form-control" id="txtNombreM"
+                                            placeholder="Ingrese nombre">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Dirección </label>
+                                        <input type="text" class="form-control" id="txtDireccionM"
+                                            placeholder="Ingrese dirección">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnModificar" name="btnModificar"
+                            class="btn btn-warning">Modificar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <script src="/adminView/admin.js"></script>
@@ -169,6 +228,7 @@
 </body>
 
 <script>
+    let Sucursales = [];
     $(document).ready(function () {
         $.ajax({
             url: "https://localhost:5001/Sucursal/ObtenerSucursales",
@@ -189,14 +249,24 @@
     function cargarTabla(datos) {
         for (let i = 0; i < datos.length; i++) {
             let html = "<tr>";
-            html += "<td id='id'>" + datos[i].idSucursal + "</td>";
+            html += "<td id='id'></td>";
             html += "<td id='nombre'>" + datos[i].nombre + "</td>";
             html += "<td id='direccion'>" + datos[i].direccion + "</td>";
             html += "<td id='barrio'>" + datos[i].idBarrioNavigation.barrio1 + "</td>";
-            html += `<td><button type="button" data-toggle="modal" id='btnUpdate' name='update' data-target="#modificar" class='btn btn-outline-warning pl-4 pr-4' value=` + datos[i].idSucursal + `>Modificar</button></td>
-                <td><button type="button" data-toggle="modal" id='btnBaja' name='btnBaja' data-target="#baja" class='btn btn-outline-danger pl-4 pr-4' value=` + datos[i].idSucursal + `>Baja</button></td>`;
+            if (datos[i].estado == 0) {
+                html += "<td style=color:red;>inactivo</td>";//hacer que se muestre rojo: INACTIVO
+            }
+            else if (datos[i].estado == 1) {
+                html += "<td style=color:#6bb83e;>activo</td>";//hacer que se muestre verde: ACTIVO
+            }
+
+
+            html += "<td><button type='button' class='btn btn-outline-warning pl-4 pr-4' id='modificar' onclick='modificar(" + datos[i].idSucursal + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
+                "<i class='bi bi-pencil-fill'></i></button></td>" +
+                "<td><button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja' class='btn btn-outline-danger pl-4 pr-4' value=" + datos[i].idSucursal + "><i class='bi bi-trash-fill'></i></button></td>";
             html += "</tr>"
 
+            Sucursales.push(datos[i]);
 
             $("#cuerpoTabla").append(html);
         }
@@ -274,6 +344,96 @@
         })
     }
 
+    //llenar modal y pasar campos para modificar
+    function modificar(id) {
+        let idSucursal = id;
+        let idBarrio = 0;
+        let nombre = "";
+        let direccion = "";
+
+
+        for (let i = 0; i < Sucursales.length; i++) {
+            if (Sucursales[i].idSucursal == id) {
+                idBarrio = Sucursales[i].idBarrio;
+                nombre = Sucursales[i].nombre;
+                direccion = Sucursales[i].direccion;
+            }
+        }
+
+        $("#txtId").val(idSucursal);
+        $("#cboBarriosM").val(idBarrio);
+        $("#txtNombreM").val(nombre);
+        $("#txtDireccionM").val(direccion);
+
+
+        $("#btnModificar").click(function () {
+            let idSucursal = $("#txtId").val();
+            let idBarrio = $("#cboBarriosM").val();
+            let nombre = $("#txtNombreM").val();
+            let estado = 1;
+            let direccion = $("#txtDireccionM").val();
+
+
+            if (nombre === "" || apellido === "" || sexo === "" || dni === "" || email === "" || fecha === "") {
+                swal("Ingrese los datos requeridos");
+            }
+            else
+                modificarSucursal(idSucursal, idBarrio, nombre, direccion);
+        })
+    }
+
+    //modificar sucursal
+    function modificarSucursal(idSucursal, idBarrio, nombre, direccion) {
+        comando = {
+            "idAlumno": idAlumno,
+            "idBarrio": idBarrio,
+            "nombre": nombre,
+            "direccion": direccion,
+            "estado": estado,
+
+        }
+
+        $.ajax({
+            url: "https://localhost:5001/Sucursal/UpdateSucursal",
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            type: "PUT",
+            success: function (result) {
+                if (result.ok) {
+                    location.reload();
+                    swal("Sucursal modificada exitosamente");
+                }
+                else swal(result.error);
+            },
+            error: function (error) {
+                swal("Error" + error);
+            }
+        });
+    }
+
+    //dar de baja
+    $(document).on("click", "#btnBaja", function () {
+        id = $(this).val();
+        $.ajax({
+            url: "https://localhost:5001/Sucursal/UpdateEstado/" + id,
+            type: "PUT",
+            ContentType: "application/json",
+            Accept: "application/json",
+            success: function (result) {
+                if (result.ok) {
+                    swal("Cambió de estado correctamente");
+                    setTimeout(function () { location.replace("http://127.0.0.1:5501/adminView/listSucursales.html"); }, 3000);
+
+                } else {
+                    swal("No puede actualizarse");
+                }
+            },
+            error: function (error) {
+                swal("Error en el servidor");
+            },
+        })
+    });
 
 </script>
 

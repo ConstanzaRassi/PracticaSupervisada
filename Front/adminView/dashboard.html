@@ -6,8 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
     <link rel="stylesheet" href="adminStyle.css">
-    <title>Document</title>
+    <title>Dashboard</title>
     <style>
         main .grafico>div {
             background: var(--color-white);
@@ -16,7 +20,7 @@
             margin-top: 1.rem;
             box-shadow: var(--box-shadow);
             transition: all 300ms ease;
-            height: 300px;
+            height: 342px;
         }
 
         main .grafico>div:hover {
@@ -73,18 +77,23 @@
         <!--MAIN SECTION-->
         <main>
             <h1>DASHBOARD</h1>
+            <div class="contanier" style="display: flex;">
+                <div class="date">
+                    <h5>Desde:</h5>
+                    <input type="date" id="fechaDesde">
+                </div>
+                <div class="date">
+                    <h5>Hasta:</h5>
+                    <input type="date" id="fechaHasta">
+                </div>
+                <div style="margin-top: 20px;">
+                    <button type="button" id="btnCargar"
+                        style="font-size:30px;background-color: transparent; color: #650b0b;"><i
+                            class="bi bi-check-circle-fill"></i></i></button>
+                </div>
+            </div>
 
-            <div class="date">
-                <h5>Desde:</h5>
-                <input type="date" id="fechaDesde">
-            </div>
-            <div class="date">
-                <h5>Hasta:</h5>
-                <input type="date" id="fechaHasta">
-            </div>
-            <div>
-                <button type="button" id="btnCargar" style="font-size: 30px;">OK</button>
-            </div>
+
             <div class="insights">
 
                 <div class="sales">
@@ -95,9 +104,7 @@
                         </div>
                         <br>
                         <div class="progress">
-
                             <h1 id="txtPromedioAlumnos" style="margin-top: 20px;">9</h1>
-
                         </div>
                     </div>
                 </div>
@@ -125,7 +132,7 @@
                         <br>
                         <div class="progress">
 
-                            <h1 id="txtClasesDictadas" style="margin-top: 20px;">187</h1>
+                            <h1 id="txtClasesDictadas" style="margin-top: 20px;">67</h1>
 
                         </div>
                     </div>
@@ -137,9 +144,8 @@
 
             <div class="grafico">
                 <div>
-                    <h3>aca va a ir el grafico</h3>
+                    <canvas id="myChart" width="400" height="170"></canvas>
                 </div>
-
             </div>
 
 
@@ -164,32 +170,32 @@
             </div>
 
             <div class="recent-updates">
-                <h2>Novedades</h2>
+                <h2>NOVEDADES</h2>
                 <div class="updates">
                     <div class="update">
                         <div class="profile-photo">
-                            <img src="/img/pau.jpg" alt="">
+                            <img src="/img/person3.jpg" alt="">
                         </div>
                         <div class="message">
-                            <p><b>Paula Luz</b> pagó su mes de gimnasio</p>
+                            <p><b>Paula Gonzalez</b> se dio de baja</p>
                             <small class="text-muted">Hace 5 minutos</small>
                         </div>
                     </div>
                     <div class="update">
                         <div class="profile-photo">
-                            <img src="/img/agus.jpeg" alt="">
+                            <img src="/img/person2.jpg" alt="">
                         </div>
                         <div class="message">
-                            <p><b>Agus Martinez</b> se dio de baja por problemas de rodilla</p>
+                            <p><b>Joaquin Martinez</b> pagó plan ORO</p>
                             <small class="text-muted">Hace 12 minutos</small>
                         </div>
                     </div>
                     <div class="update">
                         <div class="profile-photo">
-                            <img src="/img/holi.jpg" alt="">
+                            <img src="/img/person1.jpg" alt="">
                         </div>
                         <div class="message">
-                            <p><b>Clara Johnson</b> subió una publicación</p>
+                            <p><b>Martina Velasco</b> se incorporó al gimnasio</p>
                             <small class="text-muted">Hace 24 minutos</small>
                         </div>
                     </div>
@@ -201,7 +207,7 @@
                 <h2>REPORTES</h2>
                 <div class="item customers">
                     <div class="icon">
-                        <span class="material-icons-sharp">person</span>
+                        <span class="material-icons-sharp">calendar_month</span>
                     </div>
                     <div class="right">
                         <div class="info">
@@ -222,12 +228,13 @@
                             <small class="text-muted"></small>
                         </div>
 
-                        <h2 id="txtAlumnosActivos" style="font-size: 15px; color: darkcyan; text-align: center;">26</h2>
+                        <h2 id="txtAlumnosActivos"
+                            style="font-size: 15px; color: rgb(0, 139, 139); text-align: center;">26</h2>
                     </div>
                 </div>
                 <div class="item customers">
                     <div class="icon">
-                        <span class="material-icons-sharp">person</span>
+                        <span class="material-icons-sharp">pin_drop</span>
                     </div>
                     <div class="right">
                         <div class="info">
@@ -236,7 +243,7 @@
                         </div>
 
                         <h2 id="txtSucursalConcurrencia" style="font-size: 15px; color: darkcyan; text-align: center;">
-                            nueva córdoba</h2>
+                            Nueva Córdoba</h2>
                     </div>
                 </div>
             </div>
@@ -244,7 +251,44 @@
     </div>
     <script src="/adminView/admin.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/excanvas/r3/excanvas.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            console.log(ctx);
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Funcional', 'Musculación', 'Crossfit', 'Stretching', 'Cardio'],
+                    datasets: [{
+                        label: 'Alumnos por disciplina',
+                        data: [40, 24, 35, 13, 29],
+                        backgroundColor: [
+                            'rgb(0, 139, 139)'
+
+                        ]
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            grid: {
+                                offset: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            console.log(data);
+
+        })
+    </script>
     <script>
         //Reportes con parametros fechas desde y hasta
         $("#btnCargar").click(function () {
@@ -262,12 +306,42 @@
             console.log(hasta);
 
             $.ajax({
+                url: "https://localhost:5001/Reporte/ObtenerPromedioAlumnos?desde=" + desde + "&hasta=" + hasta,
+                type: "GET",
+                dataType: 'JSON',
+                success: function (result) {
+                    if (result.ok) {
+                        $('#txtPromedioAlumnos').html(Math.round(result.return));
+                    } else {
+                        console.log("encontro algun error");
+                    }
+                },
+                error: function (error) {
+                    console.log("problemas de servidor");
+                },
+            })
+            $.ajax({
                 url: "https://localhost:5001/Reporte/ObtenerTotalFacturado?desde=" + desde + "&hasta=" + hasta,
                 type: "GET",
                 dataType: 'JSON',
                 success: function (result) {
                     if (result.ok) {
                         $('#txtTotalFacturado').html("$" + result.return);
+                    } else {
+                        console.log("encontro algun error");
+                    }
+                },
+                error: function (error) {
+                    console.log("problemas de servidor");
+                },
+            })
+            $.ajax({
+                url: "https://localhost:5001/Reporte/ObtenerClasesDictadas?desde=" + desde + "&hasta=" + hasta,
+                type: "GET",
+                dataType: 'JSON',
+                success: function (result) {
+                    if (result.ok) {
+                        $('#txtClasesDictadas').html(result.return);
                     } else {
                         console.log("encontro algun error");
                     }
@@ -326,20 +400,20 @@
             // });
 
             //abajo a la derecha
-            $.ajax({
-                url: "https://localhost:5001/Reporte/ObtenerDiaMayorConcurrencia",
-                type: "GET",
-                success: function (result) {
-                    if (result.ok) {
-                        $('#txtDiaConcurrencia').html(result.return);
-                    } else {
-                        swal(result.error);
-                    }
-                },
-                error: function (error) {
-                    console.log(); (error);
-                },
-            });
+            // $.ajax({
+            //     url: "https://localhost:5001/Reporte/ObtenerDiaMayorConcurrencia",
+            //     type: "GET",
+            //     success: function (result) {
+            //         if (result.ok) {
+            //             $('#txtDiaConcurrencia').html(result.return);
+            //         } else {
+            //             swal(result.error);
+            //         }
+            //     },
+            //     error: function (error) {
+            //         console.log(); (error);
+            //     },
+            // });
             $.ajax({
                 url: "https://localhost:5001/Reporte/ObtenerAlumnosActivos",
                 type: "GET",

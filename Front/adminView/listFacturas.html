@@ -64,10 +64,12 @@
                 <div class="contanier-fluid">
                     <h1 class="float-left">Listado de facturas</h1>
                     <button type="button" class="btn btn-success mt-1 float-right" className="mt-1 float-right"
-                        data-toggle="modal" data-target="#agregar">Agregar
+                        data-toggle="modal" data-target="#agregarF">Agregar
                     </button>
                 </div>
-                <table style="width:1000px; border-radius: 2rem;padding: 2rem;">
+                <br>
+                <br>
+                <table style="width:1000px; border-radius: 2rem;padding: 2rem;margin-top: 20px;">
                     <thead>
                         <tr>
                             <th>Nro</th>
@@ -104,12 +106,12 @@
         </div>
     </div>
 
-    <div class="modal fade" id="agregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="agregarF" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">ALTA SUCURSAL</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">ALTA FACTURA</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -121,49 +123,59 @@
                                 <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label> Alumno </label>
-                                        <select name="alumnos" id="cboAlumnos">
+                                        <select name="alumnos" id="cboAlumnosF" class="form-control">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label> Fecha </label>
-                                        <input type="date" class="form-control" id="txtFecha" placeholder="Ingrese fecha
-                                        ">
+                                        <input type="date" class="form-control" id="txtFechaF"
+                                            placeholder="Ingrese fecha">
                                     </div>
+
                                 </div>
                             </div>
-                            <br>
                             <div class="row">
                                 <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label> Plan </label>
-                                        <select name="barrios" id="cboBarrios">
+                                        <select name="planes" id="cboPlanesF" class="form-control">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label> Forma de Pago </label>
-                                        <select name="barrios" id="cboBarrios">
+                                        <select name="pagos" id="cboPagosF" class=" form-control">
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-
-                                </div>
-                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
                                     <div class="form-group">
-                                        <label> Monto </label>
-                                        <input type="text" class="form-control" id="txtMonto"
-                                            placeholder="Ingrese total">
+
                                     </div>
                                 </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
+                                    <div class="form-group">
+                                        <label> Monto </label>
 
+
+                                        <!-- <input type="number" class="form-control" id="txtMontoF"
+                                            placeholder="Ingrese monto"> -->
+
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <input type="text" id="txtMontoF" class="form-control"
+                                                aria-label="Amount (to the nearest dollar)">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <br>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -228,12 +240,108 @@
         return dd + "/" + mm + "/" + yyyy;
     }
 
+    //Cargar combo de ALUMNOS
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Alumno/ObtenerAlumno",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    alumnos = result.return;
+                    cargarComboA(alumnos);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de alumnos");
+            },
+        })
+
+        // carga combo
+        function cargarComboA(datos) {
+            var html = "<option value='' selected disabled>Seleccione</option>";
+            $("#cboAlumnosF").append(html);
+            select = document.getElementById("cboAlumnosF");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idAlumno;
+                option.text = datos[i].nombre + ' ' + datos[i].apellido;
+                select.add(option);
+            }
+        }
+    });
+
+    //Cargar combo de PLANES
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Factura/ObtenerPlanes",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    planes = result.return;
+                    cargarComboP(planes);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de planes");
+            },
+        })
+
+        // carga combo
+        function cargarComboP(datos) {
+            var html = "<option value='' selected disabled>Seleccione</option>";
+            $("#cboPlanesF").append(html);
+            select = document.getElementById("cboPlanesF");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idPlan;
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+        }
+    });
+
+    //Cargar combo de PAGOS
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Factura/ObtenerFormasPago",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    formas = result.return;
+                    cargarComboF(formas);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de formas de pago");
+            },
+        })
+
+        // carga combo
+        function cargarComboF(datos) {
+            var html = "<option value='' selected disabled>Seleccione</option>";
+            $("#cboPagosF").append(html);
+            select = document.getElementById("cboPagosF");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].codPago;
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+        }
+    });
+
     $("#btnAgregar").click(function () {
-        let alumno = $("#txtAlumno").val();
-        let plan = $("#txtPlan").val();
-        let pago = $("#txtPago").val();
-        let monto = $("#txtMonto").val();
-        let fecha = $("#txtFecha").val();
+        let alumno = $("#cboAlumnosF").val();
+        let plan = $("#cboPlanesF").val();
+        let pago = $("#cboPagosF").val();
+        let monto = $("#txtMontoF").val();
+        let fecha = $("#txtFechaF").val();
 
         if (alumno === "" || plan === "" || pago === "" || monto === "" || fecha === "") {
             swal("Ingrese los datos requeridos");
@@ -250,6 +358,7 @@
             "fecha": fecha,
             "total": monto
         };
+        console.log(pago);
         $.ajax({
             url: "https://localhost:5001/Factura/AltaFactura",
             type: "POST",
@@ -270,7 +379,6 @@
         })
     }
 
-    //falta cargar combos de alumnos, planes y formas de pago
 
 </script>
 

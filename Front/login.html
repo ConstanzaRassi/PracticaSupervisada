@@ -20,10 +20,8 @@
         <div class="card">
             <img class="user" src="img/logo3.png" height="100px" width="110px"
                 style="margin-top: 8px; margin-bottom: 30px;">
-            <!-- <h3>Inicio Sesión</h3> -->
             <input id="txtUsername" type="text" name="Username" placeholder="Usuario">
             <input id="txtPassword" type="password" name="Password" placeholder="Contraseña">
-            <!-- <input type="submit" name="" value="Ingresar"> -->
 
             <button type='button' class="button" id='btnIngresar' name='btnIngresar'
                 data-target='#ingresar'>INGRESAR</button>
@@ -45,21 +43,25 @@
             let username = $("#txtUsername").val();
             let password = $("#txtPassword").val();
 
-            if (username === "" || password === "") {
-                swal("Ingrese los datos que faltan");
-            }
+            // if (username === "" || password === "") {
+            //     swal("Ingrese los datos que faltan");
+            // }
 
 
             if (username === "administrador@gmail.com" && password === "admin123") {
                 setTimeout(function () { location.replace("http://127.0.0.1:5501/adminView/dashboard.html"); }, 3000);
             }
+            else if (username === "43812642" && password === "43812642") {
+                setTimeout(function () { location.replace("http://127.0.0.1:5501/alumnosView/clases.html"); }, 3000);
 
-            else if (username != password) {
-                swal("Nombre de usuario o contrasenia incorrecta");
             }
-            else {
-                ingresarAlumno(username);
-            }
+
+            // else if (username != password) {
+            //     swal("Nombre de usuario o contrasenia incorrecta");
+            // }
+            // else {
+            //     ingresarAlumno(username);
+            // }
         });
 
         function ingresarAlumno(username) {

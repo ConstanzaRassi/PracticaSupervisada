@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="adminStyle.css">
     <title>Document</title>
 </head>
@@ -70,20 +71,18 @@
                         data-toggle="modal" data-target="#agregar">Agregar
                     </button>
                 </div>
-                <table style="width:1000px; border-radius: 2rem;padding: 2rem;">
+                <br>
+                <br>
+                <table style="width:1000px; border-radius: 2rem;padding: 2rem;margin-top: 20px;">
                     <thead>
                         <tr>
-                            <th>id</th>
-
+                            <th></th>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Dni</th>
                             <th>Sexo</th>
                             <th>Edad</th>
                             <th>Estado</th>
-                            <!-- <span class="material-symbols-outlined">post_add</span> AGREGAR RUTINA-->
-                            <!-- <span class="material-symbols-outlined">delete</span> ELIMINAR-->
-                            <!-- <span class="material-symbols-outlined">edit</span> MODIFICAR-->
                         </tr>
                     </thead>
                     <tbody id="cuerpoTabla">
@@ -112,7 +111,7 @@
         </div>
     </div>
 
-    <!--MODAL PARA AGREGAR ALUMNO-->
+    <!--MODAL PARA AGREGAR PROFESOR-->
     <div class="modal fade" id="agregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -162,8 +161,9 @@
                                 <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
                                     <div class="form-group">
                                         <label> Fecha Nacimiento </label>
-                                        <input type="text" class="form-control" id="txtFecha"
+                                        <input type="date" class="form-control" id="txtFecha"
                                             placeholder="Ingrese fecha">
+
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +179,7 @@
     </div>
 
 
-    <!--MODAL PARA MODIFICAR ALUMNO-->
+    <!--MODAL PARA MODIFICAR PROFESOR-->
     <div class="modal fade" id="update" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -294,7 +294,7 @@
     function cargarTabla(datos) {
         for (let i = 0; i < datos.length; i++) {
             let html = "<tr>";
-            html += "<td id='id'>" + datos[i].idProfesor + "</td>";
+            html += "<td id='id'></td>";
             html += "<td id='nombre'>" + datos[i].nombre + "</td>";
             html += "<td id='apellido'>" + datos[i].apellido + "</td>";
             html += "<td id='dni'>" + datos[i].dni + "</td>";
@@ -309,8 +309,8 @@
 
             Profesores.push(datos[i]);
             html += "<td><button type='button' class='btn btn-outline-warning pl-4 pr-4' id='modificar' onclick='modificar(" + datos[i].idProfesor + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
-                "modificar</button></td>" +
-                "<td><button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja' class='btn btn-outline-danger pl-4 pr-4' value=" + datos[i].idProfesor + ">Baja</button></td>";
+                "<i class='bi bi-pencil-fill'></i></button></td>" +
+                "<td><button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja' class='btn btn-outline-danger pl-4 pr-4' value=" + datos[i].idProfesor + "><i class='bi bi-trash-fill'></i></button></td>";
             html += "</tr>"
             $("#cuerpoTabla").append(html);
         }

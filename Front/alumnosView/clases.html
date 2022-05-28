@@ -58,7 +58,7 @@
                 Córdoba</span>
             <button class="btn btn-info btn-sm ">desinscribirme</button> -->
             <br>
-            <hr style="color: white;">
+            <hr style="color: rgb(255, 255, 255);">
             <br>
 
             <h5 class="mb-1">ANOTARME</h5>
@@ -138,7 +138,7 @@
         function cargarTablaC(datos) {
             for (let i = 0; i < datos.length; i++) {
                 let html = "<tr>";
-                html += "<td id='id' style='font-size:14px; color:grey;'>" + datos[i].idClaseNavigation.idDisciplina + ' ' + datos[i].idClaseNavigation.horaDesde + 'hs ' + datos[i].idClaseNavigation.idSucursal + "<br>" + "<button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#baja' style='background-color:grey; font-size:13px; color:white; height: 27px; text-align:center' class='btn pl-4 pr-4' value=" + datos[i].idClase + ">Desinscribirme</button></td>";
+                html += "<td id='id' style='font-size:14px; color:rgb(148, 148, 148);'>" + datos[i].idClaseNavigation.idDisciplinaNavigation.descripcion + ' ' + datos[i].idClaseNavigation.horaDesde + 'hs ' + datos[i].idClaseNavigation.idSucursalNavigation.nombre + "<br>" + "<button type='button' data-toggle='modal' id='btnDesinscribirme' name='btnDesinscribirme' data-target='#desinscribirme' style='background-color:grey; font-size:13px; color:white; height: 27px; text-align:center' class='btn pl-4 pr-4' value=" + datos[i].idClase + ">Desinscribirme</button></td>";
                 html += "</tr>"
 
                 $("#cuerpoTablaC").append(html);

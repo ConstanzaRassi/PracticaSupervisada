@@ -5,141 +5,98 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <title>Document</title>
+    <style>
+        /* main .grafico>div {
+            background: var(--color-white);
+            padding: var(--card-padding);
+            border-radius: var(--card-border-radius);
+            margin-top: 1.rem;
+            box-shadow: var(--box-shadow);
+            transition: all 300ms ease;
+            height: 300px;
+        }
+
+        main .grafico>div:hover {
+            box-shadow: none;
+        } */
+    </style>
 </head>
 
-<body class="bg-light container">
+<body>
+    <div class="container">
+        <!--ASIDE SECTION-->
 
-    <main>
-        <hr>
-        <section class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-tittle">FACTURA</h3>
-                    </div>
-                    <div class="card-body">
-                        <form class="row">
-                            <div class=" form-group col-md-3">
-                                <label for="cboSucursal">Disciplina</label>
-                                <select id="cboEmpleado" class="form-control">
-                                    <option selected>Choose...</option>
-                                    <option>maria</option>
-                                    <option>juana</option>
-                                    <option>coti</option>
-                                    <option>.aa</option>
-                                </select>
-                            </div>
-                            <div class=" form-group col-md-6">
-                                <label for="txtDescripcion">Descripcion</label>
-                                <input type="text" id="txtDescripcion" class="form-control"></input>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="row mt-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <form class="row" id="formDetalle">
-                            <div class="form-group col-md-5">
-                                <label for="">Ejercicio</label>
-                                <select id="cboEjercicio" class="form-control">
-                                    <option value="1">ho</option>
-                                    <option value="2">la</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="">Repeticiones</label>
-                                <input type="text" class="form-control" id="txtRepeticiones">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="">Tiempo</label>
-                                <input type="text" class="form-control" id="txtTiempo">
-                            </div>
-                            <div class="form-group col-md-1">
-                                <label for="">Agregar</label>
-                                <button class="btn btn-primary" type="submit" id="btnAgregar">+</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col mt-4">
-                <button class="btn btn-dark btn-lg">Guardar</button>
-            </div>
-        </section>
-        <section class="row mt-3">
-            <div class="col">
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th>Ejercicio</th>
-                            <th>Repeticiones</th>
-                            <th>Tiempo</th>
-                            <th>d</th>
 
-                        </tr>
-                    </thead>
-                    <tbody id="cuerpoTabla">
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </main>
+        <!--MAIN SECTION-->
 
+        <h1>DASHBOARD</h1>
+
+
+
+
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+
+
+
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/excanvas/r3/excanvas.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script> -->
     <script>
-        const formDetalle = document.getElementById("formDetalle");
-        const cboEjercicio = document.getElementById("cboEjercicio")
-        const txtRepeticiones = document.getElementById("txtRepeticiones")
-        const txtTiempo = document.getElementById("txtTiempo")
-        const cuerpoTablaRutina = document.getElementById("cuerpoTablaRutina")
+        $(document).ready(function () {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            console.log(ctx);
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [12, 19, 3, 5, 2, 3],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
 
-        let arregloDetalle = [];
-        const redibujarTabla = () => {
-            cuerpoTablaRutina.innerHTML = " ";
-            arregloDetalle.forEach((detalle) => {
-                let fila = document.createElement("tr");
+            console.log(data);
 
-                fila.innerHTML = '<td>' + detalle.ejercicio + '</td><td>' + detalle.repeticiones + '</td><td>' + detalle.tiempo + '</td>';
-                let tdEliminar = document.createElement("td")
-                let btnEliminar = document.createElement("button");
-                btnEliminar.classList.add("btn", "btn-danger");
-                btnEliminar.innerText = "Eliminar";
-                tdEliminar.appendChild(btnEliminar);
-
-                fila.appendChild(tdEliminar);
-                cuerpoTabla.appendChild(fila);
-            })
-        }
-
-
-        formDetalle.onsubmit = (e) => {
-            e.preventDefault();
-            const objDetalle = {
-                ejercicio: cboEjercicio.value,
-                repeticiones: txtRepeticiones.value,
-                tiempo: txtTiempo.value,
-            };
-            arregloDetalle.push(objDetalle);
-            redibujarTabla();
-        }
+        })
     </script>
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+
+
+
 </body>
 
 </html>
