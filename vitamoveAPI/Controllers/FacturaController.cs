@@ -94,6 +94,27 @@ namespace vitamoveAPI.Controllers
         }
 
         [HttpGet]
+        [Route("[controller]/ObtenerFormasPago")]
+        public ActionResult<ResultAPI> getFormasPago()
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+                resultado.Ok = true;
+                resultado.Return = db.FormasPagos.ToList();
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "Error al encontrar formas de pago";
+
+                return resultado;
+            }
+        }
+
+        [HttpGet]
         [Route("[controller]/ObtenerAlumnos")]
         public ActionResult<ResultAPI> getAlumnos()
         {

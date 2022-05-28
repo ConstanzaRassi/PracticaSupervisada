@@ -67,6 +67,47 @@ namespace vitamoveAPI.Controllers
             return resultado;
         }
 
+        [HttpGet]
+        [Route("[controller]/InicializaTotalFacturado")]
+        public ActionResult<ResultAPI> InicializaFacturacion(DateTime desde, DateTime hasta)
+        {
+            var resultado = new ResultAPI();
+            resultado.Ok = true;
+            resultado.Return = db.Facturas.Where(c => c.Fecha >= desde && c.Fecha <= hasta)
+                                            .Sum(c => c.Total);
+
+            return resultado;
+        }
+
+        [HttpGet]
+        [Route("[controller]/InicializaClasesDictadas")]
+        public ActionResult<ResultAPI> InicializaTotalClases()
+        {
+            var resultado = new ResultAPI();
+            resultado.Ok = true;
+            resultado.Return = db.ClaseAlumnos.GroupBy(c => c.Fecha, c => c.IdClase).Count();
+
+            return resultado;
+        }
+
+        [HttpGet]
+        [Route("[controller]/InicializaPromedioAlumnos")]
+        public ActionResult<ResultAPI> InicializaPromedioAlumnos()
+        {
+            var resultado = new ResultAPI();
+            resultado.Ok = true;
+            double select1 = db.ClaseAlumnos.GroupBy(c => new { c.Fecha, c.IdAlumno })
+                                           .Count();
+                                           
+
+            double select2 = db.ClaseAlumnos.GroupBy(c => new { c.Fecha, c.IdClase })
+                                           .Count();
+
+            resultado.Return = select1 / select2;
+
+            return resultado;
+        }
+
         //[HttpGet]
         //[Route("[controller]/ObtenerAlumnosXDisciplina")]
         //public ActionResult<ResultAPI> GetAlumnosXDisciplina(DateTime desde, DateTime hasta)
@@ -79,21 +120,43 @@ namespace vitamoveAPI.Controllers
         //    return resultado;
         //}
 
-        //[HttpGet]
-        //[Route("[controller]/ObtenerDiaMayorConcurrencia")]
-        //public ActionResult<ResultAPI> GetDiaMayorConcurrencia()
-        //{
-        //    var resultado = new ResultAPI();
-        //    resultado.Ok = true;
-        //    //resultado.Return = db.ClaseAlumnos.Order By GroupBy(c => c.IdClase).Count().
+        [HttpGet]
+        [Route("[controller]/ObtenerDiaMayorConcurrencia")]
+        public ActionResult<ResultAPI> GetDiaMayorConcurrencia()
+        {
+            var resultado = new ResultAPI();
+            resultado.Ok = true;
+            //resultado.Return = from ca in db.ClaseAlumnos
+            //                   join cl in db.Clases on ca.IdClase equals cl.IdClase
 
-        //    var hola = db.ClaseAlumnos.GroupBy(c => c.IdClase);
+            //                   group new { cl, ca } by new
+            //                   {
+            //                       cl.IdClase
+            //                   } into g
+            //                   orderby
+            //                     g.Count(p => p.ca.IdAlumno != null) descending
+            //                   select new
+            //                   {
+            //                       DiaSemana = (int?)g.Key.Cl.DiaSemana,
+            //                       Column1 = g.Count(p => p.ca.IdAlumno != null)
+            //                   };
 
 
-        //    var ja = from c in hola select new {c.IdClase, }
+            //resultado.Return = from ca in db.ClaseAlumnos
+            //                   join cl in db.Clases on ca.IdClase equals cl.IdClase
+            //                   join d in db.Disciplinas on cl.IdDisciplina equals d.IdDisciplina
+            //                   group new { d, ca } by new
+            //                   {
+            //                       d.Descripcion
+            //                   } into g
+            //                   select new
+            //                   {
+            //                       Cantidad = g.Count(p => p.ca.IdAlumno != null),
+            //                       g.Key.Descripcion
+            //                   };
 
-        //    return resultado;
-        //}
+            return resultado;
+        }
 
         [HttpGet]
         [Route("[controller]/ObtenerAlumnosActivos")]
@@ -120,39 +183,6 @@ namespace vitamoveAPI.Controllers
         //}
 
         
-
-        [HttpGet]
-        [Route("[controller]/InicializaPromedio")]
-        public ActionResult<ResultAPI> GetInicializaPromedio()
-        {
-            var resultado = new ResultAPI();
-            resultado.Ok = true;
-            resultado.Return = db.Facturas.Sum(c => c.Total);
-
-            return resultado;
-        }
-
-        [HttpGet]
-        [Route("[controller]/InicializaFacturacion")]
-        public ActionResult<ResultAPI> GetInicializaFacturacion()
-        {
-            var resultado = new ResultAPI();
-            resultado.Ok = true;
-            resultado.Return = db.Facturas.Sum(c => c.Total);
-
-            return resultado;
-        }
-
-        [HttpGet]
-        [Route("[controller]/InicializaClasesDictadas")]
-        public ActionResult<ResultAPI> GetInicializaClasesDictadas()
-        {
-            var resultado = new ResultAPI();
-            resultado.Ok = true;
-            resultado.Return = db.Facturas.Sum(c => c.Total);
-
-            return resultado;
-        }
 
 
     }

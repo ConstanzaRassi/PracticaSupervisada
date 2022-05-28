@@ -202,5 +202,54 @@ namespace vitamoveAPI.Controllers
             return resultado;
         }
 
+        [HttpPut]
+        [Route("[controller]/UpdateSucursal")]
+        public ActionResult<ResultAPI> UpdateSucursal([FromBody] comandoUpdateSucursal comando)
+        {
+            var resultado = new ResultAPI();
+            if (comando.IdSucursal.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese sucursal";
+                return resultado;
+            }
+            if (comando.IdBarrio.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese barrio";
+                return resultado;
+            }
+            if (comando.Direccion.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese direccion";
+                return resultado;
+            }
+            if (comando.Nombre.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese nombre";
+                return resultado;
+            }
+            
+
+            var suc = db.Sucursales.Where(c => c.IdSucursal == comando.IdSucursal).FirstOrDefault();
+            if (suc != null)
+            {
+                suc.IdSucursal = comando.IdSucursal;
+                suc.IdBarrio = comando.IdBarrio;
+                suc.Nombre = comando.Nombre;
+                suc.Direccion = comando.Direccion;
+                suc.Estado = 1;
+                db.Sucursales.Update(suc);
+                db.SaveChanges();
+            }
+
+            resultado.Ok = true;
+            resultado.Return = db.Sucursales.ToList();
+
+            return resultado;
+        }
+
     }
 }

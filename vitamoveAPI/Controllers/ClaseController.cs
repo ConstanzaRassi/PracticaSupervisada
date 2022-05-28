@@ -101,6 +101,9 @@ namespace vitamoveAPI.Controllers
                 resultado.Ok = true;
                 resultado.Return = db.ClaseAlumnos.Where(c => c.IdAlumno == id)
                                             .Include(c => c.IdClaseNavigation)
+                                            .ThenInclude(c=>c.IdSucursalNavigation)
+                                            .Include(c => c.IdClaseNavigation)
+                                            .ThenInclude(c=>c.IdDisciplinaNavigation)
                                             .Include(c => c.IdAlumnoNavigation)
                                             .OrderBy(c => c.IdClase)
                                             .ToList();

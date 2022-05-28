@@ -9,12 +9,11 @@ using vitamoveAPI.Comands;
 namespace vitamoveAPI.Controllers
 {
     [ApiController]
-    //[Route("[controller]")]
-    public class GeneralController : ControllerBase //hereda de controllerbase
+    public class GeneralController : ControllerBase 
     {
 
         private readonly vitamoveContext db = new vitamoveContext();
-        private readonly ILogger<GeneralController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
+        private readonly ILogger<GeneralController> _logger; 
 
         public GeneralController(ILogger<GeneralController> logger)
         {
@@ -23,16 +22,26 @@ namespace vitamoveAPI.Controllers
 
         [HttpGet]
         [Route("[controller]/ObtenerAlumno")]
-        public ActionResult<ResultAPI> Get()
+        public ActionResult<ResultAPI> GetAlumno()
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Alumnos.ToList(); //ese alumnos es lo que tengo en context
+            resultado.Return = db.Alumnos.ToList();
             return resultado;
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerEjercicio/{id}")] //{igual que el get(idUsuario)}
+        [Route("[controller]/ObtenerEjercicios")]
+        public ActionResult<ResultAPI> GetEjercicios()
+        {
+            var resultado = new ResultAPI();
+            resultado.Ok = true;
+            resultado.Return = db.Ejercicios.ToList();
+            return resultado;
+        }
+
+        [HttpGet]
+        [Route("[controller]/ObtenerEjerciciosCuerpo/{id}")] 
         public ActionResult<ResultAPI> GetEjercicio(int id)
         {
             var resultado = new ResultAPI();
