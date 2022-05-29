@@ -10,9 +10,9 @@ using vitamoveAPI.Comands;
 namespace vitamoveAPI.Controllers
 {
     [ApiController]
-    public class ReporteController : ControllerBase 
+    public class ReporteController : ControllerBase
     {
-        private readonly vitamoveContext db = new vitamoveContext();
+        private readonly vitamove2Context db = new vitamove2Context();
         private readonly ILogger<ReporteController> _logger;
 
         public ReporteController(ILogger<ReporteController> logger)
@@ -28,7 +28,7 @@ namespace vitamoveAPI.Controllers
             resultado.Ok = true;
             resultado.Return = db.Facturas.Where(c => c.Fecha >= desde && c.Fecha <= hasta)
                                             .Sum(c => c.Total);
-                                           
+
             return resultado;
         }
 
@@ -39,10 +39,8 @@ namespace vitamoveAPI.Controllers
             var resultado = new ResultAPI();
             resultado.Ok = true;
             resultado.Return = db.ClaseAlumnos.Where(c => c.Fecha >= desde && c.Fecha <= hasta)
-                .GroupBy(c => c.Fecha, c => c.IdClase).Count(); 
-                
-                                              
-                                              
+                                              .GroupBy(c => c.Fecha, c => c.IdClase)
+                                              .Count();
 
             return resultado;
         }
@@ -61,20 +59,46 @@ namespace vitamoveAPI.Controllers
                                            .GroupBy(c => new { c.Fecha, c.IdClase })
                                            .Count();
 
-           
-            resultado.Return = select1/select2;
+
+            resultado.Return = select1 / select2;
 
             return resultado;
         }
 
         [HttpGet]
-        [Route("[controller]/InicializaTotalFacturado")]
-        public ActionResult<ResultAPI> InicializaFacturacion(DateTime desde, DateTime hasta)
+        [Route("[controller]/ObtenerAlumnosXDisciplina")]
+        public ActionResult<ResultAPI> GetAlumnosXDisciplina(DateTime desde, DateTime hasta)
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Facturas.Where(c => c.Fecha >= desde && c.Fecha <= hasta)
-                                            .Sum(c => c.Total);
+            resultado.Return = from ca in db.ClaseAlumnos
+                               join cl in db.Clases on ca.IdClase equals cl.IdClase
+                               join d in db.Disciplinas on cl.IdDisciplina equals d.IdDisciplina
+                               where
+                                 ca.Fecha >= desde &&
+                                 ca.Fecha <= hasta
+                               group new { d, ca } by new
+                               {
+                                   d.Descripcion
+                               } into g
+                               select new
+                               {
+                                   Cantidad = g.Count(p => p.ca.IdAlumno != null),
+                                   g.Key.Descripcion
+                               };
+
+            return resultado;
+        }
+
+
+        //INICIALIZA LOS REPORTES
+        [HttpGet]
+        [Route("[controller]/InicializaTotalFacturado")]
+        public ActionResult<ResultAPI> InicializaFacturacion()
+        {
+            var resultado = new ResultAPI();
+            resultado.Ok = true;
+            resultado.Return = db.Facturas.Sum(c => c.Total);
 
             return resultado;
         }
@@ -98,7 +122,7 @@ namespace vitamoveAPI.Controllers
             resultado.Ok = true;
             double select1 = db.ClaseAlumnos.GroupBy(c => new { c.Fecha, c.IdAlumno })
                                            .Count();
-                                           
+
 
             double select2 = db.ClaseAlumnos.GroupBy(c => new { c.Fecha, c.IdClase })
                                            .Count();
@@ -108,17 +132,31 @@ namespace vitamoveAPI.Controllers
             return resultado;
         }
 
-        //[HttpGet]
-        //[Route("[controller]/ObtenerAlumnosXDisciplina")]
-        //public ActionResult<ResultAPI> GetAlumnosXDisciplina(DateTime desde, DateTime hasta)
-        //{
-        //    var resultado = new ResultAPI();
-        //    resultado.Ok = true;
-        //    resultado.Return = db.Facturas.Where(c => c.Fecha >= desde && c.Fecha <= hasta)
-        //                                    .Sum(c => c.Total);
+        [HttpGet]
+        [Route("[controller]/IniclializaAlumnosXDisciplina")]
+        public ActionResult<ResultAPI> InicializaAlumnosXDisciplina()
+        {
+            var resultado = new ResultAPI();
+            resultado.Ok = true;
+            resultado.Return = from ca in db.ClaseAlumnos
+                               join cl in db.Clases on ca.IdClase equals cl.IdClase
+                               join d in db.Disciplinas on cl.IdDisciplina equals d.IdDisciplina
+                               group new { d, ca } by new
+                               {
+                                   d.Descripcion
+                               } into g
+                               select new
+                               {
+                                   Cantidad = g.Count(p => p.ca.IdAlumno != null),
+                                   g.Key.Descripcion
+                               };
 
-        //    return resultado;
-        //}
+            return resultado;
+        }
+
+
+
+        //REPORTES SIN PARAMETROS -- RIGHT SECTION
 
         [HttpGet]
         [Route("[controller]/ObtenerDiaMayorConcurrencia")]
@@ -126,34 +164,20 @@ namespace vitamoveAPI.Controllers
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            //resultado.Return = from ca in db.ClaseAlumnos
-            //                   join cl in db.Clases on ca.IdClase equals cl.IdClase
-
-            //                   group new { cl, ca } by new
-            //                   {
-            //                       cl.IdClase
-            //                   } into g
-            //                   orderby
-            //                     g.Count(p => p.ca.IdAlumno != null) descending
-            //                   select new
-            //                   {
-            //                       DiaSemana = (int?)g.Key.Cl.DiaSemana,
-            //                       Column1 = g.Count(p => p.ca.IdAlumno != null)
-            //                   };
+            resultado.Return = from ClaseAlumnos in db.ClaseAlumnos
+                               group ClaseAlumnos by new
+                               {
+                                   ClaseAlumnos.IdClase
+                               } into g
+                               orderby
+                                 g.Count(p => p.IdAlumno != null) descending
+                               select new
+                               {
+                                   g.Key.IdClase,
+                                   Column1 = g.Count(p => p.IdAlumno != null)
+                               };
 
 
-            //resultado.Return = from ca in db.ClaseAlumnos
-            //                   join cl in db.Clases on ca.IdClase equals cl.IdClase
-            //                   join d in db.Disciplinas on cl.IdDisciplina equals d.IdDisciplina
-            //                   group new { d, ca } by new
-            //                   {
-            //                       d.Descripcion
-            //                   } into g
-            //                   select new
-            //                   {
-            //                       Cantidad = g.Count(p => p.ca.IdAlumno != null),
-            //                       g.Key.Descripcion
-            //                   };
 
             return resultado;
         }
@@ -165,7 +189,6 @@ namespace vitamoveAPI.Controllers
             var resultado = new ResultAPI();
             resultado.Ok = true;
             resultado.Return = db.Alumnos.Where(c => c.Estado == 1).Count();
-                                         //.Count(c => c.IdAlumno);
 
             return resultado;
         }
@@ -182,8 +205,19 @@ namespace vitamoveAPI.Controllers
         //    return resultado;
         //}
 
-        
 
+        //REPORTE CLASES DICATADAS ALUMNO VIEW
+
+        [HttpGet]
+        [Route("[controller]/ObtenerClasesXAlumno")]
+        public ActionResult<ResultAPI> GetClasesxAlumno(string dni)
+        {
+            var resultado = new ResultAPI();
+            resultado.Ok = true;
+            resultado.Return = db.ClaseAlumnos.Where(c => c.IdAlumnoNavigation.Dni==dni).Count();
+
+            return resultado;
+        }
 
     }
 }

@@ -15,7 +15,7 @@ namespace vitamoveAPI.Controllers
     public class SucursalController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamoveContext db = new vitamoveContext();
+        private readonly vitamove2Context db = new vitamove2Context();
         private readonly ILogger<SucursalController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
         public SucursalController(ILogger<SucursalController> logger)
@@ -102,7 +102,7 @@ namespace vitamoveAPI.Controllers
                 resultado.Ok = false;
                 resultado.Error = "ingrese barrio";
                 return resultado;
-            }            
+            }
 
 
             var suc = new Sucursal();
@@ -110,7 +110,7 @@ namespace vitamoveAPI.Controllers
             suc.Direccion = comando.Direccion;
             suc.IdBarrio = comando.IdBarrio;
             suc.Estado = 1;
-            
+
 
 
             db.Sucursales.Add(suc);
@@ -231,7 +231,7 @@ namespace vitamoveAPI.Controllers
                 resultado.Error = "ingrese nombre";
                 return resultado;
             }
-            
+
 
             var suc = db.Sucursales.Where(c => c.IdSucursal == comando.IdSucursal).FirstOrDefault();
             if (suc != null)

@@ -9,11 +9,11 @@ using vitamoveAPI.Comands;
 namespace vitamoveAPI.Controllers
 {
     [ApiController]
-    public class GeneralController : ControllerBase 
+    public class GeneralController : ControllerBase
     {
 
-        private readonly vitamoveContext db = new vitamoveContext();
-        private readonly ILogger<GeneralController> _logger; 
+        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly ILogger<GeneralController> _logger;
 
         public GeneralController(ILogger<GeneralController> logger)
         {
@@ -41,7 +41,7 @@ namespace vitamoveAPI.Controllers
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerEjerciciosCuerpo/{id}")] 
+        [Route("[controller]/ObtenerEjerciciosCuerpo/{id}")]
         public ActionResult<ResultAPI> GetEjercicio(int id)
         {
             var resultado = new ResultAPI();

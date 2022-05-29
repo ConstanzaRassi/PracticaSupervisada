@@ -9,9 +9,9 @@ namespace vitamoveAPI.Models
     {
         public Alumno()
         {
-            AlumnoRutinas = new HashSet<AlumnoRutina>();
             ClaseAlumnos = new HashSet<ClaseAlumno>();
             Facturas = new HashSet<Factura>();
+            Rutinas = new HashSet<Rutina>();
         }
 
         public int IdAlumno { get; set; }
@@ -20,12 +20,13 @@ namespace vitamoveAPI.Models
         public string Dni { get; set; }
         public DateTime? FecNacimiento { get; set; }
         public string Email { get; set; }
+        public DateTime? Vencimiento { get; set; }
         public int? Estado { get; set; }
         public int? IdSexo { get; set; }
 
         public virtual Sexo IdSexoNavigation { get; set; }
-        public virtual ICollection<AlumnoRutina> AlumnoRutinas { get; set; }
         public virtual ICollection<ClaseAlumno> ClaseAlumnos { get; set; }
         public virtual ICollection<Factura> Facturas { get; set; }
+        public virtual ICollection<Rutina> Rutinas { get; set; }
     }
 }

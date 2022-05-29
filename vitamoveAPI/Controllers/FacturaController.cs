@@ -15,7 +15,7 @@ namespace vitamoveAPI.Controllers
     public class FacturaController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamoveContext db = new vitamoveContext();
+        private readonly vitamove2Context db = new vitamove2Context();
         private readonly ILogger<FacturaController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
         public FacturaController(ILogger<FacturaController> logger)
@@ -169,6 +169,7 @@ namespace vitamoveAPI.Controllers
             var factura = new Factura();
             factura.IdAlumno = comando.IdAlumno;
             factura.IdPlan = comando.IdPlan;
+            factura.CodPago = comando.CodPago;
             factura.Fecha = comando.Fecha;
             factura.Total = comando.Total;
 

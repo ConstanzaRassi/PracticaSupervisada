@@ -15,7 +15,7 @@ namespace vitamoveAPI.Controllers
     public class ProfesorController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamoveContext db = new vitamoveContext();
+        private readonly vitamove2Context db = new vitamove2Context();
         private readonly ILogger<ProfesorController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
         public ProfesorController(ILogger<ProfesorController> logger)
@@ -58,7 +58,7 @@ namespace vitamoveAPI.Controllers
             }
         }
 
-        
+
 
         [HttpPost] //nosotros ingresamos los datos
         [Route("[controller]/AltaProfesor")]
@@ -88,7 +88,7 @@ namespace vitamoveAPI.Controllers
                 resultado.Ok = false;
                 resultado.Error = "ingrese fecha de nacimiento";
                 return resultado;
-            }            
+            }
             if (comando.IdSexo.Equals(""))
             {
                 resultado.Ok = false;

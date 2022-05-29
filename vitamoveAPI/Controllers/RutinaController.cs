@@ -14,7 +14,7 @@ namespace vitamoveAPI.Controllers
     public class RutinaController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamoveContext db = new vitamoveContext();
+        private readonly vitamove2Context db = new vitamove2Context();
         private readonly ILogger<RutinaController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
         public RutinaController(ILogger<RutinaController> logger)
@@ -43,6 +43,30 @@ namespace vitamoveAPI.Controllers
                 var rutina = db.Rutinas.Where(c => c.IdRutina == id).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = rutina;
+
+                return resultado;
+            }
+
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "Rutina no encontrado";
+
+                return resultado;
+            }
+        }
+
+        [HttpGet]
+        [Route("[controller]/ObtenerRutinaByIdAlumno/{id}")]
+        public ActionResult<ResultAPI> GetbyIdAlumno(int id)
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+
+                //var rutina = db.Rutinas.Where(c => c.IdAlumno == id).FirstOrDefault();
+                resultado.Ok = true;
+                //resultado.Return = rutina;
 
                 return resultado;
             }

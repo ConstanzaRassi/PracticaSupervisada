@@ -9,11 +9,11 @@ using vitamoveAPI.Comands;
 
 namespace vitamoveAPI.Controllers
 {
-    [ApiController]    
+    [ApiController]
     public class AlumnoController : ControllerBase
     {
 
-        private readonly vitamoveContext db = new vitamoveContext();
+        private readonly vitamove2Context db = new vitamove2Context();
         private readonly ILogger<AlumnoController> _logger;
 
         public AlumnoController(ILogger<AlumnoController> logger)
@@ -199,7 +199,7 @@ namespace vitamoveAPI.Controllers
                 resultado.Ok = false;
                 resultado.Error = "ingrese apellido";
                 return resultado;
-            }            
+            }
             if (comando.FecNacimiento.Equals(""))
             {
                 resultado.Ok = false;
