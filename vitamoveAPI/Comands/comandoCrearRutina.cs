@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using vitamoveAPI.Models;
 
 namespace vitamoveAPI.Comands
 {
     public class comandoCrearRutina
     {
-       
+        public int? IdAlumno { get; set; }
         public int? IdDisciplina { get; set; }
-        public int? IdSucursal { get; set; }
-        public int? IdProfesor { get; set; }
-        public int? Cupo { get; set; }
-        public int? DiaSemana { get; set; }
-        public DateTime? HoraDesde { get; set; }
-        public DateTime? HoraHasta { get; set; }
+        public string Descripcion { get; set; }
+
+        public virtual Alumno IdAlumnoNavigation { get; set; }
+        public virtual Disciplina IdDisciplinaNavigation { get; set; }
+        public virtual ICollection<RutinasEjercicio> RutinasEjercicios { get; set; }
     }
 }
