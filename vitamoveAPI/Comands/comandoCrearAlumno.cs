@@ -10,6 +10,6 @@ namespace vitamoveAPI.Comands
         public string Email { get; set; }
         public DateTime FecNacimiento { get; set; }
         public int Estado { get; set; }
-        public int? IdSexo { get; set; }
+        public int IdSexo { get; set; }
     }
 }
