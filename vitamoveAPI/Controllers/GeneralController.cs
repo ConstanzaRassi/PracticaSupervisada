@@ -12,7 +12,7 @@ namespace vitamoveAPI.Controllers
     public class GeneralController : ControllerBase
     {
 
-        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly vitamoveContext db = new vitamoveContext();
         private readonly ILogger<GeneralController> _logger;
 
         public GeneralController(ILogger<GeneralController> logger)

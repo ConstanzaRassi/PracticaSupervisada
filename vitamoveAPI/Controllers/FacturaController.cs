@@ -15,7 +15,7 @@ namespace vitamoveAPI.Controllers
     public class FacturaController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly vitamoveContext db = new vitamoveContext();
         private readonly ILogger<FacturaController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
         public FacturaController(ILogger<FacturaController> logger)
@@ -175,6 +175,19 @@ namespace vitamoveAPI.Controllers
 
 
             db.Facturas.Add(factura);
+
+            var alu = db.Alumnos.Where(c => c.IdAlumno == factura.IdAlumno).FirstOrDefault();
+            if (alu != null)
+            {
+                var plan = db.Planes.Where(c => c.IdPlan == factura.IdPlan).FirstOrDefault();
+
+                if (alu.Vencimiento <= DateTime.Today)
+                    alu.Vencimiento = DateTime.Today.AddMonths(plan.CantMeses);
+                else
+                    alu.Vencimiento = alu.Vencimiento.AddMonths(plan.CantMeses);
+                db.Alumnos.Update(alu);
+
+            }
             db.SaveChanges();
 
             resultado.Ok = true;

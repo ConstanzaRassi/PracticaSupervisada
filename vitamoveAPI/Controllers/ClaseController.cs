@@ -14,7 +14,7 @@ namespace vitamoveAPI.Controllers
     //[Route("[controller]")]
     public class ClaseController : ControllerBase
     {
-        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly vitamoveContext db = new vitamoveContext();
         private readonly ILogger<ClaseController> _logger;
 
         public ClaseController(ILogger<ClaseController> logger)
@@ -49,7 +49,7 @@ namespace vitamoveAPI.Controllers
             {
 
                 var clase = db.Clases.Where(c => c.IdClase == id)
-                                     .Include(c => c.IdSucursalNavigation)  
+                                     .Include(c => c.IdSucursalNavigation)
                                      .FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = clase;
@@ -74,13 +74,34 @@ namespace vitamoveAPI.Controllers
             try
             {
                 resultado.Ok = true;
-                resultado.Return = db.Clases.Where(c => c.IdDisciplina == id)
+                int dia = (int)DateTime.Now.DayOfWeek;
+                resultado.Return = db.Clases.Where(c => c.IdDisciplina == id && c.DiaSemana == dia)
                                             .Include(c => c.IdSucursalNavigation)
                                             .Include(c => c.IdProfesorNavigation)
                                             .OrderBy(c => c.HoraDesde)
-
-                                            //.GroupBy(c=>c.IdSucursal)
                                             .ToList();
+                return resultado;
+            }
+
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "clase no encontrada";
+
+                return resultado;
+            }
+        }
+
+        [HttpGet]
+        [Route("[controller]/ObtenerCupo/{id}")]
+        public ActionResult<ResultAPI> GetCupo(int id)
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+                resultado.Ok = true;
+                resultado.Return = db.ClaseAlumnos.Where(c => c.IdClase == id && c.Fecha == DateTime.Today).Count();
+
                 return resultado;
             }
 
@@ -101,7 +122,7 @@ namespace vitamoveAPI.Controllers
             try
             {
                 resultado.Ok = true;
-                resultado.Return = db.ClaseAlumnos.Where(c => c.IdAlumno == id)
+                resultado.Return = db.ClaseAlumnos.Where(c => c.IdAlumno == id && c.Fecha == DateTime.Today)
                                             .Include(c => c.IdClaseNavigation)
                                             .ThenInclude(c => c.IdSucursalNavigation)
                                             .Include(c => c.IdClaseNavigation)
@@ -126,7 +147,7 @@ namespace vitamoveAPI.Controllers
         public ActionResult<ResultAPI> eliminarById(int idAlumno, int idClase)
         {
             var resultado = new ResultAPI();
-            var alumno = db.ClaseAlumnos.Where(c => c.IdAlumno == idAlumno && c.IdClase==idClase).FirstOrDefault();
+            var alumno = db.ClaseAlumnos.Where(c => c.IdAlumno == idAlumno && c.IdClase == idClase).FirstOrDefault();
             db.ClaseAlumnos.Remove(alumno);
             db.SaveChanges();
 
@@ -273,8 +294,8 @@ namespace vitamoveAPI.Controllers
             try
             {
                 resultado.Ok = true;
-                resultado.Return = db.ClaseAlumnos.Where(c => c.IdAlumno == id && c.IdClaseNavigation.HoraDesde == hora).Count();
-                                    
+                resultado.Return = db.ClaseAlumnos.Where(c => c.IdAlumno == id && c.IdClaseNavigation.HoraDesde == hora && c.Fecha == DateTime.Today).Count();
+
                 return resultado;
             }
 

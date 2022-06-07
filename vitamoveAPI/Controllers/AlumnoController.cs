@@ -13,7 +13,7 @@ namespace vitamoveAPI.Controllers
     public class AlumnoController : ControllerBase
     {
 
-        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly vitamoveContext db = new vitamoveContext();
         private readonly ILogger<AlumnoController> _logger;
 
         public AlumnoController(ILogger<AlumnoController> logger)
@@ -148,6 +148,7 @@ namespace vitamoveAPI.Controllers
             alu.Email = comando.Email;
             alu.FecNacimiento = comando.FecNacimiento;
             alu.Estado = 1;
+            alu.Vencimiento = DateTime.Today.AddDays(5);
             alu.IdSexo = comando.IdSexo;
 
             db.Alumnos.Add(alu);

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using vitamoveAPI.Results;
 using Microsoft.Extensions.Logging;
 using vitamoveAPI.Comands;
+using Microsoft.EntityFrameworkCore;
 
 namespace vitamoveAPI.Controllers
 {
@@ -14,7 +15,7 @@ namespace vitamoveAPI.Controllers
     public class RutinaController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly vitamoveContext db = new vitamoveContext();
         private readonly ILogger<RutinaController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
         public RutinaController(ILogger<RutinaController> logger)
@@ -64,9 +65,13 @@ namespace vitamoveAPI.Controllers
             try
             {
 
-                //var rutina = db.Rutinas.Where(c => c.IdAlumno == id).FirstOrDefault();
+                var rutina = db.Rutinas.Where(c => c.IdAlumno == id)
+                                       .Include(c => c.IdDisciplinaNavigation)
+                                       .Include(c => c.RutinasEjercicios)
+                                       .ThenInclude(c => c.IdEjercicioNavigation)
+                                       .ToList();
                 resultado.Ok = true;
-                //resultado.Return = rutina;
+                resultado.Return = rutina;
 
                 return resultado;
             }
@@ -100,6 +105,7 @@ namespace vitamoveAPI.Controllers
                 return resultado;
             }
         }
+
         [HttpGet]
         [Route("[controller]/ObtenerSucursales")]
         public ActionResult<ResultAPI> getSucursales()
@@ -120,6 +126,7 @@ namespace vitamoveAPI.Controllers
                 return resultado;
             }
         }
+
         [HttpGet]
         [Route("[controller]/ObtenerProfesores")]
         public ActionResult<ResultAPI> getSProfesores()
@@ -141,136 +148,96 @@ namespace vitamoveAPI.Controllers
             }
         }
 
-        [HttpPost] //nosotros ingresamos los datos
+        [HttpPost]
         [Route("[controller]/AltaRutina")]
-        public ActionResult<ResultAPI> AltaClase([FromBody] comandoCrearClase comando)
+        public ActionResult<ResultAPI> AltaRutina([FromBody] comandoCrearRutina comando)
         {
             var resultado = new ResultAPI();
 
-            if (comando.IdSucursal.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese sucursal";
-                return resultado;
-            }
-            if (comando.IdProfesor.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese profesor a cargo";
-                return resultado;
-            }
-            if (comando.Cupo.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese cupo";
-                return resultado;
-            }
-            if (comando.DiaSemana.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese día de semana";
-                return resultado;
-            }
-            if (comando.HoraDesde.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese desde que hora";
-                return resultado;
-            }
-            if (comando.HoraHasta.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese hasta que hora";
-                return resultado;
-            }
-
-
-            var clase = new Clase();
-            clase.IdDisciplina = comando.IdDisciplina;
-            clase.IdSucursal = comando.IdSucursal;
-            clase.IdProfesor = comando.IdProfesor;
-            clase.Cupo = comando.Cupo;
-            clase.DiaSemana = comando.DiaSemana;
-            clase.HoraDesde = comando.HoraDesde;
-            clase.HoraHasta = comando.HoraHasta;
-
-
-            db.Clases.Add(clase);
-            db.SaveChanges(); //siempre despues de un insert, update etc hacer el SaveChanges()
-
-            resultado.Ok = true;
-            resultado.Return = db.Clases.ToList();
-
-            return resultado;
-        }
-
-        [HttpPut]
-        [Route("[controller]/UpdateClase")]
-        public ActionResult<ResultAPI> UpdateClase([FromBody] comandoUpdateClase comando)
-        {
-            var resultado = new ResultAPI();
             if (comando.IdDisciplina.Equals(""))
             {
                 resultado.Ok = false;
                 resultado.Error = "ingrese disciplina";
                 return resultado;
             }
-            if (comando.IdSucursal.Equals(""))
+            if (comando.IdAlumno.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese sucursal";
-                return resultado;
-            }
-            if (comando.IdProfesor.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese profesor a cargo";
-                return resultado;
-            }
-            if (comando.Cupo.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese cupo";
-                return resultado;
-            }
-            if (comando.DiaSemana.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese día de semana";
-                return resultado;
-            }
-            if (comando.HoraDesde.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese desde que hora";
-                return resultado;
-            }
-            if (comando.HoraHasta.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese hasta que hora";
+                resultado.Error = "ingrese alumno";
                 return resultado;
             }
 
-            var clase = db.Clases.Where(c => c.IdClase == comando.IdClase).FirstOrDefault();
-            if (clase != null)
+            if (comando.Descripcion.Equals(""))
             {
-                clase.IdDisciplina = comando.IdDisciplina;
-                clase.IdSucursal = comando.IdSucursal;
-                clase.IdProfesor = comando.IdProfesor;
-                clase.Cupo = comando.Cupo;
-                clase.DiaSemana = comando.DiaSemana;
-                clase.HoraDesde = comando.HoraDesde;
-                clase.HoraHasta = comando.HoraHasta;
-                db.Clases.Update(clase);
-                db.SaveChanges();
+                resultado.Ok = false;
+                resultado.Error = "ingrese descirpcion";
+                return resultado;
             }
+
+            var rutina = new Rutina();
+            rutina.IdDisciplina = comando.IdDisciplina;
+            rutina.IdAlumno = comando.IdAlumno;
+            rutina.Descripcion = comando.Descripcion;
+
+            db.Rutinas.Add(rutina);
+            db.SaveChanges();
+
+            foreach (var item in comando.RutinasEjercicios)
+            {
+                var ejer = new RutinasEjercicio();
+                ejer.IdRutina = rutina.IdRutina;
+                ejer.IdEjercicio = item.IdEjercicio;
+                ejer.Repeticiones = item.Repeticiones;
+                db.RutinasEjercicios.Add(ejer);
+            }
+            db.SaveChanges();
 
             resultado.Ok = true;
-            resultado.Return = db.Clases.ToList();
+            resultado.Return = db.Rutinas.ToList();
+            //resultado.Return = rutina.IdRutina;
+
 
             return resultado;
         }
 
+        [HttpPost]
+        [Route("[controller]/AltaEjerXRutina")]
+        public ActionResult<ResultAPI> AltaEjerXRutina([FromBody] comandoCrearEjerXRutina comando)
+        {
+            var resultado = new ResultAPI();
+
+            if (comando.IdRutina.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese disciplina";
+                return resultado;
+            }
+            if (comando.IdEjercicio.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese alumno";
+                return resultado;
+            }
+
+            if (comando.Repeticiones.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese descirpcion";
+                return resultado;
+            }
+
+            var ejerXrutina = new RutinasEjercicio();
+            ejerXrutina.IdRutina = comando.IdRutina;
+            ejerXrutina.IdEjercicio = comando.IdEjercicio;
+            ejerXrutina.Repeticiones = comando.Repeticiones;
+
+            db.RutinasEjercicios.Add(ejerXrutina);
+            db.SaveChanges();
+
+            resultado.Ok = true;
+            resultado.Return = db.RutinasEjercicios.ToList();
+
+            return resultado;
+        }
     }
 }

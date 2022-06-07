@@ -15,7 +15,7 @@ namespace vitamoveAPI.Controllers
     public class SucursalController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly vitamoveContext db = new vitamoveContext();
         private readonly ILogger<SucursalController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
         public SucursalController(ILogger<SucursalController> logger)

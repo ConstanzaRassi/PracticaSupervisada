@@ -12,7 +12,7 @@ namespace vitamoveAPI.Controllers
     [ApiController]
     public class ReporteController : ControllerBase
     {
-        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly vitamoveContext db = new vitamoveContext();
         private readonly ILogger<ReporteController> _logger;
 
         public ReporteController(ILogger<ReporteController> logger)
@@ -164,19 +164,20 @@ namespace vitamoveAPI.Controllers
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = from ClaseAlumnos in db.ClaseAlumnos
-                               group ClaseAlumnos by new
+
+            resultado.Return = from ca in db.ClaseAlumnos
+                               join cl in db.Clases on ca.IdClase equals cl.IdClase
+                               group new { cl, ca } by new
                                {
-                                   ClaseAlumnos.IdClase
+                                   DiaSemana = (int)cl.DiaSemana
                                } into g
                                orderby
-                                 g.Count(p => p.IdAlumno != null) descending
+                                 g.Count(p => p.ca.IdAlumno != null) descending
                                select new
                                {
-                                   g.Key.IdClase,
-                                   Column1 = g.Count(p => p.IdAlumno != null)
+                                   DiaSemana = (int)g.Key.DiaSemana,
+                                   Cantidad = g.Count(p => p.ca.IdAlumno != null)
                                };
-
 
 
             return resultado;
@@ -193,28 +194,40 @@ namespace vitamoveAPI.Controllers
             return resultado;
         }
 
-        //[HttpGet]
-        //[Route("[controller]/ObtenerSucursalMayorConcurrencia")]
-        //public ActionResult<ResultAPI> GetSucursalMayorConcurrencia()
-        //{
-        //    var resultado = new ResultAPI();
-        //    resultado.Ok = true;
-        //    resultado.Return = db.Facturas.Where(c => c.Fecha >= desde && c.Fecha <= hasta)
-        //                                    .Sum(c => c.Total);
+        [HttpGet]
+        [Route("[controller]/ObtenerSucursalMayorConcurrencia")]
+        public ActionResult<ResultAPI> GetSucursalMayorConcurrencia()
+        {
+            var resultado = new ResultAPI();
+            resultado.Ok = true;
 
-        //    return resultado;
-        //}
+            resultado.Return = from ca in db.ClaseAlumnos
+                               join cl in db.Clases on ca.IdClase equals cl.IdClase
+                               group new { cl, ca } by new
+                               {
+                                   IdSucursal = (int)cl.IdSucursal
+                               } into g
+                               orderby
+                                 g.Count(p => p.ca.IdAlumno != null) descending
+                               select new
+                               {
+                                   IdSucursal = (int)g.Key.IdSucursal,
+                                   Cantidad = g.Count(p => p.ca.IdAlumno != null)
+                               };
 
+
+            return resultado;
+        }
 
         //REPORTE CLASES DICATADAS ALUMNO VIEW
 
         [HttpGet]
         [Route("[controller]/ObtenerClasesXAlumno")]
-        public ActionResult<ResultAPI> GetClasesxAlumno(string dni)
+        public ActionResult<ResultAPI> GetClasesxAlumno(int id)
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.ClaseAlumnos.Where(c => c.IdAlumnoNavigation.Dni==dni).Count();
+            resultado.Return = db.ClaseAlumnos.Where(c => c.IdAlumno == id).Count();
 
             return resultado;
         }

@@ -15,7 +15,7 @@ namespace vitamoveAPI.Controllers
     public class ProfesorController : ControllerBase //hereda de controllerbase
     {
 
-        private readonly vitamove2Context db = new vitamove2Context();
+        private readonly vitamoveContext db = new vitamoveContext();
         private readonly ILogger<ProfesorController> _logger; //movimientos que los clientes hacen, registro de lo que sucede en el sistema
 
         public ProfesorController(ILogger<ProfesorController> logger)
@@ -30,6 +30,8 @@ namespace vitamoveAPI.Controllers
             var resultado = new ResultAPI();
             resultado.Ok = true;
             resultado.Return = db.Profesores.Include(c => c.IdSexoNavigation)
+                                            .OrderByDescending(c => c.Estado)
+                                            .ThenBy(c => c.Apellido)
                                             .ToList();
             return resultado;
         }
