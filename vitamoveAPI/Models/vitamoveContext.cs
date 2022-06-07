@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace vitamoveAPI.Models
 {
-    public partial class vitamove2Context : DbContext
+    public partial class vitamoveContext : DbContext
     {
-        public vitamove2Context()
+        public vitamoveContext()
         {
         }
 
-        public vitamove2Context(DbContextOptions<vitamove2Context> options)
+        public vitamoveContext(DbContextOptions<vitamoveContext> options)
             : base(options)
         {
         }
@@ -38,7 +38,7 @@ namespace vitamoveAPI.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql("User ID=postgres; Password=programacion; Server=localhost; Database=vitamove2; Integrated Security=true; Pooling=true");
+                optionsBuilder.UseNpgsql("User ID=postgres;Password=programacion; Server=localhost; Database=vitamove; Integrated Security=true; Pooling=true");
             }
         }
 
@@ -78,6 +78,10 @@ namespace vitamoveAPI.Models
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(20)
                     .HasColumnName("nombre");
+
+                entity.Property(e => e.Pass)
+                    .HasMaxLength(50)
+                    .HasColumnName("pass");
 
                 entity.Property(e => e.Vencimiento)
                     .HasColumnType("date")
@@ -150,7 +154,7 @@ namespace vitamoveAPI.Models
 
             modelBuilder.Entity<ClaseAlumno>(entity =>
             {
-                entity.HasKey(e => new { e.IdClase, e.IdAlumno })
+                entity.HasKey(e => new { e.IdClase, e.IdAlumno, e.Fecha })
                     .HasName("clase_alumnos_pkey");
 
                 entity.ToTable("clase_alumnos");
@@ -159,23 +163,17 @@ namespace vitamoveAPI.Models
 
                 entity.Property(e => e.IdAlumno).HasColumnName("id_alumno");
 
-                entity.Property(e => e.Estado).HasColumnName("estado");
-
                 entity.Property(e => e.Fecha)
                     .HasColumnType("date")
                     .HasColumnName("fecha");
+
+                entity.Property(e => e.Estado).HasColumnName("estado");
 
                 entity.HasOne(d => d.IdAlumnoNavigation)
                     .WithMany(p => p.ClaseAlumnos)
                     .HasForeignKey(d => d.IdAlumno)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("clase_alumnos_id_alumno_fkey");
-
-                entity.HasOne(d => d.IdClaseNavigation)
-                    .WithMany(p => p.ClaseAlumnos)
-                    .HasForeignKey(d => d.IdClase)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("clase_alumnos_id_clase_fkey");
             });
 
             modelBuilder.Entity<CuerpoEjercicio>(entity =>
@@ -423,7 +421,7 @@ namespace vitamoveAPI.Models
 
                 entity.Property(e => e.Direccion)
                     .HasMaxLength(50)
-                    .HasColumnName("dirección");
+                    .HasColumnName("direccion");
 
                 entity.Property(e => e.Estado).HasColumnName("estado");
 

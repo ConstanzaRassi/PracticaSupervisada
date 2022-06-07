@@ -9,10 +9,11 @@ namespace vitamoveAPI.Models
     {
         public int IdClase { get; set; }
         public int IdAlumno { get; set; }
-        public DateTime? Fecha { get; set; }
-        public int? Estado { get; set; }
+        public DateTime Fecha { get; set; }
+        public int Estado { get; set; }
 
         public virtual Alumno IdAlumnoNavigation { get; set; }
         public virtual Clase IdClaseNavigation { get; set; }
+
     }
 }

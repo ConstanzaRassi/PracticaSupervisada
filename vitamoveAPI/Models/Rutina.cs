@@ -13,8 +13,8 @@ namespace vitamoveAPI.Models
         }
 
         public int IdRutina { get; set; }
-        public int? IdAlumno { get; set; }
-        public int? IdDisciplina { get; set; }
+        public int IdAlumno { get; set; }
+        public int IdDisciplina { get; set; }
         public string Descripcion { get; set; }
 
         public virtual Alumno IdAlumnoNavigation { get; set; }

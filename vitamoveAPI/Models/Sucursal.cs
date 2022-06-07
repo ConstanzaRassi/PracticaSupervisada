@@ -15,8 +15,8 @@ namespace vitamoveAPI.Models
         public int IdSucursal { get; set; }
         public string Nombre { get; set; }
         public string Direccion { get; set; }
-        public int? Estado { get; set; }
-        public int? IdBarrio { get; set; }
+        public int Estado { get; set; }
+        public int IdBarrio { get; set; }
 
         public virtual Barrio IdBarrioNavigation { get; set; }
         public virtual ICollection<Clase> Clases { get; set; }
