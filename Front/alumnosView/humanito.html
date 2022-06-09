@@ -143,7 +143,10 @@
                         api.assignMaterial(info, baseMaterialID); // apago el grupo muscular
                     }
                     
-                    // TODO: al asignarse un material, como el viewer hace un baking del modelo, no se actualiza hasta mover la camara
+                    // refresh camara
+                    api.getCameraLookAt(function(err, camera) {
+                        api.setCameraLookAt(camera.position, camera.target, .1)
+                    });
                 })
             },
             error: function onError() {
